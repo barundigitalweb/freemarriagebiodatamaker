@@ -7,13 +7,15 @@ interface Props {
   description?: string;
   canonical?: string;
   keywords?: string;
+  noindex?: boolean;
 }
 
 const {
   title = 'Free Marriage Biodata Maker Online | 100% Free Matrimonial Biodata with Photo',
   description = '100% Free Online Marriage Biodata Maker with Photo. Create elegant Indian wedding biodatas in Bengali, Hindi, Marathi & English. Download HD PDF & Image without watermark or login.',
   canonical = Astro.url.href,
-  keywords = 'free marriage biodata maker, marriage biodata format, biodata for marriage pdf download, marriage biodata with photo, bengali marriage biodata, marathi marriage biodata maker, hindu marriage biodata format'
+  keywords = 'free marriage biodata maker, marriage biodata format, biodata for marriage pdf download, marriage biodata with photo, bengali marriage biodata, marathi marriage biodata maker, hindu marriage biodata format',
+  noindex = true
 } = Astro.props;
 
 const siteUrl = 'https://freemarriagebiodatamaker.com';
@@ -56,6 +58,14 @@ const schemaData = {
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
     <link rel="canonical" href={canonical} />
+
+    <!-- Robots: Noindex Directive -->
+    {noindex && (
+      <>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="googlebot" content="noindex, nofollow" />
+      </>
+    )}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
