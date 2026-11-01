@@ -40,7 +40,7 @@ interface BiodataBuilderProps {
 const STORAGE_KEY = 'freemarriagebiodata_draft_v2';
 
 export default function BiodataBuilder({
-  initialLanguage = 'bn',
+  initialLanguage = 'en',
   initialHeaderText,
   initialTitle
 }: BiodataBuilderProps) {

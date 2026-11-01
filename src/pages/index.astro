@@ -4,46 +4,46 @@ import BiodataBuilder from '../components/BiodataBuilder';
 import TemplateGallery from '../components/TemplateGallery.astro';
 import FaqSection from '../components/FaqSection.astro';
 import AdSlot from '../components/AdSlot.astro';
-import { Sparkles, CheckCircle2, ShieldCheck, Heart, Download, Zap } from 'lucide-react';
+import { Sparkles, CheckCircle2 } from 'lucide-react';
 ---
 
 <Layout
   title="Free Marriage Biodata Maker Online | 100% Free Matrimonial Biodata with Photo"
-  description="Create & Download elegant Indian marriage biodatas in PDF & HD image format. 100% Free, no watermark, no sign-up. Traditional Royal, Blue, Green & Pastel floral templates."
+  description="Create & Download elegant Indian marriage biodatas in PDF & HD image format. 100% Free, no watermark, no sign-up. Traditional Royal Maroon, Blue, Green & Pastel floral templates."
 >
   {/* Hero Header */}
   <section class="relative pt-10 pb-8 sm:pt-14 sm:pb-12 bg-gradient-to-b from-rose-50/70 via-amber-50/40 to-slate-100/60 border-b border-rose-100/80">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4">
-      <div class="inline-flex items-center gap-2 bg-rose-100 border border-rose-300 text-rose-900 px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-xs">
+      <div class="inline-flex items-center gap-2 bg-rose-100 border border-rose-300 text-rose-900 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-xs">
         <Sparkles class="w-4 h-4 text-rose-700" />
-        <span>১০০% আজীবন ফ্রি • নো লুকানো চার্জ • নো ওয়াটারমার্ক</span>
+        <span>100% Free Forever • Zero Watermark • No Sign-up</span>
       </div>
 
-      <h1 class="text-2xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight sm:leading-none font-serif">
-        ফ্রি <span class="text-rose-700">ম্যারেজ বায়োডাটা</span> মেকার
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-tight sm:leading-none font-serif">
+        Free <span class="text-rose-700">Marriage Biodata</span> Maker
       </h1>
 
       <p class="max-w-3xl mx-auto text-slate-600 text-sm sm:text-lg leading-relaxed px-1">
-        পাত্র ও পাত্রীদের জন্য রাজকীয় ভারতীয় ডিজাইনে বিয়ের বায়োডাটা তৈরি করুন। মাত্র ২ মিনিটে তথ্য পূরণ করে সরাসরি A4 সাইজ <strong>PDF</strong> অথবা WhatsApp-এ পাঠানোর জন্য <strong>HD ইমেজ</strong> ডাউনলোড করুন।
+        Create elegant, royal Indian matrimonial biodatas with photo in 2 minutes. Fill in your details and instantly download print-ready <strong>A4 PDF</strong> or <strong>WhatsApp HD Images</strong> without watermark or hidden fees.
       </p>
 
       {/* Trust Badges */}
       <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-2.5 sm:gap-6 pt-2 text-xs sm:text-sm text-slate-700 font-semibold max-w-md sm:max-w-none mx-auto">
         <div class="flex items-center gap-1.5 bg-white/70 sm:bg-transparent p-2 sm:p-0 rounded-lg border border-slate-200/50 sm:border-0 shadow-xs sm:shadow-none">
           <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>আজীবন ফ্রি (Always Free)</span>
+          <span>Always 100% Free</span>
         </div>
         <div class="flex items-center gap-1.5 bg-white/70 sm:bg-transparent p-2 sm:p-0 rounded-lg border border-slate-200/50 sm:border-0 shadow-xs sm:shadow-none">
           <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>কোনো ওয়াটারমার্ক নেই</span>
+          <span>Zero Watermark</span>
         </div>
         <div class="flex items-center gap-1.5 bg-white/70 sm:bg-transparent p-2 sm:p-0 rounded-lg border border-slate-200/50 sm:border-0 shadow-xs sm:shadow-none">
           <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>১০০% ডেটা প্রাইভেসি</span>
+          <span>100% On-Device Privacy</span>
         </div>
         <div class="flex items-center gap-1.5 bg-white/70 sm:bg-transparent p-2 sm:p-0 rounded-lg border border-slate-200/50 sm:border-0 shadow-xs sm:shadow-none">
           <CheckCircle2 class="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>A4 প্রিন্ট ও WhatsApp রেডি</span>
+          <span>A4 Print & WhatsApp Ready</span>
         </div>
       </div>
     </div>
@@ -52,11 +52,11 @@ import { Sparkles, CheckCircle2, ShieldCheck, Heart, Download, Zap } from 'lucid
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
     {/* The Core Interactive Biodata Builder Application */}
     <section id="builder">
-      <BiodataBuilder client:load />
+      <BiodataBuilder client:load initialLanguage="en" />
     </section>
 
     {/* Template Gallery Showcase */}
-    <TemplateGallery />
+    <TemplateGallery lang="en" />
 
     {/* Non-intrusive Ad/Sponsorship Placement */}
     <AdSlot format="horizontal" />
@@ -65,50 +65,50 @@ import { Sparkles, CheckCircle2, ShieldCheck, Heart, Download, Zap } from 'lucid
     <section class="bg-white rounded-2xl shadow-lg border border-slate-200/80 p-6 sm:p-10 space-y-8">
       <div class="max-w-3xl">
         <span class="text-xs font-bold text-rose-700 bg-rose-50 px-3 py-1 rounded-full uppercase tracking-wider">
-          সম্পূর্ণ নির্দেশিকা
+          Complete Guide
         </span>
         <h2 class="text-2xl sm:text-3xl font-black text-slate-900 font-serif mt-2">
-          একটি নিখুঁত বিয়ের বায়োডাটা কীভাবে লিখবেন? (Step-by-Step Guide)
+          How to Create a Perfect Marriage Biodata (Step-by-Step Guide)
         </h2>
         <p class="text-slate-500 text-sm mt-1">
-          একটি ভালো বায়োডাটাই পাত্র বা পাত্রীর পরিবারের কাছে প্রথম ও সবচেয়ে ইতিবাচক প্রভাব ফেলে।
+          A well-formatted biodata creates the first and strongest positive impression on prospective brides, grooms, and their families.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-slate-700 text-sm leading-relaxed">
         <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
           <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-800 font-bold flex items-center justify-center">
-            ১
+            1
           </div>
-          <h3 class="font-bold text-slate-900 text-base">১. ব্যক্তিগত ও শারীরিক বিবরণ</h3>
+          <h3 class="font-bold text-slate-900 text-base">1. Personal & Physical Details</h3>
           <p class="text-xs text-slate-600">
-            নাম, সঠিক জন্ম তারিখ ও সময়, উচ্চতা, এবং গায়ের রং মার্জিতভাবে লিখুন। কোনো অসত্য তথ্য দেবেন না। নিজের একটি সাম্প্রতিক, পরিষ্কার ও হাসিমুখের পাসপোর্ট বা পোর্ট্রেট ছবি যুক্ত করুন।
+            State your full name, accurate date of birth, birth time, place of birth, height, and complexion gracefully. Attach a recent, clean, smiling passport or portrait photograph with a neat background.
           </p>
         </div>
 
         <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
           <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-800 font-bold flex items-center justify-center">
-            ২
+            2
           </div>
-          <h3 class="font-bold text-slate-900 text-base">২. শিক্ষা ও কর্মসংস্থান</h3>
+          <h3 class="font-bold text-slate-900 text-base">2. Education & Career Background</h3>
           <p class="text-xs text-slate-600">
-            আপনার সর্বোচ্চ ডিগ্রি (যেমন B.Tech, MBA, M.A) এবং প্রতিষ্ঠানের নাম স্পষ্ট রাখুন। পেশা, পদবী ও কাজের লোকেশন স্পষ্টভাবে উল্লেখ করুন। সম্ভব হলে বাৎসরিক আয়ের একটি সম্মানজনক গড় রেঞ্জ দিন।
+            Highlight your highest degrees (e.g. B.Tech, MBA, MBBS, M.Sc) and institution names. Clearly mention your occupation, job designation, current employer, work location, and approximate annual income.
           </p>
         </div>
 
         <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
           <div class="w-8 h-8 rounded-lg bg-rose-100 text-rose-800 font-bold flex items-center justify-center">
-            ৩
+            3
           </div>
-          <h3 class="font-bold text-slate-900 text-base">৩. পারিবারিক প্রেক্ষাপট ও অভিভাবক</h3>
+          <h3 class="font-bold text-slate-900 text-base">3. Family Heritage & Contact Details</h3>
           <p class="text-xs text-slate-600">
-            বাবা-মায়ের নাম ও পেশা, ভাই-বোনের সংখ্যা ও তাদের বৈবাহিক অবস্থা লিখুন। যোগাযোগের জন্য অবশ্যই পিতা বা অভিভাবকের একটি সচল মোবাইল নম্বর এবং বর্তমান বসবাসের ঠিকানা দিন।
+            Mention parents' full names and occupations, brothers and sisters with their marital status, family values (moderate/traditional), ancestral native place, and active guardian contact phone numbers.
           </p>
         </div>
       </div>
     </section>
 
     {/* FAQ Section */}
-    <FaqSection />
+    <FaqSection lang="en" />
   </div>
 </Layout>

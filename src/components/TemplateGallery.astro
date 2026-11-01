@@ -2,18 +2,41 @@
 // Visual Gallery showcasing the 5 Indian Wedding Themes
 import { BIODATA_TEMPLATES } from '../lib/biodata-types';
 import { Palette, Check, Sparkles } from 'lucide-react';
+
+interface Props {
+  lang?: 'en' | 'bn';
+}
+
+const { lang = 'en' } = Astro.props;
+
+const content = {
+  en: {
+    badge: 'PREMIUM THEMES',
+    title: 'Royal Indian Marriage Biodata Templates',
+    subtitle: 'Curated cultural palettes designed for all communities — 100% free download with zero watermark',
+    a4: 'A4 Print Ready',
+    use: 'Use Template →'
+  },
+  bn: {
+    badge: 'প্রিমিয়াম কালেকশন',
+    title: 'রাজকীয় ভারতীয় বিবাহ বায়োডাটা টেমপ্লেট',
+    subtitle: 'সব ধর্মের ও রুচির জন্য বিশেষভাবে তৈরি প্রিমিয়াম কালার থিম—কোনো ওয়াটারমার্ক ছাড়াই সম্পূর্ণ বিনামূল্যে ডাউনলোডযোগ্য',
+    a4: 'A4 Print Ready',
+    use: 'ব্যবহার করুন →'
+  }
+}[lang];
 ---
 
 <section class="bg-white rounded-2xl p-6 sm:p-10 border border-slate-200/80 shadow-lg space-y-6">
   <div class="text-center max-w-2xl mx-auto space-y-2">
     <span class="text-xs font-bold text-rose-700 bg-rose-50 px-3 py-1 rounded-full uppercase tracking-wider">
-      প্রিমিয়াম কালেকশন
+      {content.badge}
     </span>
     <h3 class="text-2xl sm:text-3xl font-black text-slate-900 font-serif">
-      রাজকীয় ভারতীয় বিবাহ বায়োডাটা টেমপ্লেট
+      {content.title}
     </h3>
     <p class="text-slate-500 text-sm">
-      সব ধর্মের ও রুচির জন্য বিশেষভাবে তৈরি প্রিমিয়াম কালার থিম—কোনো ওয়াটারমার্ক ছাড়াই সম্পূর্ণ বিনামূল্যে ডাউনলোডযোগ্য
+      {content.subtitle}
     </p>
   </div>
 
@@ -41,9 +64,9 @@ import { Palette, Check, Sparkles } from 'lucide-react';
         </div>
 
         <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs font-bold text-rose-700">
-          <span>A4 Print Ready</span>
+          <span>{content.a4}</span>
           <a href="/#builder" class="hover:underline flex items-center gap-1">
-            ব্যবহার করুন →
+            {content.use}
           </a>
         </div>
       </div>

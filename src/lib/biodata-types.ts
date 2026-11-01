@@ -80,7 +80,7 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     secondaryColor: '#d97706',
     borderColor: '#b45309',
     bgGradient: 'from-amber-50/40 via-white to-rose-50/30',
-    badge: 'সবচেয়ে জনপ্রিয় 👑'
+    badge: 'Most Popular 👑'
   },
   {
     id: 'regal-blue',
@@ -90,7 +90,7 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     secondaryColor: '#b45309',
     borderColor: '#d97706',
     bgGradient: 'from-blue-50/30 via-white to-slate-50',
-    badge: 'আধুনিক ও প্রিমিয়াম 💎'
+    badge: 'Regal & Premium 💎'
   },
   {
     id: 'emerald-divine',
@@ -100,7 +100,7 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     secondaryColor: '#059669',
     borderColor: '#047857',
     bgGradient: 'from-emerald-50/30 via-white to-teal-50/20',
-    badge: 'ডিভাইন ও ক্লাসিক ✨'
+    badge: 'Auspicious Classic ✨'
   },
   {
     id: 'rose-gold',
@@ -110,7 +110,7 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     secondaryColor: '#f43f5e',
     borderColor: '#fb7185',
     bgGradient: 'from-rose-50/50 via-white to-pink-50/30',
-    badge: 'রোমান্টিক ও সফ্ট 🌸'
+    badge: 'Romantic & Soft 🌸'
   },
   {
     id: 'classic-elegance',
@@ -120,7 +120,7 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     secondaryColor: '#475569',
     borderColor: '#334155',
     bgGradient: 'from-white via-slate-50/40 to-white',
-    badge: 'প্রিন্ট-ফ্রেন্ডলি 📄'
+    badge: 'Print-Friendly 📄'
   }
 ];
 
@@ -131,29 +131,29 @@ export const INITIAL_BIODATA_DATA: BiodataData = {
   gender: 'male',
   dob: '15/08/1996',
   birthTime: '06:45 AM',
-  birthPlace: 'Kolkata, West Bengal',
+  birthPlace: 'New Delhi',
   height: '5 ft 10 in (178 cm)',
   complexion: 'Fair',
   bloodGroup: 'B+',
-  motherTongue: 'Bengali / Hindi',
+  motherTongue: 'Hindi / English',
   maritalStatus: 'Never Married',
   diet: 'Vegetarian',
 
   religion: 'Hindu',
   caste: 'Brahmin',
-  subCaste: 'Kulin',
+  subCaste: 'Saraswat',
   gotra: 'Kashyap',
   rashi: 'Leo (सिंह)',
   nakshatra: 'Magha',
   manglik: 'Non-Manglik',
 
   education: 'B.Tech in Computer Science',
-  collegeUniversity: 'Jadavpur University',
+  collegeUniversity: 'Delhi University',
   occupation: 'Working Professional',
   jobTitle: 'Senior Software Engineer',
   companyName: 'MNC Tech Firm',
   income: '₹ 18,00,000 / Annum',
-  workLocation: 'Bangalore / Kolkata',
+  workLocation: 'Bangalore / Gurgaon',
 
   fatherName: 'Mr. Ramesh Sharma',
   fatherOccupation: 'Retired Government Officer',
@@ -165,13 +165,13 @@ export const INITIAL_BIODATA_DATA: BiodataData = {
   marriedSisters: '0',
   familyType: 'Nuclear Family',
   familyValues: 'Moderate / Cultured',
-  nativePlace: 'Burdwan, West Bengal',
+  nativePlace: 'Lucknow, Uttar Pradesh',
 
   contactPerson: 'Mr. Ramesh Sharma (Father)',
   primaryPhone: '+91 98765 43210',
   secondaryPhone: '+91 91234 56789',
   email: 'family.contact@example.com',
-  address: 'Salt Lake City, Sector 2, Kolkata - 700091',
+  address: 'Sector 14, Rohini, New Delhi - 110085',
 
   photoUrl: null
 };
