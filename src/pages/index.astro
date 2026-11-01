@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import BiodataBuilder from '../components/BiodataBuilder';
 import TemplateGallery from '../components/TemplateGallery.astro';
 import FaqSection from '../components/FaqSection.astro';
+import AdSlot from '../components/AdSlot.astro';
 import { Sparkles, CheckCircle2, ShieldCheck, Heart, Download, Zap } from 'lucide-react';
 ---
 
@@ -56,6 +57,9 @@ import { Sparkles, CheckCircle2, ShieldCheck, Heart, Download, Zap } from 'lucid
 
     {/* Template Gallery Showcase */}
     <TemplateGallery />
+
+    {/* Non-intrusive Ad/Sponsorship Placement */}
+    <AdSlot format="horizontal" />
 
     {/* In-depth Educational Articles for AdSense E-E-A-T and SEO Authority */}
     <section class="bg-white rounded-2xl shadow-lg border border-slate-200/80 p-6 sm:p-10 space-y-8">
