@@ -100,6 +100,14 @@ const schemaData = {
       .font-serif {
         font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
       }
+      /* Hide scrollbar for clean horizontal swipe on mobile */
+      .no-scrollbar::-webkit-scrollbar {
+        display: none;
+      }
+      .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
     </style>
 
     <!-- Structured Data Schema -->
