@@ -1,0 +1,100 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  keywords?: string;
+}
+
+const {
+  title = 'Free Marriage Biodata Maker Online | 100% Free Matrimonial Biodata with Photo',
+  description = '100% Free Online Marriage Biodata Maker with Photo. Create elegant Indian wedding biodatas in Bengali, Hindi, Marathi & English. Download HD PDF & Image without watermark or login.',
+  canonical = Astro.url.href,
+  keywords = 'free marriage biodata maker, marriage biodata format, biodata for marriage pdf download, marriage biodata with photo, bengali marriage biodata, marathi marriage biodata maker, hindu marriage biodata format'
+} = Astro.props;
+
+const siteUrl = 'https://freemarriagebiodatamaker.com';
+
+const schemaData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      'url': siteUrl,
+      'name': 'FreeMarriageBiodataMaker.com',
+      'description': description,
+      'inLanguage': ['en-IN', 'hi-IN', 'bn-IN', 'mr-IN']
+    },
+    {
+      '@type': 'WebApplication',
+      '@id': `${siteUrl}/#app`,
+      'name': 'Free Marriage Biodata Maker',
+      'url': siteUrl,
+      'applicationCategory': 'DesignApplication',
+      'operatingSystem': 'All',
+      'browserRequirements': 'Requires JavaScript',
+      'offers': {
+        '@type': 'Offer',
+        'price': '0',
+        'priceCurrency': 'INR'
+      }
+    }
+  ]
+};
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content={keywords} />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="FreeMarriageBiodataMaker.com" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Theme & Icons -->
+    <meta name="theme-color" content="#881337" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts: Cinzel (Royal Serif) + Inter (Clean Sans) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Inter:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet" />
+
+    <style is:global>
+      body {
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      }
+      .font-serif {
+        font-family: 'Cinzel', 'Playfair Display', Georgia, serif;
+      }
+    </style>
+
+    <!-- Structured Data Schema -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </head>
+  <body class="bg-slate-100/60 text-slate-900 min-h-screen flex flex-col antialiased selection:bg-rose-700 selection:text-white">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

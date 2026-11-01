@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BiodataBuilder from '../components/BiodataBuilder';
+import TemplateGallery from '../components/TemplateGallery.astro';
+import FaqSection from '../components/FaqSection.astro';
+---
+
+<Layout
+  title="Biodata Format for Marriage (Boy & Girl) | Free Download PDF & Word"
+  description="Free editable biodata format for marriage in PDF and image format. Complete sample layouts, field checklists, and instant online generator without watermark."
+  keywords="biodata format for marriage, marriage biodata format for boy, marriage biodata format for girl, matrimonial biodata sample pdf download free"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div class="text-center max-w-3xl mx-auto space-y-3">
+      <div class="inline-flex items-center gap-2 bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full">
+        পাত্র ও পাত্রীর আদর্শ লেআউট
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight font-serif">
+        Biodata Format for <span class="text-rose-700">Marriage</span>
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+        Looking for a clean, professional, and culturally appropriate marriage biodata format? Use our interactive builder to preview and download in seconds.
+      </p>
+    </div>
+
+    <BiodataBuilder client:load />
+
+    <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-6">
+      <h2 class="text-2xl font-black text-slate-900 font-serif">
+        Difference Between Groom (Boy) vs Bride (Girl) Biodata
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-700">
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+          <h3 class="font-bold text-slate-900 text-base">Groom (Boy) Biodata Focus:</h3>
+          <p>
+            Emphasizes career stability, educational background, company details, annual remuneration, willingness to relocate, and family values.
+          </p>
+        </div>
+        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
+          <h3 class="font-bold text-slate-900 text-base">Bride (Girl) Biodata Focus:</h3>
+          <p>
+            Highlights education, talents/hobbies, career preferences (working vs homemaker), personality, and close family background.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <TemplateGallery />
+    <FaqSection />
+  </div>
+</Layout>

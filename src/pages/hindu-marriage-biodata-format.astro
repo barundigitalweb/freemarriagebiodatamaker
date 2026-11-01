@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BiodataBuilder from '../components/BiodataBuilder';
+import TemplateGallery from '../components/TemplateGallery.astro';
+import FaqSection from '../components/FaqSection.astro';
+---
+
+<Layout
+  title="Hindu Marriage Biodata Format with Photo | 100% Free PDF Maker"
+  description="Free Hindu marriage biodata format with Gotra, Rashi, Nakshatra, and Kundli details. Download auspicious traditional Indian wedding biodata in PDF."
+  keywords="hindu marriage biodata format, hindu biodata format for marriage with photo, gotra rashi marriage biodata, shree ganeshay namah biodata"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div class="text-center max-w-3xl mx-auto space-y-3">
+      <div class="inline-flex items-center gap-2 bg-amber-100 text-amber-900 text-xs font-bold px-3 py-1 rounded-full border border-amber-300">
+        || श्री गणेशाय नमः || Auspicious Hindu Format
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight font-serif">
+        Hindu <span class="text-rose-700">Marriage Biodata</span> Format
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+        Complete with Gotra, Rashi, Nakshatra, Manglik status, and family background. Create royal traditional biodatas in Maroon and Gold themes.
+      </p>
+    </div>
+
+    <BiodataBuilder client:load />
+
+    <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4">
+      <h2 class="text-2xl font-black text-slate-900 font-serif">
+        Astrological & Cultural Sections in a Hindu Biodata
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-700">
+        <div class="space-y-2">
+          <h3 class="font-bold text-slate-900">1. Horoscope (Kundli) Details:</h3>
+          <p>
+            In traditional arranged marriages, matching the horoscope (Guna Milan) is considered vital. Including accurate Birth Time, Birth Place, Rashi (Moon Sign), Nakshatra, and Manglik dosha helps astrologers evaluate compatibility seamlessly.
+          </p>
+        </div>
+        <div class="space-y-2">
+          <h3 class="font-bold text-slate-900">2. Gotra & Lineage:</h3>
+          <p>
+            Mentioning your Gotra prevents same-gotra marriage traditions in North & West Indian families and clarifies ancestral lineage.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <TemplateGallery />
+    <FaqSection />
+  </div>
+</Layout>

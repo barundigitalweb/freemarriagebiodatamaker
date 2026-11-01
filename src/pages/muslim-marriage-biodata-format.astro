@@ -1,0 +1,43 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BiodataBuilder from '../components/BiodataBuilder';
+import TemplateGallery from '../components/TemplateGallery.astro';
+import FaqSection from '../components/FaqSection.astro';
+---
+
+<Layout
+  title="Muslim Marriage Biodata Format (Nikah Biodata Maker Online Free)"
+  description="Create elegant Muslim marriage biodatas with Bismillah-ir-Rahman-ir-Rahim header. Download clean, respectful Islamic matrimonial profiles in PDF & Image."
+  keywords="muslim marriage biodata format, islamic marriage biodata, nikah biodata format pdf download, muslim biodata for marriage with photo"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div class="text-center max-w-3xl mx-auto space-y-3">
+      <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-900 text-xs font-bold px-3 py-1 rounded-full border border-emerald-300">
+        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ • Islamic Nikah Format
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight font-serif">
+        Muslim <span class="text-emerald-800">Marriage Biodata</span> Format
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+        Design respectful, elegant, and comprehensive matrimonial profiles for Nikah proposals. Choose Emerald Green, Royal Navy, or Classic White themes.
+      </p>
+    </div>
+
+    <BiodataBuilder client:load />
+
+    <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4">
+      <h2 class="text-2xl font-black text-slate-900 font-serif">
+        Key Elements of an Islamic (Nikah) Matrimonial Biodata
+      </h2>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-slate-700">
+        <li><strong>Header:</strong> Start with <em>Bismillah-ir-Rahman-ir-Rahim</em> or <em>In the Name of Allah</em>.</li>
+        <li><strong>Religious Values:</strong> Mention religious practice (e.g., Namaz, Quran reciter, Hijab/Deen orientation).</li>
+        <li><strong>Family Respect:</strong> Parents' heritage, ancestral hometown, and siblings.</li>
+        <li><strong>Education & Halal Livelihood:</strong> Honest representation of academic achievements and profession.</li>
+      </ul>
+    </section>
+
+    <TemplateGallery />
+    <FaqSection />
+  </div>
+</Layout>

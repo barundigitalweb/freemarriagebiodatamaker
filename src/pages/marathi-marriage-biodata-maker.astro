@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BiodataBuilder from '../components/BiodataBuilder';
+import TemplateGallery from '../components/TemplateGallery.astro';
+import FaqSection from '../components/FaqSection.astro';
+---
+
+<Layout
+  title="मराठी विवाह बायोडाटा मेकर (Marathi Marriage Biodata Maker Free PDF)"
+  description="मोफत मराठी विवाह बायोडाटा बनवा. श्री गणेशाय नमः सह सुंदर पारंपारिक डिझाईन मध्ये PDF आणि WhatsApp इमेज डाउनलोड करा बिना वॉटरमार्क."
+  keywords="marathi marriage biodata maker, marathi vivah biodata format, lagnacha biodata marathi download pdf, free marathi biodata format with photo"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div class="text-center max-w-3xl mx-auto space-y-3">
+      <div class="inline-flex items-center gap-2 bg-rose-100 text-rose-800 text-xs font-bold px-3 py-1 rounded-full">
+        महाराष्ट्रातील वधू-वरांसाठी खास
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight font-serif">
+        मराठी <span class="text-rose-700">विवाह बायोडाटा</span> मेकर
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+        || श्री गणेशाय नमः || सह सुंदर, पारंपरिक आणि आकर्षक मराठी लग्नाचा बायोडाटा अवघ्या २ मिनिटांत तयार करा. १००% मोफत PDF डाउनलोड.
+      </p>
+    </div>
+
+    <BiodataBuilder client:load />
+
+    <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4">
+      <h2 class="text-2xl font-black text-slate-900 font-serif">
+        मराठी विवाह बायोडाटा कसा तयार करावा? (Essential Details in Marathi Biodata)
+      </h2>
+      <p class="text-sm text-slate-700 leading-relaxed">
+        महाराष्ट्रात विवाहासाठी बायोडाटा तयार करताना खालील माहिती असणे अत्यंत आवश्यक मानले जाते:
+      </p>
+      <ul class="list-disc pl-5 space-y-2 text-sm text-slate-700">
+        <li><strong>वैयक्तिक माहिती:</strong> पूर्ण नाव, जन्मतारीख, जन्म वेळ, जन्म ठिकाण, उंची, रक्तगट आणि वर्ण.</li>
+        <li><strong>धार्मिक व पत्रिका माहिती:</strong> धर्म, जात, पोटजात, गोत्र, रास, नक्षत्र, नाडी आणि मंगळ दोष.</li>
+        <li><strong>शिक्षण व नोकरी:</strong> पदवी, कॉलेजचे नाव, व्यवसाय/नोकरीचे पद, कंपनीचे नाव व वार्षिक उत्पन्न.</li>
+        <li><strong>कौटुंबिक माहिती:</strong> वडिलांचे नाव व व्यवसाय, आईचे नाव, भाऊ व बहिणींची माहिती (विवाहित/अविवाहित) आणि मामाचे कुल.</li>
+      </ul>
+    </section>
+
+    <TemplateGallery />
+    <FaqSection />
+  </div>
+</Layout>
