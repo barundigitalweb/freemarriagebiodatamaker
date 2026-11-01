@@ -19,6 +19,7 @@ export interface Translations {
   themeSelect: string;
   tabPersonal: string;
   tabHoroscope: string;
+  tabIslamic: string;
   tabEducation: string;
   tabFamily: string;
   tabContact: string;
@@ -42,6 +43,11 @@ export interface Translations {
   rashi: string;
   nakshatra: string;
   manglik: string;
+  sect: string;
+  namaz: string;
+  roza: string;
+  quran: string;
+  biradari: string;
   education: string;
   collegeUniversity: string;
   occupation: string;
@@ -71,6 +77,7 @@ export interface Translations {
   hdQuality: string;
   personalDetails: string;
   horoscopeDetails: string;
+  islamicDetails: string;
   educationDetails: string;
   familyDetails: string;
   contactDetails: string;
@@ -92,6 +99,11 @@ export interface Translations {
   lblRashi: string;
   lblNakshatra: string;
   lblManglik: string;
+  lblSect: string;
+  lblNamaz: string;
+  lblRoza: string;
+  lblQuran: string;
+  lblBiradari: string;
   lblEducation: string;
   lblOccupation: string;
   lblJobTitle: string;
@@ -132,6 +144,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     themeSelect: 'Select Wedding Theme & Colors:',
     tabPersonal: 'Personal',
     tabHoroscope: 'Horoscope',
+    tabIslamic: 'Islamic & Deen',
     tabEducation: 'Education & Career',
     tabFamily: 'Family',
     tabContact: 'Contact',
@@ -155,6 +168,11 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     rashi: 'Rashi (Moon Sign)',
     nakshatra: 'Nakshatra',
     manglik: 'Manglik Status',
+    sect: 'Sect / Maslak (e.g. Sunni / Hanafi)',
+    namaz: 'Namaz / Prayer Habit',
+    roza: 'Roza / Ramadan Fasting',
+    quran: 'Quran Knowledge / Recitation',
+    biradari: 'Community / Biradari',
     education: 'Highest Degree / Qualification',
     collegeUniversity: 'College / University',
     occupation: 'Occupation Type',
@@ -184,6 +202,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     hdQuality: 'HD Quality Render',
     personalDetails: 'Personal Details',
     horoscopeDetails: 'Horoscope & Religious Details',
+    islamicDetails: 'Islamic & Religious Information',
     educationDetails: 'Education & Career',
     familyDetails: 'Family Background',
     contactDetails: 'Contact Details',
@@ -204,6 +223,11 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     lblRashi: 'Rashi:',
     lblNakshatra: 'Nakshatra:',
     lblManglik: 'Manglik:',
+    lblSect: 'Sect / Maslak:',
+    lblNamaz: 'Namaz / Prayer:',
+    lblRoza: 'Fasting (Roza):',
+    lblQuran: 'Quran Recitation:',
+    lblBiradari: 'Community / Biradari:',
     lblEducation: 'Qualification:',
     lblOccupation: 'Occupation:',
     lblJobTitle: 'Designation & Company:',
@@ -242,6 +266,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     themeSelect: 'টেমপ্লেট ও কালার থিম নির্বাচন করুন:',
     tabPersonal: 'ব্যক্তিগত',
     tabHoroscope: 'ধর্ম ও কুষ্ঠি',
+    tabIslamic: 'ইসলামিক ও দ্বীন',
     tabEducation: 'শিক্ষা ও চাকরি',
     tabFamily: 'পারিবারিক',
     tabContact: 'যোগাযোগ',
@@ -265,6 +290,11 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     rashi: 'রাশি (Rashi / Moon Sign)',
     nakshatra: 'নক্ষত্র (Nakshatra)',
     manglik: 'মাঙ্গলিক অবস্থা (Manglik)',
+    sect: 'মাজহাব / ফিরকা (যেমন: সুন্নি / হানাফি)',
+    namaz: 'নামাযের অভ্যাস (পঞ্জেগানা)',
+    roza: 'রোজার বিবরণ (রমজান)',
+    quran: 'কোরআন পাঠ ও দ্বীনি শিক্ষা',
+    biradari: 'বংশ / খান্দান / বিরান্দরী',
     education: 'সর্বোচ্চ শিক্ষাগত যোগ্যতা',
     collegeUniversity: 'কলেজ বা বিশ্ববিদ্যালয়ের নাম',
     occupation: 'পেশার ধরন (Service / Business)',
@@ -294,6 +324,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     hdQuality: 'HD কোয়ালিটি রেন্ডার',
     personalDetails: 'ব্যক্তিগত বিবরণ (Personal Details)',
     horoscopeDetails: 'ধর্ম ও কুষ্ঠি বিবরণ (Religious & Horoscope)',
+    islamicDetails: 'ইসলামিক ও ধর্মীয় বিবরণ',
     educationDetails: 'শিক্ষা ও কর্মজীবন (Education & Career)',
     familyDetails: 'পারিবারিক বিবরণ (Family Background)',
     contactDetails: 'যোগাযোগের ঠিকানা (Contact Details)',
@@ -314,6 +345,11 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     lblRashi: 'রাশি:',
     lblNakshatra: 'নক্ষত্র:',
     lblManglik: 'মাঙ্গলিক:',
+    lblSect: 'মাজহাব / ফিরকা:',
+    lblNamaz: 'নামায:',
+    lblRoza: 'রোজা:',
+    lblQuran: 'কোরআন পাঠ:',
+    lblBiradari: 'খান্দান / জাতি:',
     lblEducation: 'যোগ্যতা:',
     lblOccupation: 'পেশা:',
     lblJobTitle: 'পদবী ও প্রতিষ্ঠান:',
@@ -352,6 +388,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     themeSelect: 'विवाह थीम व रंग चुनें:',
     tabPersonal: 'व्यक्तिगत',
     tabHoroscope: 'कुंडली व धर्म',
+    tabIslamic: 'दीनी व इस्लामिक',
     tabEducation: 'शिक्षा व करियर',
     tabFamily: 'पारिवारिक',
     tabContact: 'संपर्क',
@@ -375,6 +412,11 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     rashi: 'राशि (Rashi)',
     nakshatra: 'नक्षत्र (Nakshatra)',
     manglik: 'मांगलिक (Manglik Status)',
+    sect: 'मसलक / फिरका (उदा. सुन्नी / हनफ़ी)',
+    namaz: 'नमाज़ की पाबंदी (पंजागाना)',
+    roza: 'रोज़ा (माहे रमज़ान)',
+    quran: 'क़ुरआन पाक पढ़ना / तालीम',
+    biradari: 'बिरादरी / ख़ानदान',
     education: 'सर्वोच्च शिक्षा (Highest Degree)',
     collegeUniversity: 'कॉलेज / विश्वविद्यालय का नाम',
     occupation: 'पेशा (Service / Business)',
@@ -404,6 +446,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     hdQuality: 'HD क्वालिटी रेंडर',
     personalDetails: 'व्यक्तिगत विवरण (Personal Details)',
     horoscopeDetails: 'धार्मिक एवं कुंडली विवरण (Horoscope)',
+    islamicDetails: 'दीनी एवं धार्मिक विवरण',
     educationDetails: 'शिक्षा एवं कार्यक्षेत्र (Education & Career)',
     familyDetails: 'पारिवारिक विवरण (Family Background)',
     contactDetails: 'संपर्क सूत्र (Contact Details)',
@@ -424,6 +467,11 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     lblRashi: 'राशि:',
     lblNakshatra: 'नक्षत्र:',
     lblManglik: 'मांगलिक:',
+    lblSect: 'मसलक / फिरका:',
+    lblNamaz: 'नमाज़:',
+    lblRoza: 'रोज़ा:',
+    lblQuran: 'क़ुरआन पाक:',
+    lblBiradari: 'बिरादरी:',
     lblEducation: 'शिक्षा:',
     lblOccupation: 'पेशा:',
     lblJobTitle: 'पद व कंपनी:',
@@ -462,6 +510,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     themeSelect: 'लग्न थीम आणि रंग निवडा:',
     tabPersonal: 'वैयक्तिक',
     tabHoroscope: 'पत्रिका व धर्म',
+    tabIslamic: 'धार्मिक व दीनी',
     tabEducation: 'शिक्षण व नोकरी',
     tabFamily: 'कौटुंबिक',
     tabContact: 'संपर्क',
@@ -485,6 +534,11 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     rashi: 'रास (Rashi)',
     nakshatra: 'नक्षत्र (Nakshatra)',
     manglik: 'मंगळ (Manglik Status)',
+    sect: 'पंथ / मसलक (उदा. सुन्नी / हनफी)',
+    namaz: 'नमाजाची सवय',
+    roza: 'रोजा (रमजान)',
+    quran: 'कुराण पठण / दीनी तालीम',
+    biradari: 'बिरादरी / खानदान',
     education: 'उच्च शिक्षण (Highest Degree)',
     collegeUniversity: 'कॉलेज / विद्यापीठाचे नाव',
     occupation: 'व्यवसाय प्रकार (Service / Business)',
@@ -514,6 +568,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     hdQuality: 'HD क्वालिटी रेंडर',
     personalDetails: 'वैयक्तिक माहिती (Personal Details)',
     horoscopeDetails: 'धार्मिक व पत्रिका माहिती (Horoscope)',
+    islamicDetails: 'धार्मिक व दीनी माहिती',
     educationDetails: 'शिक्षण व नोकरी (Education & Career)',
     familyDetails: 'कौटुंबिक माहिती (Family Background)',
     contactDetails: 'संपर्क तपशील (Contact Details)',
@@ -534,6 +589,11 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     lblRashi: 'रास:',
     lblNakshatra: 'नक्षत्र:',
     lblManglik: 'मंगळ:',
+    lblSect: 'मसलक / पंथ:',
+    lblNamaz: 'नमाज:',
+    lblRoza: 'रोजा:',
+    lblQuran: 'कुराण पठण:',
+    lblBiradari: 'बिरादरी:',
     lblEducation: 'शिक्षण:',
     lblOccupation: 'व्यवसाय:',
     lblJobTitle: 'पद व कंपनी:',

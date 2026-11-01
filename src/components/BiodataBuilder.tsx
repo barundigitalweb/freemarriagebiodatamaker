@@ -3,7 +3,8 @@ import {
   type BiodataData,
   type TemplateId,
   BIODATA_TEMPLATES,
-  INITIAL_BIODATA_DATA
+  INITIAL_BIODATA_DATA,
+  INITIAL_MUSLIM_BIODATA_DATA
 } from '../lib/biodata-types';
 import {
   type Language,
@@ -35,23 +36,28 @@ interface BiodataBuilderProps {
   initialLanguage?: Language;
   initialHeaderText?: string;
   initialTitle?: string;
+  formatType?: 'general' | 'muslim';
 }
-
-const STORAGE_KEY = 'freemarriagebiodata_draft_v2';
 
 export default function BiodataBuilder({
   initialLanguage = 'en',
   initialHeaderText,
-  initialTitle
+  initialTitle,
+  formatType = 'general'
 }: BiodataBuilderProps) {
+  const isMuslim = formatType === 'muslim';
+  const storageKey = isMuslim ? 'freemarriagebiodata_muslim_draft_v1' : 'freemarriagebiodata_draft_v2';
+
   const [language, setLanguage] = useState<Language>(initialLanguage);
   const [data, setData] = useState<BiodataData>(() => {
-    const base = { ...INITIAL_BIODATA_DATA };
+    const base = isMuslim ? { ...INITIAL_MUSLIM_BIODATA_DATA } : { ...INITIAL_BIODATA_DATA };
     if (initialHeaderText) base.headerText = initialHeaderText;
     if (initialTitle) base.title = initialTitle;
     return base;
   });
-  const [selectedTemplate, setSelectedTemplate] = useState<TemplateId>('royal-maroon');
+  const [selectedTemplate, setSelectedTemplate] = useState<TemplateId>(
+    isMuslim ? 'emerald-divine' : 'royal-maroon'
+  );
   const [activeTab, setActiveTab] = useState<string>('personal');
   const [isExporting, setIsExporting] = useState<boolean>(false);
   const [exportMessage, setExportMessage] = useState<string>('');
@@ -66,7 +72,7 @@ export default function BiodataBuilder({
   // Load from localStorage on mount (Client-Side)
   useEffect(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEY);
+      const saved = localStorage.getItem(storageKey);
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed?.data) setData(parsed.data);
@@ -76,13 +82,13 @@ export default function BiodataBuilder({
     } catch (e) {
       console.warn('Could not read from localStorage', e);
     }
-  }, [initialLanguage]);
+  }, [storageKey, initialLanguage]);
 
   // Persist draft to localStorage on change
   useEffect(() => {
     try {
       localStorage.setItem(
-        STORAGE_KEY,
+        storageKey,
         JSON.stringify({
           data,
           selectedTemplate,
@@ -92,7 +98,7 @@ export default function BiodataBuilder({
     } catch (e) {
       console.warn('Could not save draft to localStorage', e);
     }
-  }, [data, selectedTemplate, language]);
+  }, [storageKey, data, selectedTemplate, language]);
 
   const handleInputChange = (field: keyof BiodataData, value: string) => {
     setData((prev) => ({ ...prev, [field]: value }));
@@ -120,19 +126,20 @@ export default function BiodataBuilder({
 
   const handleReset = () => {
     if (window.confirm(t.resetConfirm)) {
-      const resetData = { ...INITIAL_BIODATA_DATA };
+      const resetData = isMuslim ? { ...INITIAL_MUSLIM_BIODATA_DATA } : { ...INITIAL_BIODATA_DATA };
       if (initialHeaderText) resetData.headerText = initialHeaderText;
       if (initialTitle) resetData.title = initialTitle;
       setData(resetData);
-      localStorage.removeItem(STORAGE_KEY);
+      setSelectedTemplate(isMuslim ? 'emerald-divine' : 'royal-maroon');
+      localStorage.removeItem(storageKey);
     }
   };
 
   const handleClearAll = () => {
     if (window.confirm(language === 'bn' ? 'আপনি কি সব ঘর খালি করতে চান?' : 'Clear all fields?')) {
       setData({
-        headerText: data.headerText || '|| श्री गणेशाय नमः ||',
-        title: data.title || 'MARRIAGE BIODATA',
+        headerText: data.headerText || (isMuslim ? 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ' : '|| श्री गणेशाय नमः ||'),
+        title: data.title || (isMuslim ? 'ISLAMIC NIKAH BIODATA' : 'MARRIAGE BIODATA'),
         fullName: '',
         gender: 'male',
         dob: '',
@@ -143,14 +150,18 @@ export default function BiodataBuilder({
         bloodGroup: '',
         motherTongue: '',
         maritalStatus: '',
-        diet: '',
-        religion: '',
+        diet: isMuslim ? 'Halal (Non-Vegetarian)' : '',
+        religion: isMuslim ? 'Islam' : '',
         caste: '',
         subCaste: '',
         gotra: '',
         rashi: '',
         nakshatra: '',
         manglik: '',
+        sect: '',
+        namaz: '',
+        roza: '',
+        quran: '',
         education: '',
         collegeUniversity: '',
         occupation: '',
@@ -432,7 +443,7 @@ export default function BiodataBuilder({
           <div className="flex border-b border-slate-200 bg-slate-100/70 overflow-x-auto text-xs font-bold text-slate-600 scrollbar-none">
             {[
               { id: 'personal', label: t.tabPersonal, icon: User },
-              { id: 'astrology', label: t.tabHoroscope, icon: BookOpen },
+              { id: 'astrology', label: isMuslim ? t.tabIslamic : t.tabHoroscope, icon: BookOpen },
               { id: 'education', label: t.tabEducation, icon: Briefcase },
               { id: 'family', label: t.tabFamily, icon: Users },
               { id: 'contact', label: t.tabContact, icon: Phone },
@@ -468,7 +479,7 @@ export default function BiodataBuilder({
                   type="text"
                   value={data.headerText}
                   onChange={(e) => handleInputChange('headerText', e.target.value)}
-                  placeholder="|| श्री गणेशाय नमः || / Bismillah"
+                  placeholder={isMuslim ? 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ' : '|| श्री गणेशाय नमः ||'}
                   className="w-full bg-white border border-amber-300 rounded-lg p-2 text-xs font-medium outline-none focus:border-rose-600"
                 />
               </div>
@@ -480,7 +491,7 @@ export default function BiodataBuilder({
                   type="text"
                   value={data.title}
                   onChange={(e) => handleInputChange('title', e.target.value)}
-                  placeholder="MARRIAGE BIODATA"
+                  placeholder={isMuslim ? 'ISLAMIC NIKAH BIODATA' : 'MARRIAGE BIODATA'}
                   className="w-full bg-white border border-amber-300 rounded-lg p-2 text-xs font-medium outline-none focus:border-rose-600"
                 />
               </div>
@@ -495,7 +506,7 @@ export default function BiodataBuilder({
                     type="text"
                     value={data.fullName}
                     onChange={(e) => handleInputChange('fullName', e.target.value)}
-                    placeholder="Rahul Sharma"
+                    placeholder={isMuslim ? 'Mohammed Farhan Ali' : 'Rahul Sharma'}
                     className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 text-sm font-semibold outline-none focus:border-rose-600 focus:bg-white"
                   />
                 </div>
@@ -530,7 +541,7 @@ export default function BiodataBuilder({
                       type="text"
                       value={data.birthPlace}
                       onChange={(e) => handleInputChange('birthPlace', e.target.value)}
-                      placeholder="Kolkata, WB / Pune, MH"
+                      placeholder={isMuslim ? 'Hyderabad, Telangana' : 'Kolkata, WB / Pune, MH'}
                       className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                     />
                   </div>
@@ -573,7 +584,7 @@ export default function BiodataBuilder({
                       type="text"
                       value={data.motherTongue}
                       onChange={(e) => handleInputChange('motherTongue', e.target.value)}
-                      placeholder="Bengali / Hindi"
+                      placeholder={isMuslim ? 'Urdu / English' : 'Bengali / Hindi'}
                       className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                     />
                   </div>
@@ -596,7 +607,7 @@ export default function BiodataBuilder({
                       type="text"
                       value={data.diet}
                       onChange={(e) => handleInputChange('diet', e.target.value)}
-                      placeholder="Vegetarian / Non-Veg"
+                      placeholder={isMuslim ? 'Halal (Non-Vegetarian)' : 'Vegetarian / Non-Veg'}
                       className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                     />
                   </div>
@@ -604,87 +615,162 @@ export default function BiodataBuilder({
               </div>
             )}
 
-            {/* TAB 2: Horoscope & Religion */}
+            {/* TAB 2: Horoscope / Islamic & Religion */}
             {activeTab === 'astrology' && (
               <div className="space-y-3.5 text-xs">
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.religion}</label>
-                    <input
-                      type="text"
-                      value={data.religion}
-                      onChange={(e) => handleInputChange('religion', e.target.value)}
-                      placeholder="Hindu / Muslim / Jain"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.caste}</label>
-                    <input
-                      type="text"
-                      value={data.caste}
-                      onChange={(e) => handleInputChange('caste', e.target.value)}
-                      placeholder="Brahmin, Kayastha, Maratha..."
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
-                </div>
+                {isMuslim ? (
+                  <>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.religion}</label>
+                        <input
+                          type="text"
+                          value={data.religion}
+                          onChange={(e) => handleInputChange('religion', e.target.value)}
+                          placeholder="Islam"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white font-medium"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.sect}</label>
+                        <input
+                          type="text"
+                          value={data.sect || ''}
+                          onChange={(e) => handleInputChange('sect', e.target.value)}
+                          placeholder="Sunni (Hanafi) / Ahl-e-Hadith / Shia"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                    </div>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.subCaste}</label>
-                    <input
-                      type="text"
-                      value={data.subCaste}
-                      onChange={(e) => handleInputChange('subCaste', e.target.value)}
-                      placeholder="Kulin / 96 Kuli"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.gotra}</label>
-                    <input
-                      type="text"
-                      value={data.gotra}
-                      onChange={(e) => handleInputChange('gotra', e.target.value)}
-                      placeholder="Kashyap, Shandilya, Bharadwaj"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
-                </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.biradari}</label>
+                        <input
+                          type="text"
+                          value={data.caste}
+                          onChange={(e) => handleInputChange('caste', e.target.value)}
+                          placeholder="Syed, Sheikh, Pathan, Ansari, Qureshi..."
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.namaz}</label>
+                        <input
+                          type="text"
+                          value={data.namaz || ''}
+                          onChange={(e) => handleInputChange('namaz', e.target.value)}
+                          placeholder="5 Times Daily (Regular) / Friday Only"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                    </div>
 
-                <div className="grid grid-cols-3 gap-2.5">
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.rashi}</label>
-                    <input
-                      type="text"
-                      value={data.rashi}
-                      onChange={(e) => handleInputChange('rashi', e.target.value)}
-                      placeholder="Leo (सिंह)"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.nakshatra}</label>
-                    <input
-                      type="text"
-                      value={data.nakshatra}
-                      onChange={(e) => handleInputChange('nakshatra', e.target.value)}
-                      placeholder="Magha / Rohini"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.manglik}</label>
-                    <input
-                      type="text"
-                      value={data.manglik}
-                      onChange={(e) => handleInputChange('manglik', e.target.value)}
-                      placeholder="Non-Manglik / Manglik"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
-                </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.roza}</label>
+                        <input
+                          type="text"
+                          value={data.roza || ''}
+                          onChange={(e) => handleInputChange('roza', e.target.value)}
+                          placeholder="Keeps Ramadan Fasts"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.quran}</label>
+                        <input
+                          type="text"
+                          value={data.quran || ''}
+                          onChange={(e) => handleInputChange('quran', e.target.value)}
+                          placeholder="Fluent Reciter (Tajweed) / Hafiz-e-Quran"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.religion}</label>
+                        <input
+                          type="text"
+                          value={data.religion}
+                          onChange={(e) => handleInputChange('religion', e.target.value)}
+                          placeholder="Hindu / Jain / Sikh"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.caste}</label>
+                        <input
+                          type="text"
+                          value={data.caste}
+                          onChange={(e) => handleInputChange('caste', e.target.value)}
+                          placeholder="Brahmin, Kayastha, Maratha..."
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.subCaste}</label>
+                        <input
+                          type="text"
+                          value={data.subCaste}
+                          onChange={(e) => handleInputChange('subCaste', e.target.value)}
+                          placeholder="Kulin / 96 Kuli"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.gotra}</label>
+                        <input
+                          type="text"
+                          value={data.gotra}
+                          onChange={(e) => handleInputChange('gotra', e.target.value)}
+                          placeholder="Kashyap, Shandilya, Bharadwaj"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-3 gap-2.5">
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.rashi}</label>
+                        <input
+                          type="text"
+                          value={data.rashi}
+                          onChange={(e) => handleInputChange('rashi', e.target.value)}
+                          placeholder="Leo (सिंह)"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.nakshatra}</label>
+                        <input
+                          type="text"
+                          value={data.nakshatra}
+                          onChange={(e) => handleInputChange('nakshatra', e.target.value)}
+                          placeholder="Magha / Rohini"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-slate-700 mb-1">{t.manglik}</label>
+                        <input
+                          type="text"
+                          value={data.manglik}
+                          onChange={(e) => handleInputChange('manglik', e.target.value)}
+                          placeholder="Non-Manglik / Manglik"
+                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
+                        />
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             )}
 
@@ -782,7 +868,7 @@ export default function BiodataBuilder({
                       type="text"
                       value={data.fatherName}
                       onChange={(e) => handleInputChange('fatherName', e.target.value)}
-                      placeholder="Mr. Ramesh Sharma"
+                      placeholder={isMuslim ? "Mr. Mohammed Rafiq Ali" : "Mr. Ramesh Sharma"}
                       className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                     />
                   </div>
@@ -805,7 +891,7 @@ export default function BiodataBuilder({
                       type="text"
                       value={data.motherName}
                       onChange={(e) => handleInputChange('motherName', e.target.value)}
-                      placeholder="Mrs. Sunita Sharma"
+                      placeholder={isMuslim ? "Mrs. Parveen Begum" : "Mrs. Sunita Sharma"}
                       className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                     />
                   </div>
@@ -861,7 +947,7 @@ export default function BiodataBuilder({
                       type="text"
                       value={data.nativePlace}
                       onChange={(e) => handleInputChange('nativePlace', e.target.value)}
-                      placeholder="Burdwan, WB / Pune, MH"
+                      placeholder={isMuslim ? "Hyderabad, Telangana" : "Burdwan, WB / Pune, MH"}
                       className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                     />
                   </div>
@@ -878,7 +964,7 @@ export default function BiodataBuilder({
                     type="text"
                     value={data.contactPerson}
                     onChange={(e) => handleInputChange('contactPerson', e.target.value)}
-                    placeholder="Mr. Ramesh Sharma (Father)"
+                    placeholder={isMuslim ? "Mr. Mohammed Rafiq Ali (Father)" : "Mr. Ramesh Sharma (Father)"}
                     className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                   />
                 </div>
@@ -912,7 +998,7 @@ export default function BiodataBuilder({
                     type="email"
                     value={data.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
-                    placeholder="family.contact@example.com"
+                    placeholder={isMuslim ? "family.nikah@example.com" : "family.contact@example.com"}
                     className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                   />
                 </div>
@@ -923,7 +1009,7 @@ export default function BiodataBuilder({
                     rows={2}
                     value={data.address}
                     onChange={(e) => handleInputChange('address', e.target.value)}
-                    placeholder="House No, Road, City, PIN"
+                    placeholder={isMuslim ? "Banjara Hills, Road No 12, Hyderabad - 500034" : "House No, Road, City, PIN"}
                     className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                   ></textarea>
                 </div>
@@ -1086,23 +1172,44 @@ export default function BiodataBuilder({
             </div>
 
             {/* Section 2: Astrological / Religious Details */}
-            {(data.religion || data.caste || data.gotra || data.rashi || data.nakshatra || data.manglik) && (
-              <div className="space-y-1.5 text-xs text-slate-800">
-                <div
-                  className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                  style={{ color: currentTemplate.primaryColor, borderColor: currentTemplate.secondaryColor }}
-                >
-                  {t.horoscopeDetails}
+            {isMuslim ? (
+              (data.religion || data.sect || data.caste || data.namaz || data.roza || data.quran) && (
+                <div className="space-y-1.5 text-xs text-slate-800">
+                  <div
+                    className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
+                    style={{ color: currentTemplate.primaryColor, borderColor: currentTemplate.secondaryColor }}
+                  >
+                    {t.islamicDetails}
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
+                    {data.religion && <div><strong>{t.lblReligion}</strong> {data.religion}</div>}
+                    {data.sect && <div><strong>{t.lblSect}</strong> {data.sect}</div>}
+                    {data.caste && <div><strong>{t.lblBiradari}</strong> {data.caste}</div>}
+                    {data.namaz && <div><strong>{t.lblNamaz}</strong> {data.namaz}</div>}
+                    {data.roza && <div><strong>{t.lblRoza}</strong> {data.roza}</div>}
+                    {data.quran && <div><strong>{t.lblQuran}</strong> {data.quran}</div>}
+                  </div>
                 </div>
-                <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
-                  {data.religion && <div><strong>{t.lblReligion}</strong> {data.religion}</div>}
-                  {data.caste && <div><strong>{t.lblCaste}</strong> {data.caste} {data.subCaste && `(${data.subCaste})`}</div>}
-                  {data.gotra && <div><strong>{t.lblGotra}</strong> {data.gotra}</div>}
-                  {data.rashi && <div><strong>{t.lblRashi}</strong> {data.rashi}</div>}
-                  {data.nakshatra && <div><strong>{t.lblNakshatra}</strong> {data.nakshatra}</div>}
-                  {data.manglik && <div><strong>{t.lblManglik}</strong> {data.manglik}</div>}
+              )
+            ) : (
+              (data.religion || data.caste || data.gotra || data.rashi || data.nakshatra || data.manglik) && (
+                <div className="space-y-1.5 text-xs text-slate-800">
+                  <div
+                    className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
+                    style={{ color: currentTemplate.primaryColor, borderColor: currentTemplate.secondaryColor }}
+                  >
+                    {t.horoscopeDetails}
+                  </div>
+                  <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
+                    {data.religion && <div><strong>{t.lblReligion}</strong> {data.religion}</div>}
+                    {data.caste && <div><strong>{t.lblCaste}</strong> {data.caste} {data.subCaste && `(${data.subCaste})`}</div>}
+                    {data.gotra && <div><strong>{t.lblGotra}</strong> {data.gotra}</div>}
+                    {data.rashi && <div><strong>{t.lblRashi}</strong> {data.rashi}</div>}
+                    {data.nakshatra && <div><strong>{t.lblNakshatra}</strong> {data.nakshatra}</div>}
+                    {data.manglik && <div><strong>{t.lblManglik}</strong> {data.manglik}</div>}
+                  </div>
                 </div>
-              </div>
+              )
             )}
 
             {/* Section 3: Education & Career Details */}

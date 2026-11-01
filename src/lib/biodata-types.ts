@@ -24,6 +24,10 @@ export interface BiodataData {
   rashi: string;
   nakshatra: string;
   manglik: string;
+  sect?: string; // e.g. Sunni / Hanafi / Shia
+  namaz?: string; // e.g. 5 Times Daily / Regular
+  roza?: string; // e.g. Keeps Ramadan Fasts
+  quran?: string; // e.g. Fluent Reciter / Hafiz-e-Quran
 
   // Education & Career
   education: string;
@@ -172,6 +176,62 @@ export const INITIAL_BIODATA_DATA: BiodataData = {
   secondaryPhone: '+91 91234 56789',
   email: 'family.contact@example.com',
   address: 'Sector 14, Rohini, New Delhi - 110085',
+
+  photoUrl: null
+};
+
+export const INITIAL_MUSLIM_BIODATA_DATA: BiodataData = {
+  headerText: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+  title: 'ISLAMIC NIKAH BIODATA',
+  fullName: 'Mohammed Farhan Ali',
+  gender: 'male',
+  dob: '12/10/1996',
+  birthTime: '08:30 AM',
+  birthPlace: 'Hyderabad, Telangana',
+  height: '5 ft 11 in (180 cm)',
+  complexion: 'Fair',
+  bloodGroup: 'O+',
+  motherTongue: 'Urdu / English',
+  maritalStatus: 'Never Married',
+  diet: 'Halal (Non-Vegetarian)',
+
+  religion: 'Islam',
+  sect: 'Sunni (Hanafi)',
+  caste: 'Syed / Sheikh',
+  subCaste: '',
+  gotra: '',
+  rashi: '',
+  nakshatra: '',
+  manglik: '',
+  namaz: '5 Times Daily (Regular)',
+  roza: 'Keeps Ramadan Fasts',
+  quran: 'Fluent Reciter (Tajweed)',
+
+  education: 'B.Tech & M.Tech in Computer Science',
+  collegeUniversity: 'Osmania University',
+  occupation: 'Working Professional',
+  jobTitle: 'Senior Software Engineer',
+  companyName: 'MNC Software Corp',
+  income: '₹ 20,00,000 / Annum',
+  workLocation: 'Hyderabad / Dubai',
+
+  fatherName: 'Mr. Mohammed Rafiq Ali',
+  fatherOccupation: 'Businessman',
+  motherName: 'Mrs. Parveen Begum',
+  motherOccupation: 'Homemaker',
+  totalBrothers: '1 (Elder, Married)',
+  marriedBrothers: '1',
+  totalSisters: '1 (Younger, Unmarried)',
+  marriedSisters: '0',
+  familyType: 'Nuclear Family',
+  familyValues: 'Deen-Practicing / Moderate',
+  nativePlace: 'Hyderabad, Telangana',
+
+  contactPerson: 'Mr. Mohammed Rafiq Ali (Father)',
+  primaryPhone: '+91 98765 12345',
+  secondaryPhone: '+91 91234 56780',
+  email: 'family.nikah@example.com',
+  address: 'Banjara Hills, Road No 12, Hyderabad - 500034',
 
   photoUrl: null
 };
