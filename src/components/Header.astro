@@ -1,35 +1,27 @@
 ---
-// Header for FreeMarriageBiodataMaker.com (Pan-India Universal Navigation)
+// Header for FreeMarriageBiodataMaker.com (Clean Responsive Layout)
 ---
 
 <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-rose-100 shadow-xs">
-  <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-14 sm:h-20 gap-2">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16 sm:h-20 gap-4">
       {/* Brand Logo */}
-      <a href="/" class="flex items-center gap-2 group min-w-0">
-        <div class="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-tr from-rose-800 to-amber-600 flex items-center justify-center text-white shadow-md shadow-rose-900/20 group-hover:scale-105 transition-transform font-serif font-black text-base sm:text-xl shrink-0">
+      <a href="/" class="flex items-center gap-2.5 group shrink-0">
+        <div class="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-tr from-rose-800 to-amber-600 flex items-center justify-center text-white shadow-md shadow-rose-900/20 group-hover:scale-105 transition-transform font-serif font-black text-lg sm:text-xl shrink-0">
           💍
         </div>
-        <div class="min-w-0">
-          <div class="flex items-center gap-1.5">
-            <span class="text-base sm:text-2xl font-black text-slate-900 tracking-tight font-serif whitespace-nowrap">
-              FreeMarriage<span class="text-rose-700">Biodata</span>
-            </span>
-            <span class="hidden sm:inline-block text-[10px] bg-rose-100 text-rose-800 font-bold px-1.5 py-0.5 rounded uppercase shrink-0">
-              100% Free
-            </span>
-          </div>
-          <p class="text-[11px] font-semibold text-slate-400 -mt-1 hidden sm:block">
+        <div>
+          <span class="text-lg sm:text-2xl font-black text-slate-900 tracking-tight font-serif block leading-none">
+            FreeMarriage<span class="text-rose-700">Biodata</span>
+          </span>
+          <p class="text-[11px] font-semibold text-slate-400 mt-1 hidden sm:block leading-none">
             Online Matrimonial Biodata & PDF Maker
           </p>
         </div>
       </a>
 
-      {/* Navigation Links (Desktop) */}
-      <nav class="hidden md:flex items-center gap-1 text-sm font-semibold text-slate-600">
-        <a href="/" class="px-3 py-2 rounded-lg hover:text-rose-700 hover:bg-rose-50 transition">
-          Create Biodata
-        </a>
+      {/* Navigation Links (Desktop: lg screens and up) */}
+      <nav class="hidden lg:flex items-center gap-1.5 text-sm font-semibold text-slate-600">
         <a href="/hindu-marriage-biodata-format" class="px-3 py-2 rounded-lg hover:text-rose-700 hover:bg-rose-50 transition">
           Hindu Format
         </a>
@@ -48,14 +40,14 @@
       </nav>
 
       {/* Right Action */}
-      <div class="flex items-center gap-2 shrink-0">
-        <div class="hidden lg:flex items-center gap-2 bg-emerald-50 px-3 py-1.5 rounded-full text-xs font-semibold text-emerald-800 border border-emerald-200">
+      <div class="flex items-center gap-3 shrink-0">
+        <div class="hidden xl:flex items-center gap-2 bg-emerald-50 px-3 py-1.5 rounded-full text-xs font-semibold text-emerald-800 border border-emerald-200">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>No Watermark • No Login</span>
+          <span>No Watermark • 100% Free</span>
         </div>
         <a
           href="/#builder"
-          class="inline-flex items-center gap-1 bg-rose-700 hover:bg-rose-800 text-white text-xs sm:text-sm font-bold px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl transition shadow-sm hover:shadow shrink-0"
+          class="inline-flex items-center gap-1.5 bg-rose-700 hover:bg-rose-800 text-white text-xs sm:text-sm font-bold px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl transition shadow-sm hover:shadow shrink-0"
         >
           <span>Create Free</span>
           <span>→</span>
@@ -64,21 +56,21 @@
     </div>
   </div>
 
-  {/* Mobile Sub-Navigation Pills for Instant Format Switching */}
-  <div class="md:hidden flex items-center gap-2 overflow-x-auto py-2 px-3 border-t border-slate-100 text-xs font-semibold text-slate-700 bg-slate-50/90 no-scrollbar">
-    <a href="/hindu-marriage-biodata-format" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-rose-400 hover:text-rose-700 transition shrink-0">
+  {/* Mobile & Tablet Sub-Navigation Pills (visible on screens below lg) */}
+  <div class="lg:hidden flex items-center gap-2 overflow-x-auto py-2.5 px-3 border-t border-slate-100 text-xs font-semibold text-slate-700 bg-slate-50/95 no-scrollbar">
+    <a href="/hindu-marriage-biodata-format" class="whitespace-nowrap px-3 py-1.5 rounded-full bg-white border border-slate-200 hover:border-rose-400 hover:text-rose-700 transition shrink-0 shadow-2xs">
       Hindu Format
     </a>
-    <a href="/muslim-marriage-biodata-format" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-rose-400 hover:text-rose-700 transition shrink-0">
+    <a href="/muslim-marriage-biodata-format" class="whitespace-nowrap px-3 py-1.5 rounded-full bg-white border border-slate-200 hover:border-rose-400 hover:text-rose-700 transition shrink-0 shadow-2xs">
       Muslim Format
     </a>
-    <a href="/marathi-marriage-biodata-maker" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-rose-400 hover:text-rose-700 transition shrink-0">
+    <a href="/marathi-marriage-biodata-maker" class="whitespace-nowrap px-3 py-1.5 rounded-full bg-white border border-slate-200 hover:border-rose-400 hover:text-rose-700 transition shrink-0 shadow-2xs">
       मराठी बायोडाटा
     </a>
-    <a href="/bengali-marriage-biodata-maker" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-rose-400 hover:text-rose-700 transition shrink-0">
+    <a href="/bengali-marriage-biodata-maker" class="whitespace-nowrap px-3 py-1.5 rounded-full bg-white border border-slate-200 hover:border-rose-400 hover:text-rose-700 transition shrink-0 shadow-2xs">
       বাংলা বায়োডাটা
     </a>
-    <a href="/biodata-format-for-marriage" class="whitespace-nowrap px-2.5 py-1 rounded-full bg-white border border-slate-200 hover:border-rose-400 hover:text-rose-700 transition shrink-0">
+    <a href="/biodata-format-for-marriage" class="whitespace-nowrap px-3 py-1.5 rounded-full bg-white border border-slate-200 hover:border-rose-400 hover:text-rose-700 transition shrink-0 shadow-2xs">
       Format Guide
     </a>
   </div>
