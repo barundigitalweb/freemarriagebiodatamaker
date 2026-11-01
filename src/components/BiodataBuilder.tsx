@@ -4,7 +4,10 @@ import {
   type TemplateId,
   BIODATA_TEMPLATES,
   INITIAL_BIODATA_DATA,
-  INITIAL_MUSLIM_BIODATA_DATA
+  INITIAL_MUSLIM_BIODATA_DATA,
+  INITIAL_BENGALI_BIODATA_DATA,
+  INITIAL_MARATHI_BIODATA_DATA,
+  INITIAL_HINDU_BIODATA_DATA
 } from '../lib/biodata-types';
 import {
   type Language,
@@ -32,11 +35,45 @@ import {
   MessageCircle
 } from 'lucide-react';
 
+export type BiodataFormatType = 'general' | 'muslim' | 'bengali' | 'marathi' | 'hindu';
+
 interface BiodataBuilderProps {
   initialLanguage?: Language;
   initialHeaderText?: string;
   initialTitle?: string;
-  formatType?: 'general' | 'muslim';
+  formatType?: BiodataFormatType;
+}
+
+function getInitialData(formatType: BiodataFormatType): BiodataData {
+  switch (formatType) {
+    case 'muslim':
+      return { ...INITIAL_MUSLIM_BIODATA_DATA };
+    case 'bengali':
+      return { ...INITIAL_BENGALI_BIODATA_DATA };
+    case 'marathi':
+      return { ...INITIAL_MARATHI_BIODATA_DATA };
+    case 'hindu':
+      return { ...INITIAL_HINDU_BIODATA_DATA };
+    case 'general':
+    default:
+      return { ...INITIAL_BIODATA_DATA };
+  }
+}
+
+function getStorageKey(formatType: BiodataFormatType): string {
+  switch (formatType) {
+    case 'muslim':
+      return 'freemarriagebiodata_muslim_draft_v1';
+    case 'bengali':
+      return 'freemarriagebiodata_bengali_draft_v1';
+    case 'marathi':
+      return 'freemarriagebiodata_marathi_draft_v1';
+    case 'hindu':
+      return 'freemarriagebiodata_hindu_draft_v1';
+    case 'general':
+    default:
+      return 'freemarriagebiodata_draft_v2';
+  }
 }
 
 export default function BiodataBuilder({
@@ -46,11 +83,11 @@ export default function BiodataBuilder({
   formatType = 'general'
 }: BiodataBuilderProps) {
   const isMuslim = formatType === 'muslim';
-  const storageKey = isMuslim ? 'freemarriagebiodata_muslim_draft_v1' : 'freemarriagebiodata_draft_v2';
+  const storageKey = getStorageKey(formatType);
 
   const [language, setLanguage] = useState<Language>(initialLanguage);
   const [data, setData] = useState<BiodataData>(() => {
-    const base = isMuslim ? { ...INITIAL_MUSLIM_BIODATA_DATA } : { ...INITIAL_BIODATA_DATA };
+    const base = getInitialData(formatType);
     if (initialHeaderText) base.headerText = initialHeaderText;
     if (initialTitle) base.title = initialTitle;
     return base;
@@ -77,12 +114,12 @@ export default function BiodataBuilder({
         const parsed = JSON.parse(saved);
         if (parsed?.data) setData(parsed.data);
         if (parsed?.selectedTemplate) setSelectedTemplate(parsed.selectedTemplate);
-        if (parsed?.language && !initialLanguage) setLanguage(parsed.language);
+        if (parsed?.language) setLanguage(parsed.language);
       }
     } catch (e) {
       console.warn('Could not read from localStorage', e);
     }
-  }, [storageKey, initialLanguage]);
+  }, [storageKey]);
 
   // Persist draft to localStorage on change
   useEffect(() => {
@@ -108,14 +145,41 @@ export default function BiodataBuilder({
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 5 * 1024 * 1024) {
-      alert(language === 'bn' ? 'অনুগ্রহ করে ৫ MB-র কম সাইজের ছবি নির্বাচন করুন।' : 'Please choose an image under 5 MB.');
+    if (file.size > 10 * 1024 * 1024) {
+      alert(language === 'bn' ? 'অনুগ্রহ করে ১০ MB-র কম সাইজের ছবি নির্বাচন করুন।' : 'Please choose an image under 10 MB.');
       return;
     }
 
     const reader = new FileReader();
     reader.onload = (event) => {
-      setData((prev) => ({ ...prev, photoUrl: event.target?.result as string }));
+      const img = new Image();
+      img.onload = () => {
+        // High quality Retina downscale to max 800px to ensure it fits safely in localStorage & renders crisp
+        const canvas = document.createElement('canvas');
+        const maxDim = 800;
+        let width = img.width;
+        let height = img.height;
+
+        if (width > maxDim || height > maxDim) {
+          if (width > height) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        if (ctx) {
+          ctx.drawImage(img, 0, 0, width, height);
+          const compressed = canvas.toDataURL('image/jpeg', 0.88);
+          setData((prev) => ({ ...prev, photoUrl: compressed }));
+        }
+      };
+      img.src = event.target?.result as string;
     };
     reader.readAsDataURL(file);
   };
@@ -126,7 +190,7 @@ export default function BiodataBuilder({
 
   const handleReset = () => {
     if (window.confirm(t.resetConfirm)) {
-      const resetData = isMuslim ? { ...INITIAL_MUSLIM_BIODATA_DATA } : { ...INITIAL_BIODATA_DATA };
+      const resetData = getInitialData(formatType);
       if (initialHeaderText) resetData.headerText = initialHeaderText;
       if (initialTitle) resetData.title = initialTitle;
       setData(resetData);
@@ -218,7 +282,15 @@ export default function BiodataBuilder({
       const canvas = await html2canvas(biodataRef.current, {
         scale: 2.5, // Crisp HD resolution
         useCORS: true,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        windowWidth: 1200,
+        onclone: (clonedDoc) => {
+          const el = clonedDoc.getElementById('biodata-preview-sheet');
+          if (el) {
+            el.style.width = '520px';
+            el.style.maxWidth = '520px';
+          }
+        }
       });
 
       const link = document.createElement('a');
@@ -256,15 +328,35 @@ export default function BiodataBuilder({
       const canvas = await html2canvas(biodataRef.current, {
         scale: 2.5,
         useCORS: true,
-        backgroundColor: '#ffffff'
+        backgroundColor: '#ffffff',
+        windowWidth: 1200,
+        onclone: (clonedDoc) => {
+          const el = clonedDoc.getElementById('biodata-preview-sheet');
+          if (el) {
+            el.style.width = '520px';
+            el.style.maxWidth = '520px';
+          }
+        }
       });
 
       const imgData = canvas.toDataURL('image/jpeg', 0.95);
       const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      const pageWidth = pdf.internal.pageSize.getWidth(); // 210mm
+      const pageHeight = pdf.internal.pageSize.getHeight(); // 297mm
 
-      pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+      let renderWidth = pageWidth;
+      let renderHeight = (canvas.height * pageWidth) / canvas.width;
+
+      if (renderHeight > pageHeight) {
+        const scale = pageHeight / renderHeight;
+        renderWidth = renderWidth * scale;
+        renderHeight = pageHeight;
+        const xOffset = (pageWidth - renderWidth) / 2;
+        pdf.addImage(imgData, 'JPEG', xOffset, 0, renderWidth, renderHeight);
+      } else {
+        pdf.addImage(imgData, 'JPEG', 0, 0, renderWidth, renderHeight);
+      }
+
       pdf.save(`${data.fullName ? data.fullName.trim().replace(/\s+/g, '_') : 'Marriage'}_Biodata.pdf`);
 
       confetti({
@@ -1080,6 +1172,7 @@ export default function BiodataBuilder({
           {/* THE ACTUAL PRINTABLE / EXPORTABLE BIODATA SHEET */}
           <div
             ref={biodataRef}
+            id="biodata-preview-sheet"
             className={`w-full max-w-[520px] bg-white rounded-lg shadow-2xl border-4 p-6 sm:p-8 space-y-4 transition-all duration-200 font-serif relative ${currentTemplate.bgGradient}`}
             style={{ borderColor: currentTemplate.borderColor }}
           >

@@ -235,3 +235,160 @@ export const INITIAL_MUSLIM_BIODATA_DATA: BiodataData = {
 
   photoUrl: null
 };
+
+
+export const INITIAL_BENGALI_BIODATA_DATA: BiodataData = {
+  headerText: '|| শ্রী শ্রী প্রজাপতয়ে নমঃ ||',
+  title: 'বিবাহের বায়োডাটা',
+  fullName: 'রাহুল মুখার্জী',
+  gender: 'male',
+  dob: '১৫/০৮/১৯৯৬',
+  birthTime: '০৬:৪৫ AM',
+  birthPlace: 'কলকাতা, পশ্চিমবঙ্গ',
+  height: '৫ ফুট ১০ ইঞ্চি (১৭৮ সেমি)',
+  complexion: 'উজ্জ্বল ফর্সা (Fair)',
+  bloodGroup: 'B+',
+  motherTongue: 'বাংলা (Bengali)',
+  maritalStatus: 'অবিবাহিত (Never Married)',
+  diet: 'আমিষ (Non-Vegetarian)',
+
+  religion: 'হিন্দু',
+  caste: 'ব্রাহ্মণ (কুলীন)',
+  subCaste: 'রাঢ়ী',
+  gotra: 'শাণ্ডিল্য',
+  rashi: 'সিংহ (Leo)',
+  nakshatra: 'মঘা (Magha)',
+  manglik: 'অমাঙ্গলিক (Non-Manglik)',
+
+  education: 'B.Tech in Computer Science',
+  collegeUniversity: 'যাদবপুর বিশ্ববিদ্যালয়',
+  occupation: 'চাকরিজীবী (Private Service)',
+  jobTitle: 'সিনিয়র সফটওয়্যার ইঞ্জিনিয়ার',
+  companyName: 'MNC Tech Firm',
+  income: '₹ ১৮,০০,০০০ / বার্ষিক',
+  workLocation: 'কলকাতা / বেঙ্গালুরু',
+
+  fatherName: 'শ্রী অমল মুখার্জী',
+  fatherOccupation: 'অবসরপ্রাপ্ত সরকারি আধিকারিক',
+  motherName: 'শ্রীমতী অঞ্জলি মুখার্জী',
+  motherOccupation: 'গৃহিণী (Homemaker)',
+  totalBrothers: '১ (বড়, বিবাহিত)',
+  marriedBrothers: '১',
+  totalSisters: '১ (ছোট, অবিবাহিতা)',
+  marriedSisters: '০',
+  familyType: 'একান্নবর্তী পরিবার (Nuclear Family)',
+  familyValues: 'সংস্কৃতিবান ও মধ্যপন্থী',
+  nativePlace: 'বর্ধমান, পশ্চিমবঙ্গ',
+
+  contactPerson: 'শ্রী অমল মুখার্জী (পিতা)',
+  primaryPhone: '+91 98765 43210',
+  secondaryPhone: '+91 91234 56789',
+  email: 'family.contact@example.com',
+  address: 'সল্টলেক, সেক্টর ২, কলকাতা - ৭০০০৯১',
+
+  photoUrl: null
+};
+
+export const INITIAL_MARATHI_BIODATA_DATA: BiodataData = {
+  headerText: '|| श्री गणेशाय नमः ||',
+  title: 'विवाह बायोडाटा',
+  fullName: 'राहुल रमेश कदम',
+  gender: 'male',
+  dob: '१५/०८/१९९६',
+  birthTime: 'सकाळी ०६:४५',
+  birthPlace: 'पुणे, महाराष्ट्र',
+  height: '५ फूट १० इंच (१७८ सेमी)',
+  complexion: 'गोरा (Fair)',
+  bloodGroup: 'B+',
+  motherTongue: 'मराठी (Marathi)',
+  maritalStatus: 'अविवाहित (Never Married)',
+  diet: 'शाकाहारी (Vegetarian)',
+
+  religion: 'हिंदू',
+  caste: 'मराठा',
+  subCaste: '९६ कुळी',
+  gotra: 'कश्यप',
+  rashi: 'सिंह (Leo)',
+  nakshatra: 'मघा (Magha)',
+  manglik: 'निर्दोष / मंगळ नाही',
+
+  education: 'बी.ई (संगणक अभियांत्रिकी)',
+  collegeUniversity: 'पुणे विद्यापीठ (SPPU)',
+  occupation: 'खाजगी नोकरी (Software Engineer)',
+  jobTitle: 'सिनियर सॉफ्टवेअर इंजिनिअर',
+  companyName: 'MNC Tech Company',
+  income: '₹ १८,००,००० / वार्षिक',
+  workLocation: 'हिंजवडी, पुणे / मुंबई',
+
+  fatherName: 'श्री. रमेश कदम',
+  fatherOccupation: 'सेवानिवृत्त शासकीय अधिकारी',
+  motherName: 'सौ. सुनिता कदम',
+  motherOccupation: 'गृहिणी (Homemaker)',
+  totalBrothers: '१ (मोठा, विवाहित)',
+  marriedBrothers: '१',
+  totalSisters: '१ (लहान, अविवाहित)',
+  marriedSisters: '०',
+  familyType: 'एकत्र कुटुंब (Nuclear Family)',
+  familyValues: 'सुसंस्कृत व पुरोगामी',
+  nativePlace: 'सातारा, महाराष्ट्र',
+
+  contactPerson: 'श्री. रमेश कदम (वडील)',
+  primaryPhone: '+91 98765 43210',
+  secondaryPhone: '+91 91234 56789',
+  email: 'family.contact@example.com',
+  address: 'कोथरुड, पुणे, महाराष्ट्र - ४११०३८',
+
+  photoUrl: null
+};
+
+export const INITIAL_HINDU_BIODATA_DATA: BiodataData = {
+  headerText: '|| श्री गणेशाय नमः ||',
+  title: 'विवाह बायोडाटा',
+  fullName: 'राहुल शर्मा',
+  gender: 'male',
+  dob: '15/08/1996',
+  birthTime: '06:45 AM',
+  birthPlace: 'नई दिल्ली',
+  height: '5 ft 10 in (178 cm)',
+  complexion: 'गोरा (Fair)',
+  bloodGroup: 'B+',
+  motherTongue: 'हिन्दी / English',
+  maritalStatus: 'अविवाहित (Never Married)',
+  diet: 'शुद्ध शाकाहारी (Vegetarian)',
+
+  religion: 'हिन्दू (सनातन)',
+  caste: 'ब्राह्मण',
+  subCaste: 'सारस्वत',
+  gotra: 'कश्यप',
+  rashi: 'सिंह (Leo)',
+  nakshatra: 'मघा (Magha)',
+  manglik: 'मांगलिक नहीं (Non-Manglik)',
+
+  education: 'B.Tech in Computer Science',
+  collegeUniversity: 'दिल्ली विश्वविद्यालय',
+  occupation: 'प्राइवेट सर्विस (Software Professional)',
+  jobTitle: 'सीनियर सॉफ्टवेयर इंजीनियर',
+  companyName: 'MNC Tech Firm',
+  income: '₹ 18,00,000 / वार्षिक',
+  workLocation: 'गुरुग्राम / नोएडा',
+
+  fatherName: 'श्री रमेश शर्मा',
+  fatherOccupation: 'सेवानिवृत्त अधिकारी (Govt. Dept)',
+  motherName: 'श्रीमती सुनीता शर्मा',
+  motherOccupation: 'गृहणी (Homemaker)',
+  totalBrothers: '1 (बड़े, विवाहित)',
+  marriedBrothers: '1',
+  totalSisters: '1 (छोटी, अविवाहित)',
+  marriedSisters: '0',
+  familyType: 'एकल परिवार (Nuclear Family)',
+  familyValues: 'धार्मिक एवं संस्कारी',
+  nativePlace: 'लखनऊ, उत्तर प्रदेश',
+
+  contactPerson: 'श्री रमेश शर्मा (पिता जी)',
+  primaryPhone: '+91 98765 43210',
+  secondaryPhone: '+91 91234 56789',
+  email: 'family.contact@example.com',
+  address: 'सेक्टर 14, रोहिणी, नई दिल्ली - 110085',
+
+  photoUrl: null
+};
