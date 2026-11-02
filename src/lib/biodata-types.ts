@@ -156,7 +156,7 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
 ];
 
 export const INITIAL_BIODATA_DATA: BiodataData = {
-  headerText: '|| श्री गणेशाय नमः ||',
+  headerText: '|| Shree Ganeshay Namah ||',
   title: 'MARRIAGE BIODATA',
   fullName: 'Rahul Sharma',
   gender: 'male',

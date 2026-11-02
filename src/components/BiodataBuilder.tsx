@@ -179,12 +179,31 @@ export default function BiodataBuilder({
               loadedData.headerText?.includes('بِسْمِ') ||
               loadedData.headerText?.includes('Bismillah')
             ) {
-              loadedData.headerText =
-                formatType === 'hindu' ? '॥ श्री गणेशाय नमः ॥' : '|| श्री गणेशाय नमः ||';
+              if (formatType === 'bengali') {
+                loadedData.headerText = '॥ শ্রী শ্রী প্রজাপতয়ে নমঃ ॥';
+              } else if (formatType === 'general') {
+                loadedData.headerText = '|| Shree Ganeshay Namah ||';
+              } else {
+                loadedData.headerText = '॥ श्री गणेशाय नमः ॥';
+              }
             }
             if (loadedData.title === 'ISLAMIC NIKAH BIODATA') {
-              loadedData.title =
-                formatType === 'hindu' ? 'विवाह बायोडाटा' : 'MARRIAGE BIODATA';
+              if (formatType === 'bengali') {
+                loadedData.title = 'বিবাহের বায়োডাটা';
+              } else if (formatType === 'general') {
+                loadedData.title = 'MARRIAGE BIODATA';
+              } else {
+                loadedData.title = 'विवाह बायोडाटा';
+              }
+            }
+            // If on Bengali format and header was Devanagari from old draft, adapt to Bengali script
+            if (formatType === 'bengali' && (loadedData.headerText?.includes('गणेशाय') || loadedData.headerText?.includes('Ganeshay'))) {
+              loadedData.headerText = '॥ শ্রী শ্রী প্রজাপতয়ে নমঃ ॥';
+              loadedData.title = 'বিবাহের বায়োডাটা';
+            }
+            // If on English/General format and header was Devanagari Hindi from old draft, adapt to English script
+            if (formatType === 'general' && loadedData.headerText === '|| श्री गणेशाय नमः ||') {
+              loadedData.headerText = '|| Shree Ganeshay Namah ||';
             }
           }
           setData(loadedData);
@@ -272,6 +291,63 @@ export default function BiodataBuilder({
         }
       }
       return prev;
+    });
+  };
+
+  const handleLanguageChange = (newLang: Language) => {
+    setLanguage(newLang);
+
+    setData((prev) => {
+      const defaultMottos = [
+        '|| श्री गणेशाय नमः ||',
+        '॥ श्री गणेशाय नमः ॥',
+        '|| श्री गणेशाय नम: ||',
+        '|| Shree Ganeshay Namah ||',
+        '॥ Shree Ganeshay Namah ॥',
+        '|| শ্রী শ্রী প্রজাপতয়ে নমঃ ||',
+        '॥ শ্রী শ্রী প্রজাপতয়ে নমঃ ॥',
+        '|| শ্রী শ্রী গণেশায় নমঃ ||',
+        '॥ শ্রী শ্রী গণেশায় নমঃ ॥',
+        'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+        'Bismillah-ir-Rahman-ir-Rahim'
+      ];
+      const defaultTitles = [
+        'MARRIAGE BIODATA',
+        'বিবাহের বায়োডাটা',
+        'विवाह बायोडाटा',
+        'ISLAMIC NIKAH BIODATA',
+        'ইসলামিক নিকাহ বায়োডাটা'
+      ];
+
+      const isDefaultMotto = !prev.headerText || defaultMottos.includes(prev.headerText.trim());
+      const isDefaultTitle = !prev.title || defaultTitles.includes(prev.title.trim());
+
+      let nextHeader = prev.headerText;
+      let nextTitle = prev.title;
+
+      if (isMuslim) {
+        if (isDefaultTitle) {
+          nextTitle = newLang === 'bn' ? 'ইসলামিক নিকাহ বায়োডাটা' : 'ISLAMIC NIKAH BIODATA';
+        }
+      } else {
+        if (isDefaultMotto) {
+          if (newLang === 'bn') nextHeader = '॥ শ্রী শ্রী প্রজাপতয়ে নমঃ ॥';
+          else if (newLang === 'en') nextHeader = '|| Shree Ganeshay Namah ||';
+          else if (newLang === 'mr') nextHeader = '॥ श्री गणेशाय नमः ॥';
+          else nextHeader = '॥ श्री गणेशाय नमः ॥';
+        }
+        if (isDefaultTitle) {
+          if (newLang === 'bn') nextTitle = 'বিবাহের বায়োডাটা';
+          else if (newLang === 'mr' || newLang === 'hi') nextTitle = 'विवाह बायोडाटा';
+          else nextTitle = 'MARRIAGE BIODATA';
+        }
+      }
+
+      return {
+        ...prev,
+        headerText: nextHeader,
+        title: nextTitle
+      };
     });
   };
 
@@ -568,7 +644,7 @@ export default function BiodataBuilder({
             {(['bn', 'en', 'hi', 'mr'] as Language[]).map((lang) => (
               <button
                 key={lang}
-                onClick={() => setLanguage(lang)}
+                onClick={() => handleLanguageChange(lang)}
                 className={`px-2.5 py-1 rounded-lg transition text-xs font-bold ${
                   language === lang
                     ? 'bg-rose-700 text-white shadow-xs'
