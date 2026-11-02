@@ -81,6 +81,16 @@ const schemaData = {
     <meta name="keywords" content={keywords} />
     <link rel="canonical" href={canonicalUrl} />
 
+    <!-- Google tag (gtag.js) - Google Analytics 4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-BTQ4C6CLTE"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-BTQ4C6CLTE');
+    </script>
+
     <!-- Robots: Directives for Google & Search Crawlers -->
     {noindex ? (
       <>

@@ -514,7 +514,14 @@ export default function BiodataBuilder({
     }
   };
 
+  const trackEvent = (eventName: string, params: Record<string, any> = {}) => {
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('event', eventName, params);
+    }
+  };
+
   const shareOnWhatsApp = () => {
+    trackEvent('share_whatsapp', { event_category: 'social' });
     const text = encodeURIComponent(
       `Create elegant, 100% Free Marriage Biodata with Photo without watermark or login: ${window.location.href}`
     );
@@ -562,6 +569,13 @@ export default function BiodataBuilder({
       link.download = `${data.fullName ? data.fullName.trim().replace(/\s+/g, '_') : 'Marriage'}_Biodata.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
+
+      trackEvent('download_image', {
+        event_category: 'conversion',
+        template_id: currentTemplate.id,
+        template_name: currentTemplate.name,
+        language: language
+      });
 
       confetti({
         particleCount: 70,
@@ -637,6 +651,13 @@ export default function BiodataBuilder({
 
       pdf.save(`${data.fullName ? data.fullName.trim().replace(/\s+/g, '_') : 'Marriage'}_Biodata.pdf`);
 
+      trackEvent('download_pdf', {
+        event_category: 'conversion',
+        template_id: currentTemplate.id,
+        template_name: currentTemplate.name,
+        language: language
+      });
+
       confetti({
         particleCount: 80,
         spread: 70,
@@ -655,6 +676,13 @@ export default function BiodataBuilder({
 
   // Direct A4 Print Handler (Displays ONLY the Biodata sheet in print preview)
   const handlePrint = () => {
+    trackEvent('print_biodata', {
+      event_category: 'engagement',
+      template_id: currentTemplate.id,
+      template_name: currentTemplate.name,
+      language: language
+    });
+
     if (mobileTab !== 'preview') {
       setMobileTab('preview');
     }
