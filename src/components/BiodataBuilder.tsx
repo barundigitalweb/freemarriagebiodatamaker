@@ -14,6 +14,14 @@ import {
   TRANSLATIONS
 } from '../lib/translations';
 import {
+  IslamicArchHeader,
+  IslamicFloralFooter,
+  GaneshaWatermark,
+  HinduCalligraphyHeader,
+  RoyalMandalaRing,
+  CornerFiligree
+} from './BiodataDecorations';
+import {
   User,
   BookOpen,
   Briefcase,
@@ -36,6 +44,31 @@ import {
 } from 'lucide-react';
 
 export type BiodataFormatType = 'general' | 'muslim' | 'bengali' | 'marathi' | 'hindu';
+
+function KeyValueRow({
+  label,
+  value,
+  labelColor = 'text-slate-700 font-bold',
+  colonColor = 'text-slate-400 font-bold',
+  valueColor = 'text-slate-900 font-medium',
+  labelWidth = 'w-24 sm:w-28'
+}: {
+  label: string;
+  value?: string;
+  labelColor?: string;
+  colonColor?: string;
+  valueColor?: string;
+  labelWidth?: string;
+}) {
+  if (!value) return null;
+  return (
+    <div className="flex text-[11px] items-baseline leading-snug">
+      <span className={`${labelWidth} ${labelColor} shrink-0`}>{label}</span>
+      <span className={`${colonColor} mr-1.5 shrink-0`}>:</span>
+      <span className={`${valueColor} break-words flex-1`}>{value}</span>
+    </div>
+  );
+}
 
 interface BiodataBuilderProps {
   initialLanguage?: Language;
@@ -137,22 +170,50 @@ export default function BiodataBuilder({
     }
   }, [storageKey, data, selectedTemplate, language]);
 
+  const handleApplyTemplate = (newTmplId: TemplateId) => {
+    setSelectedTemplate(newTmplId);
+    const found = BIODATA_TEMPLATES.find((t) => t.id === newTmplId);
+    if (found) {
+      setExportMessage(
+        language === 'bn'
+          ? `✨ "${found.name}" থিমটি নির্বাচন করা হয়েছে!`
+          : `✨ Applied "${found.name}" Template!`
+      );
+      setTimeout(() => setExportMessage(''), 3000);
+    }
+
+    setData((prev) => {
+      // Intelligent cultural motto pairing if user hasn't typed a custom motto
+      if (newTmplId === 'emerald-divine') {
+        const isHinduMotto = !prev.headerText || prev.headerText.includes('गणेशाय') || prev.headerText.includes('Ganeshay');
+        if (isHinduMotto) {
+          return {
+            ...prev,
+            headerText: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+            title: prev.title === 'MARRIAGE BIODATA' || prev.title === 'বিবাহের বায়োডাটা' ? 'ISLAMIC NIKAH BIODATA' : prev.title
+          };
+        }
+      } else if (newTmplId === 'saffron-gold' || newTmplId === 'royal-maroon') {
+        const isMuslimMotto = prev.headerText?.includes('بِسْمِ') || prev.headerText?.includes('Bismillah');
+        if (isMuslimMotto) {
+          return {
+            ...prev,
+            headerText: newTmplId === 'saffron-gold' ? '॥ श्री गणेशाय नमः ॥' : '|| श्री गणेशाय नमः ||',
+            title: prev.title === 'ISLAMIC NIKAH BIODATA' ? 'MARRIAGE BIODATA' : prev.title
+          };
+        }
+      }
+      return prev;
+    });
+  };
+
   // Listen for template selection events from the Template Gallery
   useEffect(() => {
     const handleTemplateSelect = (e: Event) => {
       const customEvent = e as CustomEvent<{ templateId: TemplateId }>;
       const newTmplId = customEvent.detail?.templateId;
       if (newTmplId) {
-        const found = BIODATA_TEMPLATES.find((t) => t.id === newTmplId);
-        if (found) {
-          setSelectedTemplate(newTmplId);
-          setExportMessage(
-            language === 'bn'
-              ? `✨ "${found.name}" থিমটি নির্বাচন করা হয়েছে!`
-              : `✨ Applied "${found.name}" Template!`
-          );
-          setTimeout(() => setExportMessage(''), 3000);
-        }
+        handleApplyTemplate(newTmplId);
       }
     };
 
@@ -163,7 +224,7 @@ export default function BiodataBuilder({
       const params = new URLSearchParams(window.location.search);
       const urlTmpl = params.get('template') as TemplateId;
       if (urlTmpl && BIODATA_TEMPLATES.some((t) => t.id === urlTmpl)) {
-        setSelectedTemplate(urlTmpl);
+        handleApplyTemplate(urlTmpl);
       }
     } catch (e) {
       // ignore
@@ -319,7 +380,7 @@ export default function BiodataBuilder({
       const canvas = await html2canvas(biodataRef.current, {
         scale: 2.5, // Crisp HD resolution
         useCORS: true,
-        backgroundColor: '#ffffff',
+        backgroundColor: null,
         windowWidth: 1200,
         onclone: (clonedDoc) => {
           const el = clonedDoc.getElementById('biodata-preview-sheet');
@@ -365,7 +426,7 @@ export default function BiodataBuilder({
       const canvas = await html2canvas(biodataRef.current, {
         scale: 2.5,
         useCORS: true,
-        backgroundColor: '#ffffff',
+        backgroundColor: null,
         windowWidth: 1200,
         onclone: (clonedDoc) => {
           const el = clonedDoc.getElementById('biodata-preview-sheet');
@@ -543,22 +604,27 @@ export default function BiodataBuilder({
               {BIODATA_TEMPLATES.map((tmpl) => (
                 <button
                   key={tmpl.id}
-                  onClick={() => setSelectedTemplate(tmpl.id)}
+                  onClick={() => handleApplyTemplate(tmpl.id)}
                   className={`p-2.5 rounded-xl border text-left transition flex flex-col justify-between ${
                     selectedTemplate === tmpl.id
                       ? 'border-rose-600 bg-rose-50/50 ring-2 ring-rose-500/30'
                       : 'border-slate-200 hover:border-slate-300 bg-white'
                   }`}
                 >
-                  <div className="flex items-center gap-1.5 mb-1.5">
-                    <span
-                      className="w-3.5 h-3.5 rounded-full border border-black/10 shrink-0"
-                      style={{ backgroundColor: tmpl.primaryColor }}
-                    ></span>
-                    <span
-                      className="w-3.5 h-3.5 rounded-full border border-black/10 shrink-0"
-                      style={{ backgroundColor: tmpl.secondaryColor }}
-                    ></span>
+                  <div className="flex items-center justify-between mb-1.5 w-full">
+                    <div className="flex items-center gap-1">
+                      <span
+                        className="w-3.5 h-3.5 rounded-full border border-black/10 shrink-0"
+                        style={{ backgroundColor: tmpl.primaryColor }}
+                      ></span>
+                      <span
+                        className="w-3.5 h-3.5 rounded-full border border-black/10 shrink-0"
+                        style={{ backgroundColor: tmpl.secondaryColor }}
+                      ></span>
+                    </div>
+                    <span className="text-[9px] font-semibold text-rose-700 bg-rose-50 px-1 py-0.2 rounded">
+                      {tmpl.badge.split(' ')[0]}
+                    </span>
                   </div>
                   <span className="text-[11px] font-bold text-slate-800 line-clamp-1 leading-tight">
                     {tmpl.name}
@@ -1207,202 +1273,389 @@ export default function BiodataBuilder({
           </div>
 
           {/* THE ACTUAL PRINTABLE / EXPORTABLE BIODATA SHEET */}
-          <div
-            ref={biodataRef}
-            id="biodata-preview-sheet"
-            className={`w-full max-w-[520px] bg-white rounded-lg shadow-2xl border-4 p-6 sm:p-8 space-y-4 transition-all duration-200 font-serif relative ${currentTemplate.bgGradient}`}
-            style={{ borderColor: currentTemplate.borderColor }}
-          >
-            {/* Top Auspicious Header Text */}
-            <div className="text-center pb-2 border-b-2" style={{ borderColor: currentTemplate.secondaryColor }}>
-              <div
-                className="text-xs sm:text-sm font-extrabold tracking-widest uppercase mb-1"
-                style={{ color: currentTemplate.secondaryColor }}
-              >
-                {data.headerText}
-              </div>
-              <h2
-                className="text-xl sm:text-2xl font-black tracking-wide"
-                style={{ color: currentTemplate.primaryColor }}
-              >
-                {data.title}
-              </h2>
-            </div>
+          {(() => {
+            const isEmeraldIslamic = selectedTemplate === 'emerald-divine';
+            const isSaffronHindu = selectedTemplate === 'saffron-gold';
+            const isRoyalMaroon = selectedTemplate === 'royal-maroon';
 
-            {/* Profile Header with Photo */}
-            <div className="flex items-start justify-between gap-4 pt-1">
-              <div className="flex-1 space-y-1">
-                <div
-                  className="text-lg sm:text-xl font-black tracking-tight"
-                  style={{ color: currentTemplate.primaryColor }}
-                >
-                  {data.fullName || (language === 'bn' ? 'আপনার নাম' : 'Full Name')}
-                </div>
-                <div className="text-xs font-semibold text-slate-600">
-                  {data.dob && <span>{t.lblDob} {data.dob}</span>}
-                  {data.birthTime && <span> ({data.birthTime})</span>}
-                </div>
-                <div className="text-xs text-slate-600">
-                  {data.height && <span>{t.lblHeight} {data.height}</span>}
-                  {data.complexion && <span> • {t.lblComplexion} {data.complexion}</span>}
-                </div>
-                {data.education && (
-                  <div className="text-xs font-medium text-slate-700 line-clamp-1">
-                    {t.lblEducation} {data.education}
+            // Theme Styling Tokens
+            let sheetClasses = `w-full max-w-[520px] rounded-xl shadow-2xl border-4 p-6 sm:p-8 space-y-4 transition-all duration-200 font-serif relative overflow-hidden`;
+            let sheetInlineStyle: React.CSSProperties = { borderColor: currentTemplate.borderColor };
+
+            let headingColor = currentTemplate.primaryColor;
+            let headingBorderColor = currentTemplate.secondaryColor;
+            let labelColor = 'text-slate-800 font-bold';
+            let colonColor = 'text-slate-400 font-bold';
+            let valueColor = 'text-slate-900 font-medium';
+            let photoBorder = currentTemplate.borderColor;
+
+            if (isEmeraldIslamic) {
+              sheetClasses += ' bg-gradient-to-b from-[#092d2d] via-[#0e3a3a] to-[#072424] text-emerald-100 border-[#d4af37]';
+              sheetInlineStyle = { borderColor: '#d4af37' };
+              headingColor = '#facc15';
+              headingBorderColor = 'rgba(250, 204, 21, 0.4)';
+              labelColor = 'text-amber-300 font-medium';
+              colonColor = 'text-amber-400 font-bold';
+              valueColor = 'text-white font-semibold';
+              photoBorder = '#facc15';
+            } else if (isSaffronHindu) {
+              sheetClasses += ' bg-[#fcf9f2] text-slate-800 border-amber-600/90 shadow-amber-900/10';
+              sheetInlineStyle = { borderColor: '#c2410c' };
+              headingColor = '#7c2d12';
+              headingBorderColor = 'rgba(194, 65, 12, 0.4)';
+              labelColor = 'text-amber-950 font-bold';
+              colonColor = 'text-amber-700 font-bold';
+              valueColor = 'text-slate-800 font-medium';
+              photoBorder = '#d97706';
+            } else if (isRoyalMaroon) {
+              sheetClasses += ' bg-gradient-to-b from-[#380812] via-[#4a0518] to-[#28040d] text-amber-100 border-amber-500';
+              sheetInlineStyle = { borderColor: '#f59e0b' };
+              headingColor = '#fde047';
+              headingBorderColor = 'rgba(245, 158, 11, 0.4)';
+              labelColor = 'text-amber-300 font-medium';
+              colonColor = 'text-amber-400 font-bold';
+              valueColor = 'text-amber-50 font-semibold';
+              photoBorder = '#f59e0b';
+            } else {
+              sheetClasses += ` bg-white ${currentTemplate.bgGradient}`;
+            }
+
+            return (
+              <div
+                ref={biodataRef}
+                id="biodata-preview-sheet"
+                className={sheetClasses}
+                style={sheetInlineStyle}
+              >
+                {/* 1. Islamic Emerald Top Arch & Lanterns */}
+                {isEmeraldIslamic && <IslamicArchHeader />}
+
+                {/* 2. Hindu Saffron Ganesha Watermark & Corner Filigrees */}
+                {isSaffronHindu && (
+                  <>
+                    <GaneshaWatermark />
+                    <CornerFiligree />
+                  </>
+                )}
+
+                {/* 3. Royal Maroon Corner Filigrees */}
+                {isRoyalMaroon && <CornerFiligree />}
+
+                {/* Top Auspicious Header Text */}
+                {isSaffronHindu ? (
+                  <HinduCalligraphyHeader headerText={data.headerText} />
+                ) : (
+                  <div
+                    className="text-center pb-2 border-b-2 relative z-10"
+                    style={{ borderColor: headingBorderColor }}
+                  >
+                    <div
+                      className={`text-xs sm:text-sm font-extrabold tracking-widest uppercase mb-1 ${
+                        isEmeraldIslamic
+                          ? 'text-amber-300'
+                          : isRoyalMaroon
+                          ? 'text-amber-300'
+                          : ''
+                      }`}
+                      style={{
+                        color:
+                          !isEmeraldIslamic && !isRoyalMaroon
+                            ? currentTemplate.secondaryColor
+                            : undefined
+                      }}
+                    >
+                      {data.headerText}
+                    </div>
+                    <h2
+                      className={`text-xl sm:text-2xl font-black tracking-wide ${
+                        isEmeraldIslamic
+                          ? 'text-amber-400'
+                          : isRoyalMaroon
+                          ? 'text-amber-200'
+                          : ''
+                      }`}
+                      style={{
+                        color:
+                          !isEmeraldIslamic && !isRoyalMaroon
+                            ? currentTemplate.primaryColor
+                            : undefined
+                      }}
+                    >
+                      {data.title}
+                    </h2>
                   </div>
                 )}
-                {data.jobTitle && (
-                  <div
-                    className="text-xs font-bold"
-                    style={{ color: currentTemplate.primaryColor }}
-                  >
-                    {t.lblOccupation} {data.jobTitle} {data.companyName && `(${data.companyName})`}
+
+                {/* Royal Centered Mandala Avatar Variant (Image 2 Style) */}
+                {isRoyalMaroon ? (
+                  <div className="text-center pt-1 pb-2 space-y-2 relative z-10">
+                    <RoyalMandalaRing>
+                      {data.photoUrl ? (
+                        <img
+                          src={data.photoUrl}
+                          alt={data.fullName || 'Profile'}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex flex-col items-center justify-center text-amber-300/60 p-2">
+                          <ImageIcon className="w-8 h-8 mb-1 opacity-60 text-amber-300" />
+                          <span className="text-[10px] font-sans font-medium">
+                            {t.photoPlaceholder}
+                          </span>
+                        </div>
+                      )}
+                    </RoyalMandalaRing>
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-black text-amber-200 tracking-wide font-serif">
+                        {data.fullName || (language === 'bn' ? 'আপনার নাম' : 'Full Name')}
+                      </h3>
+                      {data.jobTitle && (
+                        <p className="text-xs font-bold text-amber-400 mt-0.5">
+                          {data.jobTitle} {data.companyName && `at ${data.companyName}`}
+                        </p>
+                      )}
+                      <p className="text-[11px] italic text-amber-300/80 mt-1 max-w-xs mx-auto">
+                        “Two souls with but a single thought, two hearts that beat as one.”
+                      </p>
+                    </div>
+
+                    {/* Micro Highlight Badges */}
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 pt-1 text-[10px] text-amber-200/90 font-medium">
+                      {data.dob && (
+                        <div className="bg-amber-950/50 border border-amber-500/30 rounded-lg p-1.5 text-center">
+                          <span className="block text-amber-400 font-bold">{t.lblDob}</span>
+                          <span>{data.dob}</span>
+                        </div>
+                      )}
+                      {data.height && (
+                        <div className="bg-amber-950/50 border border-amber-500/30 rounded-lg p-1.5 text-center">
+                          <span className="block text-amber-400 font-bold">{t.lblHeight}</span>
+                          <span>{data.height}</span>
+                        </div>
+                      )}
+                      {data.education && (
+                        <div className="bg-amber-950/50 border border-amber-500/30 rounded-lg p-1.5 text-center col-span-2 sm:col-span-1 line-clamp-1">
+                          <span className="block text-amber-400 font-bold">{t.lblEducation}</span>
+                          <span className="line-clamp-1">{data.education}</span>
+                        </div>
+                      )}
+                      {data.birthPlace && (
+                        <div className="bg-amber-950/50 border border-amber-500/30 rounded-lg p-1.5 text-center col-span-2 sm:col-span-1 line-clamp-1">
+                          <span className="block text-amber-400 font-bold">{t.lblBirthPlace}</span>
+                          <span className="line-clamp-1">{data.birthPlace}</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  /* Standard Top-Right Photo Layout (Image 1 & Image 3 Style) */
+                  <div className="flex items-start justify-between gap-4 pt-1 relative z-10">
+                    <div className="flex-1 space-y-1">
+                      <div
+                        className={`text-lg sm:text-xl font-black tracking-tight ${
+                          isEmeraldIslamic
+                            ? 'text-amber-300'
+                            : isSaffronHindu
+                            ? 'text-amber-950'
+                            : ''
+                        }`}
+                        style={{
+                          color:
+                            !isEmeraldIslamic && !isSaffronHindu
+                              ? currentTemplate.primaryColor
+                              : undefined
+                        }}
+                      >
+                        {data.fullName || (language === 'bn' ? 'আপনার নাম' : 'Full Name')}
+                      </div>
+                      <div className={`text-xs font-semibold ${isEmeraldIslamic ? 'text-emerald-200' : 'text-slate-600'}`}>
+                        {data.dob && <span>{t.lblDob} {data.dob}</span>}
+                        {data.birthTime && <span> ({data.birthTime})</span>}
+                      </div>
+                      <div className={`text-xs ${isEmeraldIslamic ? 'text-emerald-300/80' : 'text-slate-600'}`}>
+                        {data.height && <span>{t.lblHeight} {data.height}</span>}
+                        {data.complexion && <span> • {t.lblComplexion} {data.complexion}</span>}
+                      </div>
+                      {data.education && (
+                        <div className={`text-xs font-medium line-clamp-1 ${isEmeraldIslamic ? 'text-emerald-100' : 'text-slate-700'}`}>
+                          {t.lblEducation} {data.education}
+                        </div>
+                      )}
+                      {data.jobTitle && (
+                        <div
+                          className={`text-xs font-bold ${isEmeraldIslamic ? 'text-amber-300' : ''}`}
+                          style={{
+                            color: !isEmeraldIslamic ? currentTemplate.primaryColor : undefined
+                          }}
+                        >
+                          {t.lblOccupation} {data.jobTitle} {data.companyName && `(${data.companyName})`}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Photo Box */}
+                    {data.photoUrl ? (
+                      <div
+                        className={`w-24 h-32 sm:w-28 sm:h-36 rounded-xl overflow-hidden border-2 shadow-md shrink-0 ${
+                          isEmeraldIslamic ? 'ring-2 ring-amber-400/30' : ''
+                        }`}
+                        style={{ borderColor: photoBorder }}
+                      >
+                        <img
+                          src={data.photoUrl}
+                          alt={data.fullName || 'Profile'}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    ) : (
+                      <div
+                        className={`w-24 h-32 sm:w-28 sm:h-36 rounded-xl border-2 border-dashed flex flex-col items-center justify-center text-center p-2 shrink-0 ${
+                          isEmeraldIslamic
+                            ? 'border-amber-400/60 bg-emerald-950/40 text-amber-300/70'
+                            : 'border-slate-300 bg-slate-50/50 text-slate-400'
+                        }`}
+                        style={{
+                          borderColor:
+                            !isEmeraldIslamic ? currentTemplate.secondaryColor : undefined
+                        }}
+                      >
+                        <ImageIcon className="w-6 h-6 mb-1 opacity-50" />
+                        <span className="text-[10px] font-sans font-medium">{t.photoPlaceholder}</span>
+                      </div>
+                    )}
                   </div>
                 )}
-              </div>
 
-              {/* Photo Box */}
-              {data.photoUrl ? (
-                <div
-                  className="w-24 h-32 sm:w-28 sm:h-36 rounded-xl overflow-hidden border-2 shadow-md shrink-0"
-                  style={{ borderColor: currentTemplate.borderColor }}
-                >
-                  <img
-                    src={data.photoUrl}
-                    alt={data.fullName || 'Profile'}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              ) : (
-                <div
-                  className="w-24 h-32 sm:w-28 sm:h-36 rounded-xl border-2 border-dashed flex flex-col items-center justify-center text-slate-400 text-center p-2 shrink-0 bg-slate-50/50"
-                  style={{ borderColor: currentTemplate.secondaryColor }}
-                >
-                  <ImageIcon className="w-6 h-6 mb-1 opacity-40" />
-                  <span className="text-[10px] font-sans font-medium">{t.photoPlaceholder}</span>
-                </div>
-              )}
-            </div>
-
-            {/* Section 1: Personal & Physical Details */}
-            <div className="space-y-1.5 text-xs text-slate-800">
-              <div
-                className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                style={{ color: currentTemplate.primaryColor, borderColor: currentTemplate.secondaryColor }}
-              >
-                {t.personalDetails}
-              </div>
-              <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
-                {data.birthPlace && <div><strong>{t.lblBirthPlace}</strong> {data.birthPlace}</div>}
-                {data.bloodGroup && <div><strong>{t.lblBloodGroup}</strong> {data.bloodGroup}</div>}
-                {data.motherTongue && <div><strong>{t.lblMotherTongue}</strong> {data.motherTongue}</div>}
-                {data.maritalStatus && <div><strong>{t.lblMaritalStatus}</strong> {data.maritalStatus}</div>}
-                {data.diet && <div><strong>{t.lblDiet}</strong> {data.diet}</div>}
-              </div>
-            </div>
-
-            {/* Section 2: Astrological / Religious Details */}
-            {isMuslim ? (
-              (data.religion || data.sect || data.caste || data.namaz || data.roza || data.quran) && (
-                <div className="space-y-1.5 text-xs text-slate-800">
+                {/* Section 1: Personal & Physical Details */}
+                <div className="space-y-1.5 text-xs relative z-10">
                   <div
                     className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                    style={{ color: currentTemplate.primaryColor, borderColor: currentTemplate.secondaryColor }}
+                    style={{ color: headingColor, borderColor: headingBorderColor }}
                   >
-                    {t.islamicDetails}
+                    {t.personalDetails}
                   </div>
-                  <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
-                    {data.religion && <div><strong>{t.lblReligion}</strong> {data.religion}</div>}
-                    {data.sect && <div><strong>{t.lblSect}</strong> {data.sect}</div>}
-                    {data.caste && <div><strong>{t.lblBiradari}</strong> {data.caste}</div>}
-                    {data.namaz && <div><strong>{t.lblNamaz}</strong> {data.namaz}</div>}
-                    {data.roza && <div><strong>{t.lblRoza}</strong> {data.roza}</div>}
-                    {data.quran && <div><strong>{t.lblQuran}</strong> {data.quran}</div>}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
+                    <KeyValueRow label={t.lblBirthPlace} value={data.birthPlace} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblBloodGroup} value={data.bloodGroup} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblMotherTongue} value={data.motherTongue} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblMaritalStatus} value={data.maritalStatus} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblDiet} value={data.diet} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
                   </div>
                 </div>
-              )
-            ) : (
-              (data.religion || data.caste || data.gotra || data.rashi || data.nakshatra || data.manglik) && (
-                <div className="space-y-1.5 text-xs text-slate-800">
+
+                {/* Section 2: Astrological / Religious Details */}
+                {isMuslim ? (
+                  (data.religion || data.sect || data.caste || data.namaz || data.roza || data.quran) && (
+                    <div className="space-y-1.5 text-xs relative z-10">
+                      <div
+                        className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
+                        style={{ color: headingColor, borderColor: headingBorderColor }}
+                      >
+                        {t.islamicDetails}
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
+                        <KeyValueRow label={t.lblReligion} value={data.religion} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                        <KeyValueRow label={t.lblSect} value={data.sect} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                        <KeyValueRow label={t.lblBiradari} value={data.caste} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                        <KeyValueRow label={t.lblNamaz} value={data.namaz} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                        <KeyValueRow label={t.lblRoza} value={data.roza} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                        <KeyValueRow label={t.lblQuran} value={data.quran} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                      </div>
+                    </div>
+                  )
+                ) : (
+                  (data.religion || data.caste || data.gotra || data.rashi || data.nakshatra || data.manglik) && (
+                    <div className="space-y-1.5 text-xs relative z-10">
+                      <div
+                        className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
+                        style={{ color: headingColor, borderColor: headingBorderColor }}
+                      >
+                        {t.horoscopeDetails}
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
+                        <KeyValueRow label={t.lblReligion} value={data.religion} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                        <KeyValueRow label={t.lblCaste} value={data.caste ? `${data.caste}${data.subCaste ? ` (${data.subCaste})` : ''}` : ''} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                        <KeyValueRow label={t.lblGotra} value={data.gotra} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                        <KeyValueRow label={t.lblRashi} value={data.rashi} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                        <KeyValueRow label={t.lblNakshatra} value={data.nakshatra} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                        <KeyValueRow label={t.lblManglik} value={data.manglik} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                      </div>
+                    </div>
+                  )
+                )}
+
+                {/* Section 3: Education & Career Details */}
+                <div className="space-y-1.5 text-xs relative z-10">
                   <div
                     className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                    style={{ color: currentTemplate.primaryColor, borderColor: currentTemplate.secondaryColor }}
+                    style={{ color: headingColor, borderColor: headingBorderColor }}
                   >
-                    {t.horoscopeDetails}
+                    {t.educationDetails}
                   </div>
-                  <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
-                    {data.religion && <div><strong>{t.lblReligion}</strong> {data.religion}</div>}
-                    {data.caste && <div><strong>{t.lblCaste}</strong> {data.caste} {data.subCaste && `(${data.subCaste})`}</div>}
-                    {data.gotra && <div><strong>{t.lblGotra}</strong> {data.gotra}</div>}
-                    {data.rashi && <div><strong>{t.lblRashi}</strong> {data.rashi}</div>}
-                    {data.nakshatra && <div><strong>{t.lblNakshatra}</strong> {data.nakshatra}</div>}
-                    {data.manglik && <div><strong>{t.lblManglik}</strong> {data.manglik}</div>}
+                  <div className="space-y-1 text-[11px]">
+                    <KeyValueRow label={t.lblEducation} value={data.education ? `${data.education}${data.collegeUniversity ? ` (${data.collegeUniversity})` : ''}` : ''} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblOccupation} value={data.occupation} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblJobTitle} value={data.jobTitle ? `${data.jobTitle}${data.companyName ? ` at ${data.companyName}` : ''}` : ''} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblIncome} value={data.income} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblWorkLocation} value={data.workLocation} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
                   </div>
                 </div>
-              )
-            )}
 
-            {/* Section 3: Education & Career Details */}
-            <div className="space-y-1.5 text-xs text-slate-800">
-              <div
-                className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                style={{ color: currentTemplate.primaryColor, borderColor: currentTemplate.secondaryColor }}
-              >
-                {t.educationDetails}
-              </div>
-              <div className="space-y-1 text-[11px]">
-                {data.education && <div><strong>{t.lblEducation}</strong> {data.education} {data.collegeUniversity && `(${data.collegeUniversity})`}</div>}
-                {data.occupation && <div><strong>{t.lblOccupation}</strong> {data.occupation}</div>}
-                {data.jobTitle && <div><strong>{t.lblJobTitle}</strong> {data.jobTitle} {data.companyName && `at ${data.companyName}`}</div>}
-                {data.income && <div><strong>{t.lblIncome}</strong> {data.income}</div>}
-                {data.workLocation && <div><strong>{t.lblWorkLocation}</strong> {data.workLocation}</div>}
-              </div>
-            </div>
-
-            {/* Section 4: Family Details */}
-            <div className="space-y-1.5 text-xs text-slate-800">
-              <div
-                className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                style={{ color: currentTemplate.primaryColor, borderColor: currentTemplate.secondaryColor }}
-              >
-                {t.familyDetails}
-              </div>
-              <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
-                {data.fatherName && <div><strong>{t.lblFather}</strong> {data.fatherName}</div>}
-                {data.fatherOccupation && <div><strong>{t.lblFatherOccupation}</strong> {data.fatherOccupation}</div>}
-                {data.motherName && <div><strong>{t.lblMother}</strong> {data.motherName}</div>}
-                {data.motherOccupation && <div><strong>{t.lblMotherOccupation}</strong> {data.motherOccupation}</div>}
-                {data.totalBrothers && <div><strong>{t.lblBrothers}</strong> {data.totalBrothers}</div>}
-                {data.totalSisters && <div><strong>{t.lblSisters}</strong> {data.totalSisters}</div>}
-                {data.familyType && <div><strong>{t.lblFamilyType}</strong> {data.familyType}</div>}
-                {data.nativePlace && <div><strong>{t.lblNativePlace}</strong> {data.nativePlace}</div>}
-              </div>
-            </div>
-
-            {/* Section 5: Contact Details */}
-            <div className="space-y-1.5 text-xs text-slate-800">
-              <div
-                className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                style={{ color: currentTemplate.primaryColor, borderColor: currentTemplate.secondaryColor }}
-              >
-                {t.contactDetails}
-              </div>
-              <div className="space-y-1 text-[11px]">
-                {data.contactPerson && <div><strong>{t.lblContactPerson}</strong> {data.contactPerson}</div>}
-                <div className="flex flex-wrap gap-x-4">
-                  {data.primaryPhone && <div><strong>{t.lblPhone}</strong> {data.primaryPhone}</div>}
-                  {data.secondaryPhone && <div><strong>{t.lblAltPhone}</strong> {data.secondaryPhone}</div>}
+                {/* Section 4: Family Details */}
+                <div className="space-y-1.5 text-xs relative z-10">
+                  <div
+                    className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
+                    style={{ color: headingColor, borderColor: headingBorderColor }}
+                  >
+                    {t.familyDetails}
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
+                    <KeyValueRow label={t.lblFather} value={data.fatherName} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblFatherOccupation} value={data.fatherOccupation} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblMother} value={data.motherName} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblMotherOccupation} value={data.motherOccupation} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblBrothers} value={data.totalBrothers} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblSisters} value={data.totalSisters} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblFamilyType} value={data.familyType} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblNativePlace} value={data.nativePlace} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                  </div>
                 </div>
-                {data.email && <div><strong>{t.lblEmail}</strong> {data.email}</div>}
-                {data.address && <div><strong>{t.lblAddress}</strong> {data.address}</div>}
-              </div>
-            </div>
 
-            {/* Clean, Non-Intrusive Footer */}
-            <div className="pt-2 text-center text-[10px] text-slate-400 border-t border-slate-200/60 font-sans">
-              {t.previewFooter}
-            </div>
-          </div>
+                {/* Section 5: Contact Details */}
+                <div className="space-y-1.5 text-xs relative z-10">
+                  <div
+                    className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
+                    style={{ color: headingColor, borderColor: headingBorderColor }}
+                  >
+                    {t.contactDetails}
+                  </div>
+                  <div className="space-y-1 text-[11px]">
+                    <KeyValueRow label={t.lblContactPerson} value={data.contactPerson} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblPhone} value={data.primaryPhone} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblAltPhone} value={data.secondaryPhone} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblEmail} value={data.email} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                    <KeyValueRow label={t.lblAddress} value={data.address} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
+                  </div>
+                </div>
+
+                {/* Clean, Non-Intrusive Footer */}
+                <div
+                  className={`pt-2 text-center text-[10px] border-t font-sans relative z-10 ${
+                    isEmeraldIslamic
+                      ? 'border-amber-400/20 text-emerald-300/70'
+                      : isRoyalMaroon
+                      ? 'border-amber-400/20 text-amber-300/70'
+                      : 'border-slate-200/60 text-slate-400'
+                  }`}
+                >
+                  {t.previewFooter}
+                </div>
+
+                {/* Bottom Islamic Floral Border */}
+                {isEmeraldIslamic && <IslamicFloralFooter />}
+              </div>
+            );
+          })()}
 
           <p className="text-xs text-slate-500 text-center mt-3">
             {t.previewDisclaimer}

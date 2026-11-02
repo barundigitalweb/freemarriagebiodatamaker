@@ -84,14 +84,34 @@ export interface BiodataTemplate {
 
 export const BIODATA_TEMPLATES: BiodataTemplate[] = [
   {
-    id: 'royal-maroon',
-    name: 'Royal Maroon & Gold',
-    description: 'Traditional Indian Wedding Theme with Auspicious Maroon & Golden Accents',
-    primaryColor: '#881337',
+    id: 'emerald-divine',
+    name: 'Muslim Nikah (Emerald & Lanterns)',
+    description: 'Dark emerald green with golden mosque dome arch, hanging fanous lanterns, Bismillah calligraphy & floral footer',
+    primaryColor: '#064e3b',
+    secondaryColor: '#d4af37',
+    borderColor: '#d4af37',
+    bgGradient: 'from-[#092d2d] via-[#0e3a3a] to-[#072424]',
+    badge: 'Nikah Special 🌙'
+  },
+  {
+    id: 'saffron-gold',
+    name: 'Vedic Traditional (Ganesha Watermark)',
+    description: 'Warm ivory parchment with sacred Sri Ganeshay Namah calligraphy header and subtle Lord Ganesha line watermark',
+    primaryColor: '#c2410c',
     secondaryColor: '#d97706',
+    borderColor: '#ea580c',
+    bgGradient: 'from-amber-50/50 via-white to-orange-50/30',
+    badge: 'Auspicious Vedic 🪔'
+  },
+  {
+    id: 'royal-maroon',
+    name: 'Royal Imperial (Velvet Maroon)',
+    description: 'Deep velvet damask, ornate circular mandala frame around photo, royal quote & golden filigree dividers',
+    primaryColor: '#881337',
+    secondaryColor: '#f59e0b',
     borderColor: '#b45309',
-    bgGradient: 'from-amber-50/40 via-white to-rose-50/30',
-    badge: 'Most Popular 👑'
+    bgGradient: 'from-[#380812] via-[#4a0518] to-[#28040d]',
+    badge: 'Royal Imperial 👑'
   },
   {
     id: 'regal-blue',
@@ -104,16 +124,6 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     badge: 'Regal & Premium 💎'
   },
   {
-    id: 'emerald-divine',
-    name: 'Emerald & Mint Divine',
-    description: 'Fresh & Auspicious Forest Green with Royal Ornamental Accents',
-    primaryColor: '#064e3b',
-    secondaryColor: '#059669',
-    borderColor: '#047857',
-    bgGradient: 'from-emerald-50/30 via-white to-teal-50/20',
-    badge: 'Auspicious Classic ✨'
-  },
-  {
     id: 'rose-gold',
     name: 'Rose Gold & Floral Pastel',
     description: 'Chic, Modern & Delicate Pastel Floral Palette (Popular with Brides)',
@@ -122,16 +132,6 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     borderColor: '#fb7185',
     bgGradient: 'from-rose-50/50 via-white to-pink-50/30',
     badge: 'Romantic & Soft 🌸'
-  },
-  {
-    id: 'saffron-gold',
-    name: 'Vedic Saffron & Kesar Gold',
-    description: 'Auspicious Turmeric, Saffron & Temple Gold Theme for Traditional Vedic Ceremonies',
-    primaryColor: '#c2410c',
-    secondaryColor: '#d97706',
-    borderColor: '#ea580c',
-    bgGradient: 'from-amber-50/50 via-white to-orange-50/30',
-    badge: 'Auspicious Vedic 🪔'
   },
   {
     id: 'peacock-teal',
