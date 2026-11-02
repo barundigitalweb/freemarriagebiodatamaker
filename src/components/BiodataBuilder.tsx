@@ -775,30 +775,90 @@ export default function BiodataBuilder({
                 <button
                   key={tmpl.id}
                   onClick={() => handleApplyTemplate(tmpl.id)}
-                  className={`p-2.5 rounded-xl border text-left transition flex flex-col justify-between ${
+                  className={`p-2 rounded-xl border text-center transition flex flex-col items-center justify-between gap-1.5 relative group ${
                     selectedTemplate === tmpl.id
-                      ? 'border-rose-600 bg-rose-50/50 ring-2 ring-rose-500/30'
-                      : 'border-slate-200 hover:border-slate-300 bg-white'
+                      ? 'border-rose-600 bg-rose-50/70 ring-2 ring-rose-500/40 shadow-xs'
+                      : 'border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50'
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-1.5 w-full">
-                    <div className="flex items-center gap-1">
-                      <span
-                        className="w-3.5 h-3.5 rounded-full border border-black/10 shrink-0"
-                        style={{ backgroundColor: tmpl.primaryColor }}
-                      ></span>
-                      <span
-                        className="w-3.5 h-3.5 rounded-full border border-black/10 shrink-0"
-                        style={{ backgroundColor: tmpl.secondaryColor }}
-                      ></span>
-                    </div>
-                    <span className="text-[9px] font-semibold text-rose-700 bg-rose-50 px-1 py-0.2 rounded">
+                  {selectedTemplate === tmpl.id && (
+                    <span className="absolute -top-1.5 -right-1.5 bg-rose-600 text-white rounded-full p-0.5 shadow-xs z-10">
+                      <Check className="w-3 h-3" />
+                    </span>
+                  )}
+                  {/* Miniature Visual Mockup */}
+                  <div className="w-full">
+                    {tmpl.id === 'royal-maroon' && (
+                      <div className="w-full h-11 rounded-lg border border-amber-500/80 bg-gradient-to-b from-[#380812] to-[#28040d] flex flex-col items-center justify-center p-1 relative overflow-hidden shadow-2xs">
+                        <div className="w-4 h-4 rounded-full border border-dashed border-amber-400 bg-amber-950/80 flex items-center justify-center">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                        </div>
+                        <div className="w-10 h-0.5 bg-amber-400/80 rounded mt-1"></div>
+                      </div>
+                    )}
+                    {tmpl.id === 'saffron-gold' && (
+                      <div className="w-full h-11 rounded-lg border border-amber-600/80 bg-[#fcf9f2] flex flex-col items-center justify-center p-1 relative overflow-hidden shadow-2xs">
+                        <div className="w-10 h-0.5 bg-amber-600 rounded"></div>
+                        <div className="w-4 h-4 rounded-full border border-amber-500 bg-amber-100 flex items-center justify-center my-0.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
+                        </div>
+                        <div className="w-8 h-0.5 bg-slate-300 rounded"></div>
+                      </div>
+                    )}
+                    {tmpl.id === 'emerald-divine' && (
+                      <div className="w-full h-11 rounded-lg border border-emerald-400/80 bg-gradient-to-b from-[#064e3b] to-[#022c22] flex flex-col items-center justify-center p-1 relative overflow-hidden shadow-2xs">
+                        <div className="w-10 h-0.5 bg-emerald-400 rounded"></div>
+                        <div className="w-4 h-4 rounded-t-full border border-amber-300 bg-emerald-950 flex items-center justify-center my-0.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-300"></span>
+                        </div>
+                        <div className="w-8 h-0.5 bg-emerald-300/60 rounded"></div>
+                      </div>
+                    )}
+                    {tmpl.id === 'regal-blue' && (
+                      <div className="w-full h-11 rounded-lg border border-amber-500/80 bg-gradient-to-b from-[#0f172a] to-[#1e3a8a] flex flex-col items-center justify-center p-1 relative overflow-hidden shadow-2xs">
+                        <div className="w-10 h-0.5 bg-amber-400 rounded"></div>
+                        <div className="w-4 h-4 rounded border border-amber-300 bg-slate-900 flex items-center justify-center my-0.5">
+                          <span className="w-1.5 h-1.5 bg-amber-400"></span>
+                        </div>
+                        <div className="w-8 h-0.5 bg-blue-200/60 rounded"></div>
+                      </div>
+                    )}
+                    {tmpl.id === 'rose-gold' && (
+                      <div className="w-full h-11 rounded-lg border border-rose-300 bg-gradient-to-b from-rose-50 to-pink-50 flex flex-col items-center justify-center p-1 relative overflow-hidden shadow-2xs">
+                        <div className="w-10 h-0.5 bg-rose-400 rounded"></div>
+                        <div className="w-4 h-4 rounded-full border border-rose-400 bg-rose-100 flex items-center justify-center my-0.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+                        </div>
+                        <div className="w-8 h-0.5 bg-rose-200 rounded"></div>
+                      </div>
+                    )}
+                    {tmpl.id === 'peacock-teal' && (
+                      <div className="w-full h-11 rounded-lg border border-teal-400 bg-gradient-to-b from-[#042f2e] to-[#0f766e] flex flex-col items-center justify-center p-1 relative overflow-hidden shadow-2xs">
+                        <div className="w-10 h-0.5 bg-amber-300 rounded"></div>
+                        <div className="w-4 h-4 rounded-full border border-teal-300 bg-teal-950 flex items-center justify-center my-0.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-300"></span>
+                        </div>
+                        <div className="w-8 h-0.5 bg-teal-200/60 rounded"></div>
+                      </div>
+                    )}
+                    {tmpl.id === 'classic-elegance' && (
+                      <div className="w-full h-11 rounded-lg border border-slate-700 bg-white flex flex-col items-center justify-center p-1 relative overflow-hidden shadow-2xs">
+                        <div className="w-10 h-0.5 bg-slate-800 rounded"></div>
+                        <div className="w-4 h-4 rounded border border-slate-800 bg-slate-100 flex items-center justify-center my-0.5">
+                          <span className="w-1.5 h-1.5 bg-slate-700"></span>
+                        </div>
+                        <div className="w-8 h-0.5 bg-slate-300 rounded"></div>
+                      </div>
+                    )}
+                  </div>
+                  <div className="w-full">
+                    <span className="text-[11px] font-bold text-slate-800 line-clamp-1 leading-tight block">
+                      {tmpl.name.split(' (')[0]}
+                    </span>
+                    <span className="text-[9px] font-semibold text-rose-700 bg-rose-50 px-1 py-0.2 rounded mt-0.5 inline-block">
                       {tmpl.badge.split(' ')[0]}
                     </span>
                   </div>
-                  <span className="text-[11px] font-bold text-slate-800 line-clamp-1 leading-tight">
-                    {tmpl.name}
-                  </span>
                 </button>
               ))}
             </div>
