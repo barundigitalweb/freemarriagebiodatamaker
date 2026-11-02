@@ -55,7 +55,7 @@ function KeyValueRow({
   labelColor = 'text-slate-700 font-bold',
   colonColor = 'text-slate-400 font-bold',
   valueColor = 'text-slate-900 font-medium',
-  labelWidth = 'w-24 sm:w-28'
+  labelWidth = 'w-20 min-[360px]:w-24 sm:w-28'
 }: {
   label: string;
   value?: string;
@@ -656,32 +656,32 @@ export default function BiodataBuilder({
   return (
     <div id="builder" className="space-y-8 scroll-mt-24">
       {/* Top Banner Toolbar */}
-      <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-md border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl p-3 sm:p-6 shadow-md border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 overflow-hidden w-full max-w-full">
         {/* App Title & Value Prop */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-rose-100 text-rose-800 flex items-center justify-center font-bold shrink-0">
-            <Sparkles className="w-5 h-5 text-rose-600" />
+        <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-rose-100 text-rose-800 flex items-center justify-center font-bold shrink-0">
+            <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-rose-600" />
           </div>
-          <div>
-            <h3 className="text-base sm:text-lg font-black text-slate-800">
+          <div className="min-w-0">
+            <h3 className="text-sm sm:text-lg font-black text-slate-800 truncate">
               {t.appTitle}
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-[11px] sm:text-xs text-slate-500 line-clamp-1">
               {t.appSubtitle}
             </p>
           </div>
         </div>
 
         {/* Language Switcher + Quick Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 justify-between md:justify-end">
           {/* Multilingual Selector */}
-          <div className="inline-flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold text-slate-700">
-            <Globe className="w-3.5 h-3.5 ml-1.5 mr-1 text-slate-500" />
+          <div className="inline-flex items-center bg-slate-100 p-0.5 sm:p-1 rounded-xl border border-slate-200 text-[11px] sm:text-xs font-bold text-slate-700">
+            <Globe className="w-3 h-3 ml-1 mr-1 text-slate-500 shrink-0" />
             {(['bn', 'en', 'hi', 'mr'] as Language[]).map((lang) => (
               <button
                 key={lang}
                 onClick={() => handleLanguageChange(lang)}
-                className={`px-2.5 py-1 rounded-lg transition text-xs font-bold ${
+                className={`px-1.5 sm:px-2.5 py-1 rounded-lg transition text-[11px] sm:text-xs font-bold shrink-0 ${
                   language === lang
                     ? 'bg-rose-700 text-white shadow-xs'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
@@ -695,25 +695,27 @@ export default function BiodataBuilder({
             ))}
           </div>
 
-          {/* Copy Site Link */}
-          <button
-            onClick={handleCopyLink}
-            className="inline-flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 text-xs font-bold px-3 py-2 rounded-xl transition"
-            title={t.share}
-          >
-            {copyFeedback ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-            <span className="hidden sm:inline">{copyFeedback ? 'Copied!' : t.share}</span>
-          </button>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {/* Copy Site Link */}
+            <button
+              onClick={handleCopyLink}
+              className="inline-flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 text-xs font-bold px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl transition"
+              title={t.share}
+            >
+              {copyFeedback ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+              <span className="hidden sm:inline">{copyFeedback ? 'Copied!' : t.share}</span>
+            </button>
 
-          {/* Reset / Clear */}
-          <button
-            onClick={handleReset}
-            className="inline-flex items-center gap-1 bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-700 border border-slate-200 text-xs font-bold px-3 py-2 rounded-xl transition"
-            title={t.reset}
-          >
-            <RotateCcw className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">{t.reset}</span>
-          </button>
+            {/* Reset / Clear */}
+            <button
+              onClick={handleReset}
+              className="inline-flex items-center gap-1 bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-700 border border-slate-200 text-xs font-bold px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl transition"
+              title={t.reset}
+            >
+              <RotateCcw className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">{t.reset}</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -941,7 +943,7 @@ export default function BiodataBuilder({
           </div>
 
           {/* Form Fields Body */}
-          <div className="p-6 space-y-4 max-h-[680px] overflow-y-auto">
+          <div className="p-3.5 sm:p-6 space-y-4 max-h-[680px] overflow-y-auto">
             {/* Header Texts */}
             <div className="p-3 bg-amber-50/60 rounded-xl border border-amber-200/80 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div>
@@ -1602,7 +1604,7 @@ export default function BiodataBuilder({
             const isRoyalMaroon = selectedTemplate === 'royal-maroon';
 
             // Theme Styling Tokens
-            let sheetClasses = `w-full max-w-[520px] rounded-xl shadow-2xl border-4 p-6 sm:p-8 space-y-4 transition-all duration-200 font-serif relative overflow-hidden`;
+            let sheetClasses = `w-full max-w-[520px] rounded-xl shadow-2xl border-2 sm:border-4 p-3.5 sm:p-8 space-y-3 sm:space-y-4 transition-all duration-200 font-serif relative overflow-hidden`;
             let sheetInlineStyle: React.CSSProperties = { borderColor: currentTemplate.borderColor };
 
             let headingColor = currentTemplate.primaryColor;
@@ -1873,7 +1875,7 @@ export default function BiodataBuilder({
                     {/* Photo Box */}
                     {data.photoUrl ? (
                       <div
-                        className={`w-24 h-32 sm:w-28 sm:h-36 rounded-xl overflow-hidden border-2 shadow-md shrink-0 ${
+                        className={`w-20 h-28 min-[380px]:w-24 min-[380px]:h-32 sm:w-28 sm:h-36 rounded-xl overflow-hidden border-2 shadow-md shrink-0 ${
                           isDarkIslamic ? 'ring-2 ring-amber-400/30' : ''
                         }`}
                         style={{ borderColor: photoBorder }}
@@ -1886,7 +1888,7 @@ export default function BiodataBuilder({
                       </div>
                     ) : (
                       <div
-                        className={`w-24 h-32 sm:w-28 sm:h-36 rounded-xl border-2 border-dashed flex flex-col items-center justify-center text-center p-2 shrink-0 ${
+                        className={`w-20 h-28 min-[380px]:w-24 min-[380px]:h-32 sm:w-28 sm:h-36 rounded-xl border-2 border-dashed flex flex-col items-center justify-center text-center p-2 shrink-0 ${
                           isDarkIslamic
                             ? 'border-amber-400/60 bg-slate-900/40 text-amber-300/70'
                             : 'border-slate-300 bg-slate-50/50 text-slate-400'
@@ -2082,7 +2084,7 @@ export default function BiodataBuilder({
 
       {/* Floating Sticky Mobile Quick Action Bar (when editing form on mobile) */}
       {mobileTab === 'edit' && (
-        <div className="lg:hidden fixed bottom-3 left-4 right-4 z-40 max-w-md mx-auto">
+        <div className="lg:hidden fixed bottom-3 left-2.5 right-2.5 sm:left-4 sm:right-4 z-40 max-w-md mx-auto">
           <button
             type="button"
             onClick={() => {
@@ -2090,13 +2092,13 @@ export default function BiodataBuilder({
               const el = document.getElementById('builder-preview-card');
               if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
-            className="w-full inline-flex items-center justify-between bg-gradient-to-r from-rose-800 via-rose-700 to-rose-900 text-white font-bold text-sm py-3 px-4 rounded-2xl shadow-2xl border border-rose-400/40 transform active:scale-95 transition-all"
+            className="w-full inline-flex items-center justify-between bg-gradient-to-r from-rose-800 via-rose-700 to-rose-900 text-white font-bold text-xs sm:text-sm py-2.5 px-3 sm:py-3 sm:px-4 rounded-xl sm:rounded-2xl shadow-2xl border border-rose-400/40 transform active:scale-95 transition-all"
           >
-            <span className="flex items-center gap-2">
-              <Eye className="w-4 h-4 text-amber-300" />
-              <span>Preview & Download Biodata</span>
+            <span className="flex items-center gap-1.5 sm:gap-2">
+              <Eye className="w-4 h-4 text-amber-300 shrink-0" />
+              <span className="truncate">Preview & Download Biodata</span>
             </span>
-            <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full flex items-center gap-1 font-semibold">
+            <span className="bg-white/20 text-white text-[11px] sm:text-xs px-2 py-0.5 rounded-full flex items-center gap-1 font-semibold shrink-0">
               <span>View</span>
               <ArrowRight className="w-3 h-3" />
             </span>
