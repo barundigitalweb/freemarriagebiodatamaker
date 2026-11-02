@@ -137,6 +137,43 @@ export default function BiodataBuilder({
     }
   }, [storageKey, data, selectedTemplate, language]);
 
+  // Listen for template selection events from the Template Gallery
+  useEffect(() => {
+    const handleTemplateSelect = (e: Event) => {
+      const customEvent = e as CustomEvent<{ templateId: TemplateId }>;
+      const newTmplId = customEvent.detail?.templateId;
+      if (newTmplId) {
+        const found = BIODATA_TEMPLATES.find((t) => t.id === newTmplId);
+        if (found) {
+          setSelectedTemplate(newTmplId);
+          setExportMessage(
+            language === 'bn'
+              ? `✨ "${found.name}" থিমটি নির্বাচন করা হয়েছে!`
+              : `✨ Applied "${found.name}" Template!`
+          );
+          setTimeout(() => setExportMessage(''), 3000);
+        }
+      }
+    };
+
+    window.addEventListener('select-biodata-template', handleTemplateSelect);
+
+    // Also check URL parameters on load (e.g. ?template=emerald-divine)
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const urlTmpl = params.get('template') as TemplateId;
+      if (urlTmpl && BIODATA_TEMPLATES.some((t) => t.id === urlTmpl)) {
+        setSelectedTemplate(urlTmpl);
+      }
+    } catch (e) {
+      // ignore
+    }
+
+    return () => {
+      window.removeEventListener('select-biodata-template', handleTemplateSelect);
+    };
+  }, [language]);
+
   const handleInputChange = (field: keyof BiodataData, value: string) => {
     setData((prev) => ({ ...prev, [field]: value }));
   };
@@ -376,7 +413,7 @@ export default function BiodataBuilder({
   };
 
   return (
-    <div className="space-y-8">
+    <div id="builder" className="space-y-8 scroll-mt-24">
       {/* Top Banner Toolbar */}
       <div className="bg-white rounded-2xl p-4 sm:p-6 shadow-md border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4">
         {/* App Title & Value Prop */}
