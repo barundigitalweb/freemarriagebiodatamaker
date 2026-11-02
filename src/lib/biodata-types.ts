@@ -84,14 +84,14 @@ export interface BiodataTemplate {
 
 export const BIODATA_TEMPLATES: BiodataTemplate[] = [
   {
-    id: 'emerald-divine',
-    name: 'Muslim Nikah (Emerald & Lanterns)',
-    description: 'Dark emerald green with golden mosque dome arch, hanging fanous lanterns, Bismillah calligraphy & floral footer',
-    primaryColor: '#064e3b',
-    secondaryColor: '#d4af37',
-    borderColor: '#d4af37',
-    bgGradient: 'from-[#092d2d] via-[#0e3a3a] to-[#072424]',
-    badge: 'Nikah Special 🌙'
+    id: 'royal-maroon',
+    name: 'Royal Imperial (Velvet Maroon)',
+    description: 'Deep velvet damask, ornate circular mandala frame around photo, royal quote & golden filigree dividers',
+    primaryColor: '#881337',
+    secondaryColor: '#f59e0b',
+    borderColor: '#b45309',
+    bgGradient: 'from-[#380812] via-[#4a0518] to-[#28040d]',
+    badge: 'Royal Imperial 👑'
   },
   {
     id: 'saffron-gold',
@@ -102,16 +102,6 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     borderColor: '#ea580c',
     bgGradient: 'from-amber-50/50 via-white to-orange-50/30',
     badge: 'Auspicious Vedic 🪔'
-  },
-  {
-    id: 'royal-maroon',
-    name: 'Royal Imperial (Velvet Maroon)',
-    description: 'Deep velvet damask, ornate circular mandala frame around photo, royal quote & golden filigree dividers',
-    primaryColor: '#881337',
-    secondaryColor: '#f59e0b',
-    borderColor: '#b45309',
-    bgGradient: 'from-[#380812] via-[#4a0518] to-[#28040d]',
-    badge: 'Royal Imperial 👑'
   },
   {
     id: 'regal-blue',
@@ -152,6 +142,16 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     borderColor: '#334155',
     bgGradient: 'from-white via-slate-50/40 to-white',
     badge: 'Print-Friendly 📄'
+  },
+  {
+    id: 'emerald-divine',
+    name: 'Muslim Nikah (Emerald & Lanterns)',
+    description: 'Dark emerald green with golden mosque dome arch, hanging fanous lanterns, Bismillah calligraphy & floral footer',
+    primaryColor: '#064e3b',
+    secondaryColor: '#d4af37',
+    borderColor: '#d4af37',
+    bgGradient: 'from-[#092d2d] via-[#0e3a3a] to-[#072424]',
+    badge: 'Nikah Special 🌙'
   }
 ];
 

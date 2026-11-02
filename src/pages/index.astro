@@ -52,11 +52,11 @@ import { Sparkles, CheckCircle2 } from 'lucide-react';
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
     {/* The Core Interactive Biodata Builder Application */}
     <section id="builder">
-      <BiodataBuilder client:load initialLanguage="en" />
+      <BiodataBuilder client:load initialLanguage="en" formatType="general" />
     </section>
 
     {/* Template Gallery Showcase */}
-    <TemplateGallery lang="en" />
+    <TemplateGallery lang="en" formatType="general" />
 
     {/* Non-intrusive Ad/Sponsorship Placement */}
     <AdSlot format="horizontal" />

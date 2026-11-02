@@ -5,9 +5,18 @@ import { Palette, Check, Sparkles } from 'lucide-react';
 
 interface Props {
   lang?: 'en' | 'bn';
+  formatType?: 'general' | 'hindu' | 'bengali' | 'marathi' | 'muslim';
 }
 
-const { lang = 'en' } = Astro.props;
+const { lang = 'en', formatType = 'general' } = Astro.props;
+const isMuslim = formatType === 'muslim';
+
+const displayedTemplates = BIODATA_TEMPLATES.filter((tmpl) => {
+  if (isMuslim) {
+    return tmpl.id !== 'saffron-gold';
+  }
+  return tmpl.id !== 'emerald-divine';
+});
 
 const content = {
   en: {
@@ -41,7 +50,7 @@ const content = {
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
-    {BIODATA_TEMPLATES.map((tmpl) => (
+    {displayedTemplates.map((tmpl) => (
       <div
         data-template-id={tmpl.id}
         class="template-card group bg-slate-50 hover:bg-white rounded-2xl p-5 border-2 border-slate-200 hover:border-rose-500 shadow-xs hover:shadow-xl transition-all duration-200 flex flex-col justify-between cursor-pointer relative"

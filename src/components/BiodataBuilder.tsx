@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import {
   type BiodataData,
   type TemplateId,
@@ -136,8 +136,17 @@ export default function BiodataBuilder({
   const biodataRef = useRef<HTMLDivElement | null>(null);
 
   const t = TRANSLATIONS[language] || TRANSLATIONS.bn;
+  // Available templates strictly segmented by community context (Option B)
+  const availableTemplates = useMemo(() => {
+    if (isMuslim) {
+      return BIODATA_TEMPLATES.filter((tmpl) => tmpl.id !== 'saffron-gold');
+    }
+    // For General, Hindu, Marathi, Bengali: Never show Islamic Nikah template
+    return BIODATA_TEMPLATES.filter((tmpl) => tmpl.id !== 'emerald-divine');
+  }, [isMuslim]);
+
   const currentTemplate =
-    BIODATA_TEMPLATES.find((tmpl) => tmpl.id === selectedTemplate) || BIODATA_TEMPLATES[0];
+    availableTemplates.find((tmpl) => tmpl.id === selectedTemplate) || availableTemplates[0];
 
   // Load from localStorage on mount (Client-Side)
   useEffect(() => {
@@ -146,13 +155,20 @@ export default function BiodataBuilder({
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed?.data) setData(parsed.data);
-        if (parsed?.selectedTemplate) setSelectedTemplate(parsed.selectedTemplate);
+        if (parsed?.selectedTemplate) {
+          // If on non-muslim format and saved template was emerald-divine, reset to royal-maroon
+          if (!isMuslim && parsed.selectedTemplate === 'emerald-divine') {
+            setSelectedTemplate('royal-maroon');
+          } else {
+            setSelectedTemplate(parsed.selectedTemplate);
+          }
+        }
         if (parsed?.language) setLanguage(parsed.language);
       }
     } catch (e) {
       console.warn('Could not read from localStorage', e);
     }
-  }, [storageKey]);
+  }, [storageKey, isMuslim]);
 
   // Persist draft to localStorage on change
   useEffect(() => {
@@ -600,8 +616,8 @@ export default function BiodataBuilder({
                 {t.clearAll}
               </button>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-7 gap-2">
-              {BIODATA_TEMPLATES.map((tmpl) => (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2">
+              {availableTemplates.map((tmpl) => (
                 <button
                   key={tmpl.id}
                   onClick={() => handleApplyTemplate(tmpl.id)}
