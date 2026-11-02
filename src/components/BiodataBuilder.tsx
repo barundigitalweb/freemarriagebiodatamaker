@@ -42,7 +42,9 @@ import {
   Copy,
   Check,
   Globe,
-  MessageCircle
+  MessageCircle,
+  Edit3,
+  ArrowRight
 } from 'lucide-react';
 
 export type BiodataFormatType = 'general' | 'muslim' | 'bengali' | 'marathi' | 'hindu';
@@ -131,6 +133,7 @@ export default function BiodataBuilder({
     isMuslim ? 'emerald-divine' : 'royal-maroon'
   );
   const [activeTab, setActiveTab] = useState<string>('personal');
+  const [mobileTab, setMobileTab] = useState<'edit' | 'preview'>('edit');
   const [isExporting, setIsExporting] = useState<boolean>(false);
   const [exportMessage, setExportMessage] = useState<string>('');
   const [copyFeedback, setCopyFeedback] = useState<boolean>(false);
@@ -720,10 +723,51 @@ export default function BiodataBuilder({
         </div>
       )}
 
+      {/* Mobile Tab Switcher: 1. Fill Form vs 2. Preview & Download (Visible on mobile screens < lg) */}
+      <div className="lg:hidden flex bg-slate-200/80 p-1.5 rounded-2xl border border-slate-300/80 shadow-xs">
+        <button
+          type="button"
+          onClick={() => {
+            setMobileTab('edit');
+            const el = document.getElementById('builder-form-card');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}
+          className={`flex-1 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition ${
+            mobileTab === 'edit'
+              ? 'bg-white text-rose-700 shadow-sm border border-slate-200'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Edit3 className="w-4 h-4" />
+          <span>1. Fill Form</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setMobileTab('preview');
+            const el = document.getElementById('builder-preview-card');
+            if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }}
+          className={`flex-1 py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-1.5 transition ${
+            mobileTab === 'preview'
+              ? 'bg-rose-700 text-white shadow-sm'
+              : 'text-slate-600 hover:text-slate-900'
+          }`}
+        >
+          <Eye className="w-4 h-4" />
+          <span>2. View Preview & Download</span>
+        </button>
+      </div>
+
       {/* Main Two-Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         {/* LEFT COLUMN: Data Input Form (6 Cols) */}
-        <div className="lg:col-span-6 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+        <div
+          id="builder-form-card"
+          className={`lg:col-span-6 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden ${
+            mobileTab === 'preview' ? 'hidden lg:block' : 'block'
+          }`}
+        >
           {/* Template Picker Header */}
           <div className="p-4 bg-slate-50 border-b border-slate-200">
             <div className="flex items-center justify-between mb-2.5">
@@ -738,12 +782,12 @@ export default function BiodataBuilder({
                 {t.clearAll}
               </button>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6 gap-2">
+            <div className="flex overflow-x-auto pb-2 scrollbar-none snap-x gap-2 sm:grid sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-6">
               {availableTemplates.map((tmpl) => (
                 <button
                   key={tmpl.id}
                   onClick={() => handleApplyTemplate(tmpl.id)}
-                  className={`p-2 rounded-xl border text-center transition flex flex-col items-center justify-between gap-1.5 relative group ${
+                  className={`p-2 rounded-xl border text-center transition flex flex-col items-center justify-between gap-1.5 relative group shrink-0 min-w-[108px] sm:min-w-0 snap-start ${
                     selectedTemplate === tmpl.id
                       ? 'border-rose-600 bg-rose-50/70 ring-2 ring-rose-500/40 shadow-xs'
                       : 'border-slate-200 hover:border-slate-300 bg-white hover:bg-slate-50'
@@ -1492,10 +1536,50 @@ export default function BiodataBuilder({
               </div>
             )}
           </div>
+
+          {/* Mobile Bottom Quick-Jump to Preview Button */}
+          <div className="lg:hidden p-3.5 bg-slate-50 border-t border-slate-200">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileTab('preview');
+                const el = document.getElementById('builder-preview-card');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-rose-700 to-rose-800 hover:from-rose-800 hover:to-rose-900 text-white font-bold text-sm py-3 px-4 rounded-xl shadow-md transition"
+            >
+              <Eye className="w-4 h-4 text-amber-300" />
+              <span>Preview Biodata & Download →</span>
+            </button>
+          </div>
         </div>
 
         {/* RIGHT COLUMN: Live Visual Sheet Preview (6 Cols) */}
-        <div className="lg:col-span-6 flex flex-col items-center">
+        <div
+          id="builder-preview-card"
+          className={`lg:col-span-6 flex flex-col items-center ${
+            mobileTab === 'edit' ? 'hidden lg:flex' : 'flex'
+          }`}
+        >
+          {/* Mobile Back-to-Edit Top Bar */}
+          <div className="lg:hidden w-full max-w-[520px] mb-3 flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200 shadow-2xs">
+            <button
+              type="button"
+              onClick={() => {
+                setMobileTab('edit');
+                const el = document.getElementById('builder-form-card');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }}
+              className="inline-flex items-center gap-1.5 text-xs font-bold text-rose-700 bg-rose-50 hover:bg-rose-100 py-1.5 px-3 rounded-lg transition"
+            >
+              <Edit3 className="w-3.5 h-3.5" />
+              <span>← Edit Form Details</span>
+            </button>
+            <span className="text-[11px] font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
+              Live Preview
+            </span>
+          </div>
+
           <div className="w-full flex items-center justify-between mb-3 px-2">
             <span className="text-xs font-bold text-slate-500 uppercase flex items-center gap-1.5">
               <Eye className="w-4 h-4 text-rose-600" />
@@ -1995,6 +2079,30 @@ export default function BiodataBuilder({
           </p>
         </div>
       </div>
+
+      {/* Floating Sticky Mobile Quick Action Bar (when editing form on mobile) */}
+      {mobileTab === 'edit' && (
+        <div className="lg:hidden fixed bottom-3 left-4 right-4 z-40 max-w-md mx-auto">
+          <button
+            type="button"
+            onClick={() => {
+              setMobileTab('preview');
+              const el = document.getElementById('builder-preview-card');
+              if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
+            className="w-full inline-flex items-center justify-between bg-gradient-to-r from-rose-800 via-rose-700 to-rose-900 text-white font-bold text-sm py-3 px-4 rounded-2xl shadow-2xl border border-rose-400/40 transform active:scale-95 transition-all"
+          >
+            <span className="flex items-center gap-2">
+              <Eye className="w-4 h-4 text-amber-300" />
+              <span>Preview & Download Biodata</span>
+            </span>
+            <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full flex items-center gap-1 font-semibold">
+              <span>View</span>
+              <ArrowRight className="w-3 h-3" />
+            </span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
