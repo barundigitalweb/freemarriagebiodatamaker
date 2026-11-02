@@ -1808,19 +1808,6 @@ export default function BiodataBuilder({
                   </div>
                 </div>
 
-                {/* Clean, Non-Intrusive Footer */}
-                <div
-                  className={`pt-2 text-center text-[10px] border-t font-sans relative z-10 ${
-                    isEmeraldIslamic
-                      ? 'border-amber-400/20 text-emerald-300/70'
-                      : isRoyalMaroon
-                      ? 'border-amber-400/20 text-amber-300/70'
-                      : 'border-slate-200/60 text-slate-400'
-                  }`}
-                >
-                  {t.previewFooter}
-                </div>
-
                 {/* Bottom Islamic Floral Border */}
                 {isEmeraldIslamic && <IslamicFloralFooter />}
               </div>
