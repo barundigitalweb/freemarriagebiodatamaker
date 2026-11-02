@@ -73,6 +73,235 @@ function KeyValueRow({
   );
 }
 
+// Predefined Curated Options for 1-Tap Form Filling
+const HEIGHT_OPTIONS = [
+  '4 ft 8 in (142 cm)',
+  '4 ft 9 in (145 cm)',
+  '4 ft 10 in (147 cm)',
+  '4 ft 11 in (150 cm)',
+  '5 ft 0 in (152 cm)',
+  '5 ft 1 in (155 cm)',
+  '5 ft 2 in (157 cm)',
+  '5 ft 3 in (160 cm)',
+  '5 ft 4 in (163 cm)',
+  '5 ft 5 in (165 cm)',
+  '5 ft 6 in (168 cm)',
+  '5 ft 7 in (170 cm)',
+  '5 ft 8 in (173 cm)',
+  '5 ft 9 in (175 cm)',
+  '5 ft 10 in (178 cm)',
+  '5 ft 11 in (180 cm)',
+  '6 ft 0 in (183 cm)',
+  '6 ft 1 in (185 cm)',
+  '6 ft 2 in (188 cm)',
+  '6 ft 3 in (190 cm)',
+  '6 ft 4 in (193 cm)'
+];
+
+const BLOOD_GROUP_OPTIONS = [
+  'B+',
+  'O+',
+  'A+',
+  'AB+',
+  'B-',
+  'O-',
+  'A-',
+  'AB-',
+  "Don't Know"
+];
+
+const COMPLEXION_OPTIONS: Record<Language, string[]> = {
+  en: ['Fair', 'Very Fair', 'Wheatish', 'Wheatish Medium', 'Dusky', 'Dark'],
+  hi: ['गोरा (Fair)', 'बहुत गोरा (Very Fair)', 'गेहुंआ (Wheatish)', 'सांवला (Dusky)'],
+  bn: ['উজ্জ্বল ফর্সা (Very Fair)', 'ফর্সা (Fair)', 'উজ্জ্বল শ্যামবর্ণ (Wheatish)', 'শ্যামবর্ণ (Medium)'],
+  mr: ['गोरा (Fair)', 'अति गोरा (Very Fair)', 'गहूवर्ण (Wheatish)', 'सावळा (Dusky)']
+};
+
+const MARITAL_STATUS_OPTIONS: Record<Language, string[]> = {
+  en: ['Never Married', 'Awaiting Divorce', 'Divorced', 'Widowed', 'Annulled'],
+  hi: ['अविवाहित (Never Married)', 'तलाकशुदा (Divorced)', 'तलाक प्रतीक्षारत (Awaiting Divorce)', 'विधवा/विधुर (Widowed)'],
+  bn: ['অবিবাহিত (Never Married)', 'ডিভোর্সড (Divorced)', 'ডিভোর্স প্রক্রিয়াধীন (Awaiting Divorce)', 'বিধবা/বিপত্নীক (Widowed)'],
+  mr: ['अविवाहित (Never Married)', 'घटस्फोटित (Divorced)', 'घटस्फोट प्रक्रिया सुरू (Awaiting Divorce)', 'विधवा/विधुर (Widowed)']
+};
+
+const DIET_OPTIONS: Record<Language, string[]> = {
+  en: ['Vegetarian', 'Pure Vegetarian (Jain)', 'Eggetarian', 'Non-Vegetarian', 'Halal (Non-Vegetarian)'],
+  hi: ['शुद्ध शाकाहारी (Vegetarian)', 'शाकाहारी (Vegetarian)', 'अंडा युक्त (Eggetarian)', 'मांसाहारी (Non-Vegetarian)'],
+  bn: ['নিরামিষ (Vegetarian)', 'আমিষ (Non-Vegetarian)', 'ডিম্বাহারী (Eggetarian)'],
+  mr: ['शाकाहारी (Vegetarian)', 'शुद्ध शाकाहारी (Jain)', 'मांसाहारी (Non-Vegetarian)', 'अंडाहारी (Eggetarian)']
+};
+
+const MANGLIK_OPTIONS: Record<Language, string[]> = {
+  en: ['Non-Manglik', 'Manglik', 'Anshik Manglik', "Don't Know"],
+  hi: ['मांगलिक नहीं (Non-Manglik)', 'मांगलिक (Manglik)', 'आंशिक मांगलिक (Anshik Manglik)', 'ज्ञात नहीं (Don\'t Know)'],
+  bn: ['মাঙ্গলিক নয় (Non-Manglik)', 'মাঙ্গলিক (Manglik)', 'আংশিক মাঙ্গলিক (Anshik Manglik)', 'জানা নেই (Don\'t Know)'],
+  mr: ['मांगलिक नाही (Non-Manglik)', 'मांगलिक (Manglik)', 'अंशकालीन मांगलिक (Anshik Manglik)', 'माहित नाही (Don\'t Know)']
+};
+
+const FAMILY_TYPE_OPTIONS: Record<Language, string[]> = {
+  en: ['Nuclear Family', 'Joint Family'],
+  hi: ['एकल परिवार (Nuclear Family)', 'संयुक्त परिवार (Joint Family)'],
+  bn: ['একক পরিবার (Nuclear Family)', 'যৌথ পরিবার (Joint Family)'],
+  mr: ['विभक्त कुटुंब (Nuclear Family)', 'संयुक्त कुटुंब (Joint Family)']
+};
+
+const RASHI_OPTIONS: Record<Language, string[]> = {
+  en: [
+    'Leo (सिंह)',
+    'Aries (मेष)',
+    'Taurus (वृषभ)',
+    'Gemini (मिथुन)',
+    'Cancer (कर्क)',
+    'Virgo (कन्या)',
+    'Libra (तुला)',
+    'Scorpio (वृश्चिक)',
+    'Sagittarius (धनु)',
+    'Capricorn (मकर)',
+    'Aquarius (कुंभ)',
+    'Pisces (मीन)'
+  ],
+  hi: [
+    'सिंह (Leo)',
+    'मेष (Aries)',
+    'वृषभ (Taurus)',
+    'मिथुन (Gemini)',
+    'कर्क (Cancer)',
+    'कन्या (Virgo)',
+    'तुला (Libra)',
+    'वृश्चिक (Scorpio)',
+    'धनु (Sagittarius)',
+    'मकर (Capricorn)',
+    'कुंभ (Aquarius)',
+    'मीन (Pisces)'
+  ],
+  bn: [
+    'সিংহ (Leo)',
+    'মেষ (Aries)',
+    'বৃষ (Taurus)',
+    'মিথুন (Gemini)',
+    'কর্কট (Cancer)',
+    'কন্যা (Virgo)',
+    'তুলা (Libra)',
+    'বৃশ্চিক (Scorpio)',
+    'ধনু (Sagittarius)',
+    'মকর (Capricorn)',
+    'কুম্ভ (Aquarius)',
+    'মীন (Pisces)'
+  ],
+  mr: [
+    'सिंह (Leo)',
+    'मेष (Aries)',
+    'वृषभ (Taurus)',
+    'मिथुन (Gemini)',
+    'कर्क (Cancer)',
+    'कन्या (Virgo)',
+    'तूळ (Libra)',
+    'वृश्चिक (Scorpio)',
+    'धनु (Sagittarius)',
+    'मकर (Capricorn)',
+    'कुंभ (Aquarius)',
+    'मीन (Pisces)'
+  ]
+};
+
+const MUSLIM_SECT_OPTIONS = [
+  'Sunni',
+  'Shia',
+  'Ahle Hadees',
+  'Deobandi',
+  'Barelvi',
+  'Other'
+];
+
+const MUSLIM_NAMAZ_OPTIONS = [
+  '5 Times Daily (Regular)',
+  'Regular',
+  'Friday Only (Jummah)',
+  'Practicing'
+];
+
+const MUSLIM_ROZA_OPTIONS = [
+  'Keeps Ramadan Fasts',
+  'All 30 Fasts (Regular)',
+  'Observes Fasts'
+];
+
+function SmartSelectField({
+  label,
+  value,
+  options,
+  onChange,
+  placeholder = 'Select option...',
+  customPlaceholder = 'Type custom value...'
+}: {
+  label: string;
+  value?: string;
+  options: string[];
+  onChange: (val: string) => void;
+  placeholder?: string;
+  customPlaceholder?: string;
+}) {
+  const [isTypingCustom, setIsTypingCustom] = useState(false);
+  const val = value || '';
+  const isPredefined = options.includes(val);
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-1">
+        <label className="block font-bold text-slate-700">{label}</label>
+        {isTypingCustom ? (
+          <button
+            type="button"
+            onClick={() => {
+              setIsTypingCustom(false);
+              if (!isPredefined && options.length > 0) {
+                onChange(options[0]);
+              }
+            }}
+            className="text-[10px] text-rose-600 hover:text-rose-700 hover:underline font-semibold cursor-pointer"
+          >
+            ← Quick Select
+          </button>
+        ) : null}
+      </div>
+
+      {isTypingCustom ? (
+        <input
+          type="text"
+          value={val}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={customPlaceholder}
+          autoFocus
+          className="w-full bg-white border border-rose-300 focus:border-rose-600 rounded-lg p-2 outline-none text-xs font-medium"
+        />
+      ) : (
+        <select
+          value={val}
+          onChange={(e) => {
+            if (e.target.value === '__custom__') {
+              setIsTypingCustom(true);
+            } else {
+              onChange(e.target.value);
+            }
+          }}
+          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white text-xs font-medium cursor-pointer"
+        >
+          {!val && <option value="">{placeholder}</option>}
+          {val && !isPredefined && (
+            <option value={val}>{val} (Custom)</option>
+          )}
+          {options.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
+          <option value="__custom__">✏️ Type Custom...</option>
+        </select>
+      )}
+    </div>
+  );
+}
+
 interface BiodataBuilderProps {
   initialLanguage?: Language;
   initialHeaderText?: string;
@@ -1064,39 +1293,33 @@ export default function BiodataBuilder({
                       className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                     />
                   </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.height}</label>
-                    <input
-                      type="text"
-                      value={data.height}
-                      onChange={(e) => handleInputChange('height', e.target.value)}
-                      placeholder="5 ft 10 in (178 cm)"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
+                  <SmartSelectField
+                    label={t.height}
+                    value={data.height}
+                    options={HEIGHT_OPTIONS}
+                    onChange={(val) => handleInputChange('height', val)}
+                    placeholder="Select height..."
+                    customPlaceholder="Type custom height (e.g. 5 ft 10 in)..."
+                  />
                 </div>
 
                 <div className="grid grid-cols-3 gap-2.5">
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.complexion}</label>
-                    <input
-                      type="text"
-                      value={data.complexion}
-                      onChange={(e) => handleInputChange('complexion', e.target.value)}
-                      placeholder="Fair / Wheatish"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.bloodGroup}</label>
-                    <input
-                      type="text"
-                      value={data.bloodGroup}
-                      onChange={(e) => handleInputChange('bloodGroup', e.target.value)}
-                      placeholder="B+, O+, A+"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
+                  <SmartSelectField
+                    label={t.complexion}
+                    value={data.complexion}
+                    options={COMPLEXION_OPTIONS[language] || COMPLEXION_OPTIONS.en}
+                    onChange={(val) => handleInputChange('complexion', val)}
+                    placeholder="Select complexion..."
+                    customPlaceholder="Type custom complexion..."
+                  />
+                  <SmartSelectField
+                    label={t.bloodGroup}
+                    value={data.bloodGroup}
+                    options={BLOOD_GROUP_OPTIONS}
+                    onChange={(val) => handleInputChange('bloodGroup', val)}
+                    placeholder="Select blood group..."
+                    customPlaceholder="Type custom blood group..."
+                  />
                   <div>
                     <label className="block font-bold text-slate-700 mb-1">{t.motherTongue}</label>
                     <input
@@ -1110,26 +1333,22 @@ export default function BiodataBuilder({
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.maritalStatus}</label>
-                    <input
-                      type="text"
-                      value={data.maritalStatus}
-                      onChange={(e) => handleInputChange('maritalStatus', e.target.value)}
-                      placeholder="Never Married"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.diet}</label>
-                    <input
-                      type="text"
-                      value={data.diet}
-                      onChange={(e) => handleInputChange('diet', e.target.value)}
-                      placeholder={isMuslim ? 'Halal (Non-Vegetarian)' : 'Vegetarian / Non-Veg'}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
+                  <SmartSelectField
+                    label={t.maritalStatus}
+                    value={data.maritalStatus}
+                    options={MARITAL_STATUS_OPTIONS[language] || MARITAL_STATUS_OPTIONS.en}
+                    onChange={(val) => handleInputChange('maritalStatus', val)}
+                    placeholder="Select marital status..."
+                    customPlaceholder="Type custom marital status..."
+                  />
+                  <SmartSelectField
+                    label={t.diet}
+                    value={data.diet}
+                    options={DIET_OPTIONS[language] || DIET_OPTIONS.en}
+                    onChange={(val) => handleInputChange('diet', val)}
+                    placeholder="Select diet preference..."
+                    customPlaceholder="Type custom diet..."
+                  />
                 </div>
               </div>
             )}
@@ -1150,16 +1369,14 @@ export default function BiodataBuilder({
                           className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white font-medium"
                         />
                       </div>
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.sect}</label>
-                        <input
-                          type="text"
-                          value={data.sect || ''}
-                          onChange={(e) => handleInputChange('sect', e.target.value)}
-                          placeholder="Sunni (Hanafi) / Ahl-e-Hadith / Shia"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
+                      <SmartSelectField
+                        label={t.sect}
+                        value={data.sect || ''}
+                        options={MUSLIM_SECT_OPTIONS}
+                        onChange={(val) => handleInputChange('sect', val)}
+                        placeholder="Select sect..."
+                        customPlaceholder="Type sect (e.g. Sunni, Shia)..."
+                      />
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
@@ -1173,29 +1390,25 @@ export default function BiodataBuilder({
                           className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                         />
                       </div>
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.namaz}</label>
-                        <input
-                          type="text"
-                          value={data.namaz || ''}
-                          onChange={(e) => handleInputChange('namaz', e.target.value)}
-                          placeholder="5 Times Daily (Regular) / Friday Only"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
+                      <SmartSelectField
+                        label={t.namaz}
+                        value={data.namaz || ''}
+                        options={MUSLIM_NAMAZ_OPTIONS}
+                        onChange={(val) => handleInputChange('namaz', val)}
+                        placeholder="Select namaz..."
+                        customPlaceholder="Type namaz details..."
+                      />
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.roza}</label>
-                        <input
-                          type="text"
-                          value={data.roza || ''}
-                          onChange={(e) => handleInputChange('roza', e.target.value)}
-                          placeholder="Keeps Ramadan Fasts"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
+                      <SmartSelectField
+                        label={t.roza}
+                        value={data.roza || ''}
+                        options={MUSLIM_ROZA_OPTIONS}
+                        onChange={(val) => handleInputChange('roza', val)}
+                        placeholder="Select fasting..."
+                        customPlaceholder="Type roza details..."
+                      />
                       <div>
                         <label className="block font-bold text-slate-700 mb-1">{t.quran}</label>
                         <input
@@ -1257,16 +1470,14 @@ export default function BiodataBuilder({
                     </div>
 
                     <div className="grid grid-cols-3 gap-2.5">
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.rashi}</label>
-                        <input
-                          type="text"
-                          value={data.rashi}
-                          onChange={(e) => handleInputChange('rashi', e.target.value)}
-                          placeholder="Leo (सिंह)"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
+                      <SmartSelectField
+                        label={t.rashi}
+                        value={data.rashi}
+                        options={RASHI_OPTIONS[language] || RASHI_OPTIONS.en}
+                        onChange={(val) => handleInputChange('rashi', val)}
+                        placeholder="Select rashi..."
+                        customPlaceholder="Type custom rashi..."
+                      />
                       <div>
                         <label className="block font-bold text-slate-700 mb-1">{t.nakshatra}</label>
                         <input
@@ -1277,16 +1488,14 @@ export default function BiodataBuilder({
                           className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                         />
                       </div>
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.manglik}</label>
-                        <input
-                          type="text"
-                          value={data.manglik}
-                          onChange={(e) => handleInputChange('manglik', e.target.value)}
-                          placeholder="Non-Manglik / Manglik"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
+                      <SmartSelectField
+                        label={t.manglik}
+                        value={data.manglik}
+                        options={MANGLIK_OPTIONS[language] || MANGLIK_OPTIONS.en}
+                        onChange={(val) => handleInputChange('manglik', val)}
+                        placeholder="Select manglik..."
+                        customPlaceholder="Type custom manglik..."
+                      />
                     </div>
                   </>
                 )}
@@ -1450,16 +1659,14 @@ export default function BiodataBuilder({
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.familyType}</label>
-                    <input
-                      type="text"
-                      value={data.familyType}
-                      onChange={(e) => handleInputChange('familyType', e.target.value)}
-                      placeholder="Nuclear / Joint Family"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
+                  <SmartSelectField
+                    label={t.familyType}
+                    value={data.familyType}
+                    options={FAMILY_TYPE_OPTIONS[language] || FAMILY_TYPE_OPTIONS.en}
+                    onChange={(val) => handleInputChange('familyType', val)}
+                    placeholder="Select family type..."
+                    customPlaceholder="Type family type..."
+                  />
                   <div>
                     <label className="block font-bold text-slate-700 mb-1">{t.nativePlace}</label>
                     <input
