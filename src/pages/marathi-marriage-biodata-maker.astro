@@ -11,7 +11,7 @@ import FaqSection from '../components/FaqSection.astro';
   keywords="marathi marriage biodata maker, marathi vivah biodata format, lagnacha biodata marathi download pdf, free marathi biodata format with photo, shree ganeshay namah marathi biodata, maharashtrian marriage biodata maker, lagna biodata format in marathi word"
 >
   <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8 sm:space-y-10 w-full max-w-full overflow-hidden">
-    <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="no-print text-center max-w-3xl mx-auto space-y-3">
       <div class="inline-flex items-center gap-2 bg-rose-100 text-rose-800 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full">
         महाराष्ट्रातील वधू-वरांसाठी खास
       </div>
@@ -25,7 +25,7 @@ import FaqSection from '../components/FaqSection.astro';
 
     <BiodataBuilder client:load formatType="marathi" initialLanguage="mr" initialHeaderText="|| श्री गणेशाय नमः ||" initialTitle="विवाह बायोडाटा" />
 
-    <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4">
+    <section class="no-print bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4">
       <h2 class="text-2xl font-black text-slate-900 font-serif">
         मराठी विवाह बायोडाटा कसा तयार करावा? (Essential Details in Marathi Biodata)
       </h2>
@@ -40,7 +40,11 @@ import FaqSection from '../components/FaqSection.astro';
       </ul>
     </section>
 
-    <TemplateGallery formatType="marathi" />
-    <FaqSection />
+    <div class="no-print">
+      <TemplateGallery formatType="marathi" />
+    </div>
+    <div class="no-print">
+      <FaqSection />
+    </div>
   </div>
 </Layout>

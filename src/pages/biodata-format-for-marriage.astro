@@ -11,7 +11,7 @@ import FaqSection from '../components/FaqSection.astro';
   keywords="biodata format for marriage, marriage biodata format for boy, marriage biodata format for girl, matrimonial biodata sample pdf download free, simple marriage biodata format, biodata format for marriage in english word free download, matrimonial biodata with photo"
 >
   <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8 sm:space-y-10 w-full max-w-full overflow-hidden">
-    <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="no-print text-center max-w-3xl mx-auto space-y-3">
       <div class="inline-flex items-center gap-2 bg-rose-100 text-rose-800 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full">
         Standard Groom & Bride Formats
       </div>
@@ -25,7 +25,7 @@ import FaqSection from '../components/FaqSection.astro';
 
     <BiodataBuilder client:load initialLanguage="en" />
 
-    <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-6">
+    <section class="no-print bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-6">
       <h2 class="text-2xl font-black text-slate-900 font-serif">
         Difference Between Groom (Boy) vs Bride (Girl) Biodata
       </h2>
@@ -45,7 +45,11 @@ import FaqSection from '../components/FaqSection.astro';
       </div>
     </section>
 
-    <TemplateGallery formatType="general" />
-    <FaqSection />
+    <div class="no-print">
+      <TemplateGallery formatType="general" />
+    </div>
+    <div class="no-print">
+      <FaqSection />
+    </div>
   </div>
 </Layout>

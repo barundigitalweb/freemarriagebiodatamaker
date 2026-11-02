@@ -139,6 +139,80 @@ const schemaData = {
         -ms-overflow-style: none;
         scrollbar-width: none;
       }
+
+      /* =========================================================
+         DIRECT A4 BIODATA PRINT PREVIEW (Clean 1-Page Biodata Print)
+         ========================================================= */
+      @media print {
+        @page {
+          size: A4 portrait;
+          margin: 8mm 10mm;
+        }
+
+        html, body {
+          background: #ffffff !important;
+          color: #000000 !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          overflow: visible !important;
+          max-width: 100% !important;
+          width: 100% !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+
+        /* Hide all website chrome, hero, footer, forms, ads, and galleries */
+        header,
+        footer,
+        nav,
+        aside,
+        .no-print,
+        #template-gallery,
+        #builder-form-card,
+        section:not(#builder),
+        .lg\:hidden {
+          display: none !important;
+        }
+
+        main {
+          margin: 0 !important;
+          padding: 0 !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          display: block !important;
+        }
+
+        /* Reset grid and container constraints so the preview sheet prints centered and full-width */
+        .max-w-7xl,
+        .grid,
+        #builder,
+        #builder-preview-card {
+          display: block !important;
+          width: 100% !important;
+          max-width: 100% !important;
+          margin: 0 auto !important;
+          padding: 0 !important;
+          border: 0 !important;
+          box-shadow: none !important;
+        }
+
+        /* The Isolated Printable Biodata Sheet */
+        #biodata-preview-sheet {
+          display: block !important;
+          width: 100% !important;
+          max-width: 190mm !important;
+          margin: 0 auto !important;
+          padding: 6mm 8mm !important;
+          box-shadow: none !important;
+          border-width: 2.5px !important;
+          page-break-inside: avoid !important;
+          break-inside: avoid !important;
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+          color-adjust: exact !important;
+        }
+      }
     </style>
 
     <!-- Structured Data Schema -->

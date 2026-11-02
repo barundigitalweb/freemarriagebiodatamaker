@@ -653,10 +653,27 @@ export default function BiodataBuilder({
     }
   };
 
+  // Direct A4 Print Handler (Displays ONLY the Biodata sheet in print preview)
+  const handlePrint = () => {
+    if (mobileTab !== 'preview') {
+      setMobileTab('preview');
+    }
+    const originalTitle = document.title;
+    if (data.fullName && data.fullName.trim()) {
+      document.title = `${data.fullName.trim()} - Marriage Biodata`;
+    }
+    setTimeout(() => {
+      window.print();
+      setTimeout(() => {
+        document.title = originalTitle;
+      }, 500);
+    }, 100);
+  };
+
   return (
     <div id="builder" className="space-y-8 scroll-mt-24">
       {/* Top Banner Toolbar */}
-      <div className="bg-white rounded-2xl p-3 sm:p-6 shadow-md border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 overflow-hidden w-full max-w-full">
+      <div className="no-print bg-white rounded-2xl p-3 sm:p-6 shadow-md border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 overflow-hidden w-full max-w-full">
         {/* App Title & Value Prop */}
         <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
           <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-rose-100 text-rose-800 flex items-center justify-center font-bold shrink-0">
@@ -720,13 +737,13 @@ export default function BiodataBuilder({
       </div>
 
       {exportMessage && (
-        <div className="p-3 bg-emerald-50 border border-emerald-300 text-emerald-900 rounded-xl text-center text-sm font-bold animate-pulse">
+        <div className="no-print p-3 bg-emerald-50 border border-emerald-300 text-emerald-900 rounded-xl text-center text-sm font-bold animate-pulse">
           {exportMessage}
         </div>
       )}
 
       {/* Mobile Tab Switcher: 1. Fill Form vs 2. Preview & Download (Visible on mobile screens < lg) */}
-      <div className="lg:hidden flex bg-slate-200/80 p-1.5 rounded-2xl border border-slate-300/80 shadow-xs">
+      <div className="no-print lg:hidden flex bg-slate-200/80 p-1.5 rounded-2xl border border-slate-300/80 shadow-xs">
         <button
           type="button"
           onClick={() => {
@@ -766,7 +783,7 @@ export default function BiodataBuilder({
         {/* LEFT COLUMN: Data Input Form (6 Cols) */}
         <div
           id="builder-form-card"
-          className={`lg:col-span-6 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden ${
+          className={`no-print lg:col-span-6 bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden ${
             mobileTab === 'preview' ? 'hidden lg:block' : 'block'
           }`}
         >
@@ -1564,7 +1581,7 @@ export default function BiodataBuilder({
           }`}
         >
           {/* Mobile Back-to-Edit Top Bar */}
-          <div className="lg:hidden w-full max-w-[520px] mb-3 flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200 shadow-2xs">
+          <div className="no-print lg:hidden w-full max-w-[520px] mb-3 flex items-center justify-between bg-white p-2.5 rounded-xl border border-slate-200 shadow-2xs">
             <button
               type="button"
               onClick={() => {
@@ -1582,7 +1599,7 @@ export default function BiodataBuilder({
             </span>
           </div>
 
-          <div className="w-full flex items-center justify-between mb-3 px-2">
+          <div className="no-print w-full flex items-center justify-between mb-3 px-2">
             <span className="text-xs font-bold text-slate-500 uppercase flex items-center gap-1.5">
               <Eye className="w-4 h-4 text-rose-600" />
               {t.livePreview}
@@ -2024,7 +2041,7 @@ export default function BiodataBuilder({
           })()}
 
           {/* Prominent Action & Download Card Directly Below A4 Preview Sheet */}
-          <div className="w-full max-w-[520px] bg-white rounded-2xl p-4 sm:p-5 shadow-lg border border-slate-200/90 mt-4 space-y-3">
+          <div className="no-print w-full max-w-[520px] bg-white rounded-2xl p-4 sm:p-5 shadow-lg border border-slate-200/90 mt-4 space-y-3">
             <div className="flex items-center justify-between text-xs text-slate-500 font-medium px-0.5">
               <span className="flex items-center gap-1.5 text-emerald-700 font-bold">
                 <CheckCircle2 className="w-4 h-4 text-emerald-600" />
@@ -2059,8 +2076,8 @@ export default function BiodataBuilder({
 
             <div className="flex items-center justify-between pt-1.5 text-xs border-t border-slate-100">
               <button
-                onClick={() => window.print()}
-                className="inline-flex items-center gap-1.5 text-slate-600 hover:text-slate-900 font-semibold py-1 px-2 rounded-lg hover:bg-slate-100 transition"
+                onClick={handlePrint}
+                className="inline-flex items-center gap-1.5 text-slate-600 hover:text-slate-900 font-semibold py-1 px-2 rounded-lg hover:bg-slate-100 transition cursor-pointer"
               >
                 <Printer className="w-3.5 h-3.5 text-slate-500" />
                 <span>{t.print}</span>
@@ -2076,7 +2093,7 @@ export default function BiodataBuilder({
             </div>
           </div>
 
-          <p className="text-xs text-slate-500 text-center mt-2">
+          <p className="no-print text-xs text-slate-500 text-center mt-2">
             {t.previewDisclaimer}
           </p>
         </div>
@@ -2084,7 +2101,7 @@ export default function BiodataBuilder({
 
       {/* Floating Sticky Mobile Quick Action Bar (when editing form on mobile) */}
       {mobileTab === 'edit' && (
-        <div className="lg:hidden fixed bottom-3 left-2.5 right-2.5 sm:left-4 sm:right-4 z-40 max-w-md mx-auto">
+        <div className="no-print lg:hidden fixed bottom-3 left-2.5 right-2.5 sm:left-4 sm:right-4 z-40 max-w-md mx-auto">
           <button
             type="button"
             onClick={() => {

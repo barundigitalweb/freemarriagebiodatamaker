@@ -11,7 +11,7 @@ import FaqSection from '../components/FaqSection.astro';
   keywords="hindu marriage biodata format, hindu biodata format for marriage with photo, gotra rashi marriage biodata, shree ganeshay namah biodata, kundli biodata maker, vedic marriage biodata format, traditional hindu matrimony profile, free marriage biodata download pdf"
 >
   <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8 sm:space-y-10 w-full max-w-full overflow-hidden">
-    <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="no-print text-center max-w-3xl mx-auto space-y-3">
       <div class="inline-flex items-center gap-2 bg-amber-100 text-amber-900 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full border border-amber-300">
         || श्री गणेशाय नमः || Auspicious Hindu Format
       </div>
@@ -25,7 +25,7 @@ import FaqSection from '../components/FaqSection.astro';
 
     <BiodataBuilder client:load formatType="hindu" initialLanguage="hi" initialHeaderText="|| श्री गणेशाय नमः ||" initialTitle="विवाह बायोडाटा" />
 
-    <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4">
+    <section class="no-print bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4">
       <h2 class="text-2xl font-black text-slate-900 font-serif">
         Astrological & Cultural Sections in a Hindu Biodata
       </h2>
@@ -45,7 +45,11 @@ import FaqSection from '../components/FaqSection.astro';
       </div>
     </section>
 
-    <TemplateGallery formatType="hindu" />
-    <FaqSection />
+    <div class="no-print">
+      <TemplateGallery formatType="hindu" />
+    </div>
+    <div class="no-print">
+      <FaqSection />
+    </div>
   </div>
 </Layout>

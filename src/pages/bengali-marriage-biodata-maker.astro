@@ -11,7 +11,7 @@ import FaqSection from '../components/FaqSection.astro';
   keywords="bengali marriage biodata maker, bangla marriage biodata format, biyer biodata format in bengali, bengali biodata for marriage pdf free, patro patri biyer biodata, bengali matrimonial biodata with photo, bangla matrimony biodata download"
 >
   <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-8 sm:py-10 space-y-8 sm:space-y-10 w-full max-w-full overflow-hidden">
-    <div class="text-center max-w-3xl mx-auto space-y-3">
+    <div class="no-print text-center max-w-3xl mx-auto space-y-3">
       <div class="inline-flex items-center gap-2 bg-rose-100 text-rose-800 text-[11px] sm:text-xs font-bold px-3 py-1 rounded-full">
         বাঙালি পাত্র-পাত্রী স্পেশাল
       </div>
@@ -25,7 +25,7 @@ import FaqSection from '../components/FaqSection.astro';
 
     <BiodataBuilder client:load formatType="bengali" initialLanguage="bn" />
 
-    <section class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4">
+    <section class="no-print bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-4">
       <h2 class="text-2xl font-black text-slate-900 font-serif">
         বাঙালি বিয়ের বায়োডাটায় কী কী বিবরণ থাকা আবশ্যক?
       </h2>
@@ -37,7 +37,11 @@ import FaqSection from '../components/FaqSection.astro';
       </ul>
     </section>
 
-    <TemplateGallery lang="bn" formatType="bengali" />
-    <FaqSection lang="bn" />
+    <div class="no-print">
+      <TemplateGallery lang="bn" formatType="bengali" />
+    </div>
+    <div class="no-print">
+      <FaqSection lang="bn" />
+    </div>
   </div>
 </Layout>

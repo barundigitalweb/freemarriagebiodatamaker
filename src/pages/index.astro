@@ -13,7 +13,7 @@ import { Sparkles, CheckCircle2 } from 'lucide-react';
   keywords="free marriage biodata maker, marriage biodata format, biodata for marriage with photo, biodata format for marriage in word, biodata maker online free, matrimonial biodata format, indian marriage biodata maker, free marriage biodata download pdf without watermark"
 >
   {/* Hero Header */}
-  <section class="relative pt-8 pb-7 sm:pt-14 sm:pb-12 bg-gradient-to-b from-rose-50/70 via-amber-50/40 to-slate-100/60 border-b border-rose-100/80 w-full max-w-full overflow-hidden">
+  <section class="no-print relative pt-8 pb-7 sm:pt-14 sm:pb-12 bg-gradient-to-b from-rose-50/70 via-amber-50/40 to-slate-100/60 border-b border-rose-100/80 w-full max-w-full overflow-hidden">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 text-center space-y-3.5 sm:space-y-4">
       <div class="inline-flex items-center gap-1.5 sm:gap-2 bg-rose-100 border border-rose-300 text-rose-900 px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-full text-[10px] min-[360px]:text-[11px] sm:text-sm font-bold shadow-xs max-w-full">
         <Sparkles class="w-3 h-3 sm:w-4 sm:h-4 text-rose-700 shrink-0" />
@@ -58,13 +58,17 @@ import { Sparkles, CheckCircle2 } from 'lucide-react';
     </section>
 
     {/* Template Gallery Showcase */}
-    <TemplateGallery lang="en" formatType="general" />
+    <div class="no-print">
+      <TemplateGallery lang="en" formatType="general" />
+    </div>
 
     {/* Non-intrusive Ad/Sponsorship Placement */}
-    <AdSlot format="horizontal" />
+    <div class="no-print">
+      <AdSlot format="horizontal" />
+    </div>
 
     {/* In-depth Educational Articles for AdSense E-E-A-T and SEO Authority */}
-    <section class="bg-white rounded-2xl shadow-lg border border-slate-200/80 p-4 sm:p-10 space-y-6 sm:space-y-8 overflow-hidden w-full max-w-full">
+    <section class="no-print bg-white rounded-2xl shadow-lg border border-slate-200/80 p-4 sm:p-10 space-y-6 sm:space-y-8 overflow-hidden w-full max-w-full">
       <div class="max-w-3xl">
         <span class="text-xs font-bold text-rose-700 bg-rose-50 px-3 py-1 rounded-full uppercase tracking-wider">
           Complete Guide
@@ -111,6 +115,8 @@ import { Sparkles, CheckCircle2 } from 'lucide-react';
     </section>
 
     {/* FAQ Section */}
-    <FaqSection lang="en" />
+    <div class="no-print">
+      <FaqSection lang="en" />
+    </div>
   </div>
 </Layout>
