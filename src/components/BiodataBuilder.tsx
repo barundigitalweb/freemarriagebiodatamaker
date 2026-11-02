@@ -32,7 +32,6 @@ import {
   Image as ImageIcon,
   Sparkles,
   Download,
-  Share2,
   Printer,
   Palette,
   CheckCircle2,
@@ -2128,13 +2127,13 @@ export default function BiodataBuilder({
                 <span>{t.downloadPdf}</span>
               </button>
 
-              {/* Primary WhatsApp HD Image Download Button */}
+              {/* Primary HD Image Download Button */}
               <button
                 onClick={downloadImage}
                 disabled={isExporting}
                 className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold text-sm py-3 px-4 rounded-xl shadow-md hover:shadow-lg transition-all transform active:scale-[0.98] disabled:opacity-50 cursor-pointer"
               >
-                <Share2 className="w-4 h-4" />
+                <Download className="w-4 h-4" />
                 <span>{t.downloadImage}</span>
               </button>
             </div>
