@@ -2,9 +2,9 @@ import type { APIRoute } from 'astro';
 
 const pages = [
   { url: '', priority: '1.0', changefreq: 'daily' },
-  { url: 'bengali-marriage-biodata-maker', priority: '0.9', changefreq: 'weekly' },
-  { url: 'marathi-marriage-biodata-maker', priority: '0.9', changefreq: 'weekly' },
   { url: 'hindu-marriage-biodata-format', priority: '0.9', changefreq: 'weekly' },
+  { url: 'marathi-marriage-biodata-format', priority: '0.9', changefreq: 'weekly' },
+  { url: 'bengali-marriage-biodata-format', priority: '0.9', changefreq: 'weekly' },
   { url: 'muslim-marriage-biodata-format', priority: '0.9', changefreq: 'weekly' },
   { url: 'biodata-format-for-marriage', priority: '0.8', changefreq: 'weekly' },
   { url: 'about', priority: '0.5', changefreq: 'monthly' },
