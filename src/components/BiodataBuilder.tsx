@@ -1765,10 +1765,7 @@ export default function BiodataBuilder({
                 {isSaffronHindu ? (
                   <HinduCalligraphyHeader headerText={data.headerText} />
                 ) : (
-                  <div
-                    className="text-center pb-2 border-b-2 relative z-10"
-                    style={{ borderColor: headingBorderColor }}
-                  >
+                  <div className="text-center relative z-10">
                     <div
                       className={`text-xs sm:text-sm font-extrabold tracking-widest uppercase mb-1 ${
                         isDarkIslamic
@@ -1787,7 +1784,7 @@ export default function BiodataBuilder({
                       {data.headerText}
                     </div>
                     <h2
-                      className={`text-xl sm:text-2xl font-black tracking-wide ${
+                      className={`text-xl sm:text-2xl font-black tracking-wide leading-tight ${
                         isDarkIslamic
                           ? 'text-amber-400'
                           : isRoyalMaroon
@@ -1803,6 +1800,10 @@ export default function BiodataBuilder({
                     >
                       {data.title}
                     </h2>
+                    <div
+                      className="w-full h-[2px] mt-2 mb-2 rounded-full"
+                      style={{ backgroundColor: headingBorderColor }}
+                    />
                   </div>
                 )}
 
@@ -1951,12 +1952,18 @@ export default function BiodataBuilder({
                 )}
 
                 {/* Section 1: Personal & Physical Details */}
-                <div className="space-y-1.5 text-xs relative z-10">
-                  <div
-                    className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                    style={{ color: headingColor, borderColor: headingBorderColor }}
-                  >
-                    {t.personalDetails}
+                <div className="space-y-1 text-xs relative z-10">
+                  <div>
+                    <div
+                      className="font-bold text-[11px] tracking-wider uppercase leading-snug"
+                      style={{ color: headingColor }}
+                    >
+                      {t.personalDetails}
+                    </div>
+                    <div
+                      className="w-full h-[1.5px] mt-1 mb-1.5 rounded-full"
+                      style={{ backgroundColor: headingBorderColor }}
+                    />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
                     <KeyValueRow label={t.lblBirthPlace} value={data.birthPlace} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
@@ -1970,12 +1977,18 @@ export default function BiodataBuilder({
                 {/* Section 2: Astrological / Religious Details */}
                 {isMuslim ? (
                   (data.religion || data.sect || data.caste || data.namaz || data.roza || data.quran) && (
-                    <div className="space-y-1.5 text-xs relative z-10">
-                      <div
-                        className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                        style={{ color: headingColor, borderColor: headingBorderColor }}
-                      >
-                        {t.islamicDetails}
+                    <div className="space-y-1 text-xs relative z-10">
+                      <div>
+                        <div
+                          className="font-bold text-[11px] tracking-wider uppercase leading-snug"
+                          style={{ color: headingColor }}
+                        >
+                          {t.islamicDetails}
+                        </div>
+                        <div
+                          className="w-full h-[1.5px] mt-1 mb-1.5 rounded-full"
+                          style={{ backgroundColor: headingBorderColor }}
+                        />
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
                         <KeyValueRow label={t.lblReligion} value={data.religion} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
@@ -1989,12 +2002,18 @@ export default function BiodataBuilder({
                   )
                 ) : (
                   (data.religion || data.caste || data.gotra || data.rashi || data.nakshatra || data.manglik) && (
-                    <div className="space-y-1.5 text-xs relative z-10">
-                      <div
-                        className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                        style={{ color: headingColor, borderColor: headingBorderColor }}
-                      >
-                        {t.horoscopeDetails}
+                    <div className="space-y-1 text-xs relative z-10">
+                      <div>
+                        <div
+                          className="font-bold text-[11px] tracking-wider uppercase leading-snug"
+                          style={{ color: headingColor }}
+                        >
+                          {t.horoscopeDetails}
+                        </div>
+                        <div
+                          className="w-full h-[1.5px] mt-1 mb-1.5 rounded-full"
+                          style={{ backgroundColor: headingBorderColor }}
+                        />
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
                         <KeyValueRow label={t.lblReligion} value={data.religion} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
@@ -2009,12 +2028,18 @@ export default function BiodataBuilder({
                 )}
 
                 {/* Section 3: Education & Career Details */}
-                <div className="space-y-1.5 text-xs relative z-10">
-                  <div
-                    className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                    style={{ color: headingColor, borderColor: headingBorderColor }}
-                  >
-                    {t.educationDetails}
+                <div className="space-y-1 text-xs relative z-10">
+                  <div>
+                    <div
+                      className="font-bold text-[11px] tracking-wider uppercase leading-snug"
+                      style={{ color: headingColor }}
+                    >
+                      {t.educationDetails}
+                    </div>
+                    <div
+                      className="w-full h-[1.5px] mt-1 mb-1.5 rounded-full"
+                      style={{ backgroundColor: headingBorderColor }}
+                    />
                   </div>
                   <div className="space-y-1 text-[11px]">
                     <KeyValueRow label={t.lblEducation} value={data.education ? `${data.education}${data.collegeUniversity ? ` (${data.collegeUniversity})` : ''}` : ''} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
@@ -2026,12 +2051,18 @@ export default function BiodataBuilder({
                 </div>
 
                 {/* Section 4: Family Details */}
-                <div className="space-y-1.5 text-xs relative z-10">
-                  <div
-                    className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                    style={{ color: headingColor, borderColor: headingBorderColor }}
-                  >
-                    {t.familyDetails}
+                <div className="space-y-1 text-xs relative z-10">
+                  <div>
+                    <div
+                      className="font-bold text-[11px] tracking-wider uppercase leading-snug"
+                      style={{ color: headingColor }}
+                    >
+                      {t.familyDetails}
+                    </div>
+                    <div
+                      className="w-full h-[1.5px] mt-1 mb-1.5 rounded-full"
+                      style={{ backgroundColor: headingBorderColor }}
+                    />
                   </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-3 gap-y-1 text-[11px]">
                     <KeyValueRow label={t.lblFather} value={data.fatherName} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
@@ -2046,12 +2077,18 @@ export default function BiodataBuilder({
                 </div>
 
                 {/* Section 5: Contact Details */}
-                <div className="space-y-1.5 text-xs relative z-10">
-                  <div
-                    className="font-bold text-[11px] tracking-wider uppercase border-b pb-0.5"
-                    style={{ color: headingColor, borderColor: headingBorderColor }}
-                  >
-                    {t.contactDetails}
+                <div className="space-y-1 text-xs relative z-10">
+                  <div>
+                    <div
+                      className="font-bold text-[11px] tracking-wider uppercase leading-snug"
+                      style={{ color: headingColor }}
+                    >
+                      {t.contactDetails}
+                    </div>
+                    <div
+                      className="w-full h-[1.5px] mt-1 mb-1.5 rounded-full"
+                      style={{ backgroundColor: headingBorderColor }}
+                    />
                   </div>
                   <div className="space-y-1 text-[11px]">
                     <KeyValueRow label={t.lblContactPerson} value={data.contactPerson} labelColor={labelColor} colonColor={colonColor} valueColor={valueColor} />
