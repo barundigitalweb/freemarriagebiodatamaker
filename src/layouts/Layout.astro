@@ -13,12 +13,14 @@ interface Props {
 const {
   title = 'Free Marriage Biodata Maker Online | 100% Free Matrimonial Biodata with Photo',
   description = '100% Free Online Marriage Biodata Maker with Photo. Create elegant Indian wedding biodatas in Bengali, Hindi, Marathi & English. Download HD PDF & Image without watermark or login.',
-  canonical = Astro.url.href,
-  keywords = 'free marriage biodata maker, marriage biodata format, biodata for marriage pdf download, marriage biodata with photo, bengali marriage biodata, marathi marriage biodata maker, hindu marriage biodata format',
-  noindex = true
+  canonical,
+  keywords = 'free marriage biodata maker, marriage biodata format, biodata for marriage pdf download, marriage biodata with photo, bengali marriage biodata, marathi marriage biodata maker, hindu marriage biodata format, muslim nikah biodata format',
+  noindex = false
 } = Astro.props;
 
 const siteUrl = 'https://freemarriagebiodatamaker.com';
+const cleanPath = Astro.url.pathname.replace(/\/$/, '') || '';
+const canonicalUrl = canonical || (cleanPath ? `${siteUrl}${cleanPath}` : siteUrl);
 
 const schemaData = {
   '@context': 'https://schema.org',
@@ -29,7 +31,20 @@ const schemaData = {
       'url': siteUrl,
       'name': 'FreeMarriageBiodataMaker.com',
       'description': description,
-      'inLanguage': ['en-IN', 'hi-IN', 'bn-IN', 'mr-IN']
+      'inLanguage': ['en-IN', 'hi-IN', 'bn-IN', 'mr-IN'],
+      'publisher': {
+        '@id': `${siteUrl}/#organization`
+      }
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${siteUrl}/#organization`,
+      'name': 'FreeMarriageBiodataMaker.com',
+      'url': siteUrl,
+      'logo': {
+        '@type': 'ImageObject',
+        'url': `${siteUrl}/og-image.png`
+      }
     },
     {
       '@type': 'WebApplication',
@@ -37,8 +52,15 @@ const schemaData = {
       'name': 'Free Marriage Biodata Maker',
       'url': siteUrl,
       'applicationCategory': 'DesignApplication',
-      'operatingSystem': 'All',
+      'operatingSystem': 'All (Web, Android, iOS, Windows, macOS)',
       'browserRequirements': 'Requires JavaScript',
+      'featureList': [
+        '100% Free with zero hidden charges',
+        'Zero watermark on exported PDF and Image',
+        'Client-side 100% on-device data privacy',
+        '11 Cultural templates including Velvet Maroon, Vedic Ivory, Temple Gold, Sindoor Crimson, and Nikah Special',
+        'Instant print-ready A4 PDF & WhatsApp HD image export'
+      ],
       'offers': {
         '@type': 'Offer',
         'price': '0',
@@ -57,19 +79,24 @@ const schemaData = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords} />
-    <link rel="canonical" href={canonical} />
+    <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Robots: Noindex Directive -->
-    {noindex && (
+    <!-- Robots: Directives for Google & Search Crawlers -->
+    {noindex ? (
       <>
         <meta name="robots" content="noindex, nofollow" />
         <meta name="googlebot" content="noindex, nofollow" />
+      </>
+    ) : (
+      <>
+        <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
       </>
     )}
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={canonical} />
+    <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="FreeMarriageBiodataMaker.com" />

@@ -23,7 +23,7 @@ export const GET: APIRoute = async () => {
 ${pages
   .map(
     (page) => `  <url>
-    <loc>${siteUrl}/${page.url ? page.url : ''}</loc>
+    <loc>${page.url ? `${siteUrl}/${page.url}` : siteUrl}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
