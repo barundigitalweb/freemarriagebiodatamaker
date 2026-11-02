@@ -154,11 +154,47 @@ export default function BiodataBuilder({
       const saved = localStorage.getItem(storageKey);
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (parsed?.data) setData(parsed.data);
+        if (parsed?.data) {
+          const loadedData = { ...parsed.data };
+          // Strict cultural boundary:
+          if (isMuslim) {
+            // Guarantee that an Islamic page NEVER carries a Hindu motto or title from past sessions
+            if (
+              !loadedData.headerText ||
+              loadedData.headerText.includes('गणेशाय') ||
+              loadedData.headerText.includes('Ganeshay')
+            ) {
+              loadedData.headerText = 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ';
+            }
+            if (
+              !loadedData.title ||
+              loadedData.title === 'MARRIAGE BIODATA' ||
+              loadedData.title === 'विवाह बायोडाटा'
+            ) {
+              loadedData.title = 'ISLAMIC NIKAH BIODATA';
+            }
+          } else {
+            // Guarantee that a Hindu/general page NEVER carries an Islamic motto from past sessions
+            if (
+              loadedData.headerText?.includes('بِسْمِ') ||
+              loadedData.headerText?.includes('Bismillah')
+            ) {
+              loadedData.headerText =
+                formatType === 'hindu' ? '॥ श्री गणेशाय नमः ॥' : '|| श्री गणेशाय नमः ||';
+            }
+            if (loadedData.title === 'ISLAMIC NIKAH BIODATA') {
+              loadedData.title =
+                formatType === 'hindu' ? 'विवाह बायोडाटा' : 'MARRIAGE BIODATA';
+            }
+          }
+          setData(loadedData);
+        }
         if (parsed?.selectedTemplate) {
           // If on non-muslim format and saved template was emerald-divine, reset to royal-maroon
           if (!isMuslim && parsed.selectedTemplate === 'emerald-divine') {
             setSelectedTemplate('royal-maroon');
+          } else if (isMuslim && parsed.selectedTemplate === 'saffron-gold') {
+            setSelectedTemplate('emerald-divine');
           } else {
             setSelectedTemplate(parsed.selectedTemplate);
           }
@@ -168,7 +204,7 @@ export default function BiodataBuilder({
     } catch (e) {
       console.warn('Could not read from localStorage', e);
     }
-  }, [storageKey, isMuslim]);
+  }, [storageKey, isMuslim, formatType]);
 
   // Persist draft to localStorage on change
   useEffect(() => {
@@ -199,23 +235,39 @@ export default function BiodataBuilder({
     }
 
     setData((prev) => {
-      // Intelligent cultural motto pairing if user hasn't typed a custom motto
-      if (newTmplId === 'emerald-divine') {
-        const isHinduMotto = !prev.headerText || prev.headerText.includes('गणेशाय') || prev.headerText.includes('Ganeshay');
-        if (isHinduMotto) {
+      // 1. If on the Muslim page, NEVER switch to Hindu mottos or titles!
+      if (isMuslim) {
+        if (
+          !prev.headerText ||
+          prev.headerText.includes('गणेशाय') ||
+          prev.headerText.includes('Ganeshay')
+        ) {
           return {
             ...prev,
             headerText: 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
-            title: prev.title === 'MARRIAGE BIODATA' || prev.title === 'বিবাহের বায়োডাটা' ? 'ISLAMIC NIKAH BIODATA' : prev.title
+            title: 'ISLAMIC NIKAH BIODATA'
           };
         }
-      } else if (newTmplId === 'saffron-gold' || newTmplId === 'royal-maroon') {
-        const isMuslimMotto = prev.headerText?.includes('بِسْمِ') || prev.headerText?.includes('Bismillah');
+        return prev;
+      }
+
+      // 2. If on Hindu / General format pages:
+      if (newTmplId === 'saffron-gold' || newTmplId === 'royal-maroon') {
+        const isMuslimMotto =
+          prev.headerText?.includes('بِسْمِ') || prev.headerText?.includes('Bismillah');
         if (isMuslimMotto) {
           return {
             ...prev,
-            headerText: newTmplId === 'saffron-gold' ? '॥ श्री गणेशाय नमः ॥' : '|| श्री गणेशाय नमः ||',
-            title: prev.title === 'ISLAMIC NIKAH BIODATA' ? 'MARRIAGE BIODATA' : prev.title
+            headerText:
+              newTmplId === 'saffron-gold'
+                ? '॥ श्री गणेशाय नमः ॥'
+                : '|| श्री गणेशाय नमः ||',
+            title:
+              formatType === 'hindu'
+                ? 'विवाह बायोडाटा'
+                : prev.title === 'ISLAMIC NIKAH BIODATA'
+                ? 'MARRIAGE BIODATA'
+                : prev.title
           };
         }
       }
