@@ -156,7 +156,7 @@ const schemaData = {
       @media print {
         @page {
           size: A4 portrait;
-          margin: 8mm 10mm;
+          margin: 6mm 8mm;
         }
 
         html, body {
@@ -207,20 +207,46 @@ const schemaData = {
           box-shadow: none !important;
         }
 
-        /* The Isolated Printable Biodata Sheet */
+        /* The Isolated Printable Biodata Sheet: Perfectly Fitted to Single A4 */
         #biodata-preview-sheet {
           display: block !important;
           width: 100% !important;
-          max-width: 190mm !important;
+          max-width: 194mm !important;
           margin: 0 auto !important;
-          padding: 6mm 8mm !important;
+          padding: 5mm 7mm !important;
           box-shadow: none !important;
-          border-width: 2.5px !important;
+          border-width: 2px !important;
           page-break-inside: avoid !important;
           break-inside: avoid !important;
+          page-break-after: avoid !important;
+          break-after: avoid !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color-adjust: exact !important;
+        }
+
+        /* Compact vertical spacing when printing so standard biodatas fit cleanly on 1 single A4 page */
+        #biodata-preview-sheet > * + * {
+          margin-top: 2.2mm !important;
+        }
+
+        #biodata-preview-sheet .space-y-1 > * + * {
+          margin-top: 0.8mm !important;
+        }
+
+        #biodata-preview-sheet .space-y-1\.5 > * + * {
+          margin-top: 1mm !important;
+        }
+
+        #biodata-preview-sheet .py-0\.5 {
+          padding-top: 0.3mm !important;
+          padding-bottom: 0.3mm !important;
+        }
+
+        /* Photo sizing on print */
+        #biodata-preview-sheet img {
+          max-height: 32mm !important;
+          object-fit: cover !important;
         }
       }
     </style>
