@@ -669,8 +669,8 @@ export default function BiodataBuilder({
           </div>
         </div>
 
-        {/* Language Switcher + Actions */}
-        <div className="flex flex-wrap items-center gap-2">
+        {/* Language Switcher + Quick Actions */}
+        <div className="flex items-center gap-2">
           {/* Multilingual Selector */}
           <div className="inline-flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold text-slate-700">
             <Globe className="w-3.5 h-3.5 ml-1.5 mr-1 text-slate-500" />
@@ -692,16 +692,6 @@ export default function BiodataBuilder({
             ))}
           </div>
 
-          {/* Share on WhatsApp */}
-          <button
-            onClick={shareOnWhatsApp}
-            className="inline-flex items-center gap-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs font-bold px-3 py-2 rounded-xl transition"
-            title="Share with Family on WhatsApp"
-          >
-            <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
-            <span className="hidden sm:inline">WhatsApp</span>
-          </button>
-
           {/* Copy Site Link */}
           <button
             onClick={handleCopyLink}
@@ -720,35 +710,6 @@ export default function BiodataBuilder({
           >
             <RotateCcw className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">{t.reset}</span>
-          </button>
-
-          {/* Quick PDF Download */}
-          <button
-            onClick={downloadPdf}
-            disabled={isExporting}
-            className="inline-flex items-center gap-1.5 bg-rose-700 hover:bg-rose-800 text-white text-xs sm:text-sm font-bold px-3.5 py-2 rounded-xl shadow-md transition disabled:opacity-50"
-          >
-            <Download className="w-4 h-4" />
-            <span>{t.downloadPdf}</span>
-          </button>
-
-          {/* Quick Image Download */}
-          <button
-            onClick={downloadImage}
-            disabled={isExporting}
-            className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold px-3.5 py-2 rounded-xl shadow-md transition disabled:opacity-50"
-          >
-            <Share2 className="w-4 h-4" />
-            <span>{t.downloadImage}</span>
-          </button>
-
-          {/* Direct Print */}
-          <button
-            onClick={() => window.print()}
-            className="inline-flex items-center justify-center bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold p-2 rounded-xl border border-slate-200 transition"
-            title={t.print}
-          >
-            <Printer className="w-4 h-4" />
           </button>
         </div>
       </div>
@@ -1976,7 +1937,60 @@ export default function BiodataBuilder({
             );
           })()}
 
-          <p className="text-xs text-slate-500 text-center mt-3">
+          {/* Prominent Action & Download Card Directly Below A4 Preview Sheet */}
+          <div className="w-full max-w-[520px] bg-white rounded-2xl p-4 sm:p-5 shadow-lg border border-slate-200/90 mt-4 space-y-3">
+            <div className="flex items-center justify-between text-xs text-slate-500 font-medium px-0.5">
+              <span className="flex items-center gap-1.5 text-emerald-700 font-bold">
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+                100% Free • No Watermark
+              </span>
+              <span className="text-[11px] text-slate-400">
+                A4 Print & HD Ready
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {/* Primary PDF Download Button */}
+              <button
+                onClick={downloadPdf}
+                disabled={isExporting}
+                className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-rose-700 to-rose-800 hover:from-rose-800 hover:to-rose-900 text-white font-bold text-sm py-3 px-4 rounded-xl shadow-md hover:shadow-lg transition-all transform active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+              >
+                <Download className="w-4 h-4" />
+                <span>{t.downloadPdf}</span>
+              </button>
+
+              {/* Primary WhatsApp HD Image Download Button */}
+              <button
+                onClick={downloadImage}
+                disabled={isExporting}
+                className="w-full inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-700 hover:from-emerald-700 hover:to-teal-800 text-white font-bold text-sm py-3 px-4 rounded-xl shadow-md hover:shadow-lg transition-all transform active:scale-[0.98] disabled:opacity-50 cursor-pointer"
+              >
+                <Share2 className="w-4 h-4" />
+                <span>{t.downloadImage}</span>
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between pt-1.5 text-xs border-t border-slate-100">
+              <button
+                onClick={() => window.print()}
+                className="inline-flex items-center gap-1.5 text-slate-600 hover:text-slate-900 font-semibold py-1 px-2 rounded-lg hover:bg-slate-100 transition"
+              >
+                <Printer className="w-3.5 h-3.5 text-slate-500" />
+                <span>{t.print}</span>
+              </button>
+
+              <button
+                onClick={shareOnWhatsApp}
+                className="inline-flex items-center gap-1.5 text-emerald-700 hover:text-emerald-800 font-semibold py-1 px-2 rounded-lg hover:bg-emerald-50 transition"
+              >
+                <MessageCircle className="w-3.5 h-3.5 text-emerald-600" />
+                <span>Share on WhatsApp</span>
+              </button>
+            </div>
+          </div>
+
+          <p className="text-xs text-slate-500 text-center mt-2">
             {t.previewDisclaimer}
           </p>
         </div>
