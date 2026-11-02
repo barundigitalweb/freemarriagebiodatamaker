@@ -62,7 +62,7 @@ function KeyValueRow({
 }) {
   if (!value) return null;
   return (
-    <div className="flex text-[11px] items-baseline leading-snug">
+    <div className="flex text-[11px] items-baseline leading-normal py-0.5">
       <span className={`${labelWidth} ${labelColor} shrink-0`}>{label}</span>
       <span className={`${colonColor} mr-1.5 shrink-0`}>:</span>
       <span className={`${valueColor} break-words flex-1`}>{value}</span>
@@ -518,6 +518,9 @@ export default function BiodataBuilder({
     setExportMessage(t.generatingImage);
 
     try {
+      if (typeof document !== 'undefined' && document.fonts) {
+        await document.fonts.ready;
+      }
       const html2canvas = (await import('html2canvas')).default;
       const confetti = (await import('canvas-confetti')).default;
 
@@ -526,11 +529,21 @@ export default function BiodataBuilder({
         useCORS: true,
         backgroundColor: null,
         windowWidth: 1200,
+        scrollX: 0,
+        scrollY: 0,
         onclone: (clonedDoc) => {
           const el = clonedDoc.getElementById('biodata-preview-sheet');
           if (el) {
             el.style.width = '520px';
             el.style.maxWidth = '520px';
+            el.style.overflow = 'visible';
+            const allElements = el.querySelectorAll('*');
+            allElements.forEach((node) => {
+              const htmlEl = node as HTMLElement;
+              if (htmlEl.style) {
+                htmlEl.style.webkitLineClamp = 'unset';
+              }
+            });
           }
         }
       });
@@ -563,6 +576,9 @@ export default function BiodataBuilder({
     setExportMessage(t.generatingPdf);
 
     try {
+      if (typeof document !== 'undefined' && document.fonts) {
+        await document.fonts.ready;
+      }
       const html2canvas = (await import('html2canvas')).default;
       const { jsPDF } = await import('jspdf');
       const confetti = (await import('canvas-confetti')).default;
@@ -572,11 +588,21 @@ export default function BiodataBuilder({
         useCORS: true,
         backgroundColor: null,
         windowWidth: 1200,
+        scrollX: 0,
+        scrollY: 0,
         onclone: (clonedDoc) => {
           const el = clonedDoc.getElementById('biodata-preview-sheet');
           if (el) {
             el.style.width = '520px';
             el.style.maxWidth = '520px';
+            el.style.overflow = 'visible';
+            const allElements = el.querySelectorAll('*');
+            allElements.forEach((node) => {
+              const htmlEl = node as HTMLElement;
+              if (htmlEl.style) {
+                htmlEl.style.webkitLineClamp = 'unset';
+              }
+            });
           }
         }
       });
@@ -1578,15 +1604,15 @@ export default function BiodataBuilder({
                         </div>
                       )}
                       {data.education && (
-                        <div className="bg-amber-950/50 border border-amber-500/30 rounded-lg p-1.5 text-center col-span-2 sm:col-span-1 line-clamp-1">
+                        <div className="bg-amber-950/50 border border-amber-500/30 rounded-lg p-1.5 text-center col-span-2 sm:col-span-1">
                           <span className="block text-amber-400 font-bold">{t.lblEducation}</span>
-                          <span className="line-clamp-1">{data.education}</span>
+                          <span className="break-words leading-tight">{data.education}</span>
                         </div>
                       )}
                       {data.birthPlace && (
-                        <div className="bg-amber-950/50 border border-amber-500/30 rounded-lg p-1.5 text-center col-span-2 sm:col-span-1 line-clamp-1">
+                        <div className="bg-amber-950/50 border border-amber-500/30 rounded-lg p-1.5 text-center col-span-2 sm:col-span-1">
                           <span className="block text-amber-400 font-bold">{t.lblBirthPlace}</span>
-                          <span className="line-clamp-1">{data.birthPlace}</span>
+                          <span className="break-words leading-tight">{data.birthPlace}</span>
                         </div>
                       )}
                     </div>
@@ -1596,7 +1622,7 @@ export default function BiodataBuilder({
                   <div className="flex items-start justify-between gap-4 pt-1 relative z-10">
                     <div className="flex-1 space-y-1">
                       <div
-                        className={`text-lg sm:text-xl font-black tracking-tight ${
+                        className={`text-lg sm:text-xl font-black tracking-tight leading-snug break-words ${
                           isEmeraldIslamic
                             ? 'text-amber-300'
                             : isSaffronHindu
@@ -1612,22 +1638,22 @@ export default function BiodataBuilder({
                       >
                         {data.fullName || (language === 'bn' ? 'আপনার নাম' : 'Full Name')}
                       </div>
-                      <div className={`text-xs font-semibold ${isEmeraldIslamic ? 'text-emerald-200' : 'text-slate-600'}`}>
+                      <div className={`text-xs font-semibold leading-normal break-words py-0.5 ${isEmeraldIslamic ? 'text-emerald-200' : 'text-slate-600'}`}>
                         {data.dob && <span>{t.lblDob} {data.dob}</span>}
                         {data.birthTime && <span> ({data.birthTime})</span>}
                       </div>
-                      <div className={`text-xs ${isEmeraldIslamic ? 'text-emerald-300/80' : 'text-slate-600'}`}>
+                      <div className={`text-xs leading-normal break-words py-0.5 ${isEmeraldIslamic ? 'text-emerald-300/80' : 'text-slate-600'}`}>
                         {data.height && <span>{t.lblHeight} {data.height}</span>}
                         {data.complexion && <span> • {t.lblComplexion} {data.complexion}</span>}
                       </div>
                       {data.education && (
-                        <div className={`text-xs font-medium line-clamp-1 ${isEmeraldIslamic ? 'text-emerald-100' : 'text-slate-700'}`}>
+                        <div className={`text-xs font-medium leading-normal break-words py-0.5 ${isEmeraldIslamic ? 'text-emerald-100' : 'text-slate-700'}`}>
                           {t.lblEducation} {data.education}
                         </div>
                       )}
                       {data.jobTitle && (
                         <div
-                          className={`text-xs font-bold ${isEmeraldIslamic ? 'text-amber-300' : ''}`}
+                          className={`text-xs font-bold leading-normal break-words py-0.5 ${isEmeraldIslamic ? 'text-amber-300' : ''}`}
                           style={{
                             color: !isEmeraldIslamic ? currentTemplate.primaryColor : undefined
                           }}
