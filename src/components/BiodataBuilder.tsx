@@ -258,7 +258,7 @@ function SmartSelectField({
                 onChange(options[0]);
               }
             }}
-            className="text-[10px] text-rose-600 hover:text-rose-700 hover:underline font-semibold cursor-pointer"
+            className="text-[11px] text-rose-600 hover:text-rose-700 hover:underline font-semibold cursor-pointer"
           >
             ← Quick Select
           </button>
@@ -272,7 +272,7 @@ function SmartSelectField({
           onChange={(e) => onChange(e.target.value)}
           placeholder={customPlaceholder}
           autoFocus
-          className="w-full bg-white border border-rose-300 focus:border-rose-600 rounded-lg p-2 outline-none text-xs font-medium"
+          className="w-full bg-white border border-rose-300 focus:border-rose-600 rounded-lg p-2 outline-none text-sm text-slate-800"
         />
       ) : (
         <select
@@ -284,7 +284,7 @@ function SmartSelectField({
               onChange(e.target.value);
             }
           }}
-          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white text-xs font-medium cursor-pointer"
+          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white text-sm text-slate-800 cursor-pointer"
         >
           {!val && <option value="">{placeholder}</option>}
           {val && !isPredefined && (
