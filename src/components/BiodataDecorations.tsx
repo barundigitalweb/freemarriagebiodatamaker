@@ -281,3 +281,68 @@ export function CornerFiligree() {
     </>
   );
 }
+
+/**
+ * Temple Deepam Watermark for South Indian / Temple Gold template
+ */
+export function TempleDeepamWatermark() {
+  return (
+    <div
+      className="absolute bottom-2 right-2 w-48 h-64 pointer-events-none select-none z-0 opacity-[0.10]"
+      aria-hidden="true"
+    >
+      <svg
+        viewBox="0 0 200 240"
+        className="w-full h-full text-amber-700"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        {/* Sacred Deepam / Lamp & Kalash */}
+        <path d="M100 20 C103 35 112 50 100 65 C88 50 97 35 100 20 Z" fill="#ea580c" />
+        <ellipse cx="100" cy="70" rx="30" ry="12" fill="#ca8a04" />
+        <path d="M70 70 Q100 100 130 70 Q120 120 100 130 Q80 120 70 70 Z" fill="#b45309" />
+        <path d="M90 130 H110 V180 H90 Z" fill="#92400e" />
+        <ellipse cx="100" cy="185" rx="45" ry="15" fill="#ca8a04" />
+        <ellipse cx="100" cy="195" rx="55" ry="12" fill="#b45309" />
+      </svg>
+    </div>
+  );
+}
+
+/**
+ * Islamic Star & Crescent Arch for Sapphire Noor template
+ */
+export function IslamicSapphireArch() {
+  return (
+    <div className="w-full relative overflow-hidden pt-1 pb-2 text-center">
+      <svg
+        viewBox="0 0 500 80"
+        className="w-full h-auto max-h-20 mx-auto text-amber-300 drop-shadow-sm"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M10 0 V35 Q125 55 250 20 Q375 55 490 35 V0"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          fill="none"
+        />
+        <path
+          d="M15 0 V30 Q125 50 250 15 Q375 50 485 30 V0"
+          stroke="currentColor"
+          strokeWidth="0.75"
+          strokeDasharray="3 3"
+          fill="none"
+        />
+        {/* Center Crescent Moon & Star */}
+        <g transform="translate(250, 42)">
+          <path
+            d="M-10 -8 A10 10 0 1 0 8 2 A7.5 7.5 0 0 1 -10 -8 Z"
+            fill="currentColor"
+          />
+          <polygon points="6,-6 8,-2 12,-2 9,1 10,5 6,3 2,5 3,1 0,-2 4,-2" fill="#fef08a" />
+        </g>
+      </svg>
+    </div>
+  );
+}

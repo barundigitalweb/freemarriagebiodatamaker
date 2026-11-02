@@ -19,7 +19,9 @@ import {
   GaneshaWatermark,
   HinduCalligraphyHeader,
   RoyalMandalaRing,
-  CornerFiligree
+  CornerFiligree,
+  TempleDeepamWatermark,
+  IslamicSapphireArch
 } from './BiodataDecorations';
 import {
   User,
@@ -139,10 +141,10 @@ export default function BiodataBuilder({
   // Available templates strictly segmented by community context (Option B)
   const availableTemplates = useMemo(() => {
     if (isMuslim) {
-      return BIODATA_TEMPLATES.filter((tmpl) => tmpl.id !== 'saffron-gold');
+      return BIODATA_TEMPLATES.filter((tmpl) => tmpl.id !== 'saffron-gold' && tmpl.id !== 'temple-gold');
     }
     // For General, Hindu, Marathi, Bengali: Never show Islamic Nikah template
-    return BIODATA_TEMPLATES.filter((tmpl) => tmpl.id !== 'emerald-divine');
+    return BIODATA_TEMPLATES.filter((tmpl) => tmpl.id !== 'emerald-divine' && tmpl.id !== 'sapphire-noor');
   }, [isMuslim]);
 
   const currentTemplate =
@@ -209,10 +211,10 @@ export default function BiodataBuilder({
           setData(loadedData);
         }
         if (parsed?.selectedTemplate) {
-          // If on non-muslim format and saved template was emerald-divine, reset to royal-maroon
-          if (!isMuslim && parsed.selectedTemplate === 'emerald-divine') {
+          // If on non-muslim format and saved template was emerald-divine or sapphire-noor, reset to royal-maroon
+          if (!isMuslim && (parsed.selectedTemplate === 'emerald-divine' || parsed.selectedTemplate === 'sapphire-noor')) {
             setSelectedTemplate('royal-maroon');
-          } else if (isMuslim && parsed.selectedTemplate === 'saffron-gold') {
+          } else if (isMuslim && (parsed.selectedTemplate === 'saffron-gold' || parsed.selectedTemplate === 'temple-gold')) {
             setSelectedTemplate('emerald-divine');
           } else {
             setSelectedTemplate(parsed.selectedTemplate);
@@ -271,14 +273,19 @@ export default function BiodataBuilder({
       }
 
       // 2. If on Hindu / General format pages:
-      if (newTmplId === 'saffron-gold' || newTmplId === 'royal-maroon') {
+      if (
+        newTmplId === 'saffron-gold' ||
+        newTmplId === 'temple-gold' ||
+        newTmplId === 'ruby-crimson' ||
+        newTmplId === 'royal-maroon'
+      ) {
         const isMuslimMotto =
           prev.headerText?.includes('بِسْمِ') || prev.headerText?.includes('Bismillah');
         if (isMuslimMotto) {
           return {
             ...prev,
             headerText:
-              newTmplId === 'saffron-gold'
+              newTmplId === 'saffron-gold' || newTmplId === 'temple-gold'
                 ? '॥ श्री गणेशाय नमः ॥'
                 : '|| श्री गणेशाय नमः ||',
             title:
@@ -848,6 +855,42 @@ export default function BiodataBuilder({
                           <span className="w-1.5 h-1.5 bg-slate-700"></span>
                         </div>
                         <div className="w-8 h-0.5 bg-slate-300 rounded"></div>
+                      </div>
+                    )}
+                    {tmpl.id === 'temple-gold' && (
+                      <div className="w-full h-11 rounded-lg border border-amber-600 bg-[#fffdf9] flex flex-col items-center justify-center p-1 relative overflow-hidden shadow-2xs">
+                        <div className="w-10 h-0.5 bg-amber-700 rounded"></div>
+                        <div className="w-4 h-4 rounded-full border border-amber-600 bg-amber-100 flex items-center justify-center my-0.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-700"></span>
+                        </div>
+                        <div className="w-8 h-0.5 bg-amber-300 rounded"></div>
+                      </div>
+                    )}
+                    {tmpl.id === 'ruby-crimson' && (
+                      <div className="w-full h-11 rounded-lg border border-rose-700 bg-gradient-to-b from-[#fffaf8] to-rose-50 flex flex-col items-center justify-center p-1 relative overflow-hidden shadow-2xs">
+                        <div className="w-10 h-0.5 bg-rose-700 rounded"></div>
+                        <div className="w-4 h-4 rounded border border-rose-600 bg-rose-100 flex items-center justify-center my-0.5">
+                          <span className="w-1.5 h-1.5 bg-rose-700"></span>
+                        </div>
+                        <div className="w-8 h-0.5 bg-rose-300 rounded"></div>
+                      </div>
+                    )}
+                    {tmpl.id === 'lavender-blossom' && (
+                      <div className="w-full h-11 rounded-lg border border-purple-400 bg-gradient-to-b from-purple-50 to-fuchsia-50 flex flex-col items-center justify-center p-1 relative overflow-hidden shadow-2xs">
+                        <div className="w-10 h-0.5 bg-purple-700 rounded"></div>
+                        <div className="w-4 h-4 rounded-full border border-purple-400 bg-purple-100 flex items-center justify-center my-0.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-purple-600"></span>
+                        </div>
+                        <div className="w-8 h-0.5 bg-purple-200 rounded"></div>
+                      </div>
+                    )}
+                    {tmpl.id === 'sapphire-noor' && (
+                      <div className="w-full h-11 rounded-lg border border-blue-400 bg-gradient-to-b from-[#0a192f] to-[#071324] flex flex-col items-center justify-center p-1 relative overflow-hidden shadow-2xs">
+                        <div className="w-10 h-0.5 bg-blue-400 rounded"></div>
+                        <div className="w-4 h-4 rounded-full border border-amber-300 bg-blue-950 flex items-center justify-center my-0.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-amber-300"></span>
+                        </div>
+                        <div className="w-8 h-0.5 bg-blue-300/60 rounded"></div>
                       </div>
                     )}
                   </div>
@@ -1505,7 +1548,12 @@ export default function BiodataBuilder({
           {/* THE ACTUAL PRINTABLE / EXPORTABLE BIODATA SHEET */}
           {(() => {
             const isEmeraldIslamic = selectedTemplate === 'emerald-divine';
+            const isSapphireIslamic = selectedTemplate === 'sapphire-noor';
+            const isDarkIslamic = isEmeraldIslamic || isSapphireIslamic;
             const isSaffronHindu = selectedTemplate === 'saffron-gold';
+            const isTempleGold = selectedTemplate === 'temple-gold';
+            const isRubyCrimson = selectedTemplate === 'ruby-crimson';
+            const isLavenderLuxe = selectedTemplate === 'lavender-blossom';
             const isRoyalMaroon = selectedTemplate === 'royal-maroon';
 
             // Theme Styling Tokens
@@ -1528,6 +1576,15 @@ export default function BiodataBuilder({
               colonColor = 'text-amber-400 font-bold';
               valueColor = 'text-white font-semibold';
               photoBorder = '#facc15';
+            } else if (isSapphireIslamic) {
+              sheetClasses += ' bg-gradient-to-b from-[#0a192f] via-[#112240] to-[#071324] text-blue-100 border-blue-400';
+              sheetInlineStyle = { borderColor: '#60a5fa' };
+              headingColor = '#facc15';
+              headingBorderColor = 'rgba(250, 204, 21, 0.4)';
+              labelColor = 'text-amber-300 font-medium';
+              colonColor = 'text-amber-400 font-bold';
+              valueColor = 'text-white font-semibold';
+              photoBorder = '#facc15';
             } else if (isSaffronHindu) {
               sheetClasses += ' bg-[#fcf9f2] text-slate-800 border-amber-600/90 shadow-amber-900/10';
               sheetInlineStyle = { borderColor: '#c2410c' };
@@ -1537,6 +1594,33 @@ export default function BiodataBuilder({
               colonColor = 'text-amber-700 font-bold';
               valueColor = 'text-slate-800 font-medium';
               photoBorder = '#d97706';
+            } else if (isTempleGold) {
+              sheetClasses += ' bg-[#fffdf9] text-amber-950 border-amber-600 shadow-amber-900/10';
+              sheetInlineStyle = { borderColor: '#ca8a04' };
+              headingColor = '#854d0e';
+              headingBorderColor = 'rgba(202, 138, 4, 0.4)';
+              labelColor = 'text-amber-900 font-bold';
+              colonColor = 'text-amber-700 font-bold';
+              valueColor = 'text-amber-950 font-medium';
+              photoBorder = '#ca8a04';
+            } else if (isRubyCrimson) {
+              sheetClasses += ' bg-[#fffaf8] text-slate-900 border-rose-700 shadow-rose-900/10';
+              sheetInlineStyle = { borderColor: '#be123c' };
+              headingColor = '#9f1239';
+              headingBorderColor = 'rgba(225, 29, 72, 0.4)';
+              labelColor = 'text-rose-950 font-bold';
+              colonColor = 'text-rose-700 font-bold';
+              valueColor = 'text-slate-900 font-medium';
+              photoBorder = '#e11d48';
+            } else if (isLavenderLuxe) {
+              sheetClasses += ' bg-[#faf5ff] text-slate-900 border-purple-400 shadow-purple-900/10';
+              sheetInlineStyle = { borderColor: '#a855f7' };
+              headingColor = '#581c87';
+              headingBorderColor = 'rgba(168, 85, 247, 0.4)';
+              labelColor = 'text-purple-950 font-bold';
+              colonColor = 'text-purple-600 font-bold';
+              valueColor = 'text-slate-900 font-medium';
+              photoBorder = '#a855f7';
             } else if (isRoyalMaroon) {
               sheetClasses += ' bg-gradient-to-b from-[#380812] via-[#4a0518] to-[#28040d] text-amber-100 border-amber-500';
               sheetInlineStyle = { borderColor: '#f59e0b' };
@@ -1560,6 +1644,9 @@ export default function BiodataBuilder({
                 {/* 1. Islamic Emerald Top Arch & Lanterns */}
                 {isEmeraldIslamic && <IslamicArchHeader />}
 
+                {/* 1b. Islamic Sapphire Noor Top Arch & Crescent */}
+                {isSapphireIslamic && <IslamicSapphireArch />}
+
                 {/* 2. Hindu Saffron Ganesha Watermark & Corner Filigrees */}
                 {isSaffronHindu && (
                   <>
@@ -1567,6 +1654,17 @@ export default function BiodataBuilder({
                     <CornerFiligree />
                   </>
                 )}
+
+                {/* 2b. Temple Gold Watermark & Corner Filigrees */}
+                {isTempleGold && (
+                  <>
+                    <TempleDeepamWatermark />
+                    <CornerFiligree />
+                  </>
+                )}
+
+                {/* 2c. Ruby Crimson Corner Filigrees */}
+                {isRubyCrimson && <CornerFiligree />}
 
                 {/* 3. Royal Maroon Corner Filigrees */}
                 {isRoyalMaroon && <CornerFiligree />}
@@ -1581,7 +1679,7 @@ export default function BiodataBuilder({
                   >
                     <div
                       className={`text-xs sm:text-sm font-extrabold tracking-widest uppercase mb-1 ${
-                        isEmeraldIslamic
+                        isDarkIslamic
                           ? 'text-amber-300'
                           : isRoyalMaroon
                           ? 'text-amber-300'
@@ -1589,7 +1687,7 @@ export default function BiodataBuilder({
                       }`}
                       style={{
                         color:
-                          !isEmeraldIslamic && !isRoyalMaroon
+                          !isDarkIslamic && !isRoyalMaroon
                             ? currentTemplate.secondaryColor
                             : undefined
                       }}
@@ -1598,7 +1696,7 @@ export default function BiodataBuilder({
                     </div>
                     <h2
                       className={`text-xl sm:text-2xl font-black tracking-wide ${
-                        isEmeraldIslamic
+                        isDarkIslamic
                           ? 'text-amber-400'
                           : isRoyalMaroon
                           ? 'text-amber-200'
@@ -1606,7 +1704,7 @@ export default function BiodataBuilder({
                       }`}
                       style={{
                         color:
-                          !isEmeraldIslamic && !isRoyalMaroon
+                          !isDarkIslamic && !isRoyalMaroon
                             ? currentTemplate.primaryColor
                             : undefined
                       }}
@@ -1683,39 +1781,43 @@ export default function BiodataBuilder({
                     <div className="flex-1 space-y-1">
                       <div
                         className={`text-lg sm:text-xl font-black tracking-tight leading-snug break-words ${
-                          isEmeraldIslamic
+                          isDarkIslamic
                             ? 'text-amber-300'
                             : isSaffronHindu
                             ? 'text-amber-950'
+                            : isTempleGold
+                            ? 'text-amber-950'
+                            : isRubyCrimson
+                            ? 'text-rose-950'
                             : ''
                         }`}
                         style={{
                           color:
-                            !isEmeraldIslamic && !isSaffronHindu
+                            !isDarkIslamic && !isSaffronHindu && !isTempleGold && !isRubyCrimson
                               ? currentTemplate.primaryColor
                               : undefined
                         }}
                       >
                         {data.fullName || (language === 'bn' ? 'আপনার নাম' : 'Full Name')}
                       </div>
-                      <div className={`text-xs font-semibold leading-normal break-words py-0.5 ${isEmeraldIslamic ? 'text-emerald-200' : 'text-slate-600'}`}>
+                      <div className={`text-xs font-semibold leading-normal break-words py-0.5 ${isDarkIslamic ? 'text-amber-200' : 'text-slate-600'}`}>
                         {data.dob && <span>{t.lblDob} {data.dob}</span>}
                         {data.birthTime && <span> ({data.birthTime})</span>}
                       </div>
-                      <div className={`text-xs leading-normal break-words py-0.5 ${isEmeraldIslamic ? 'text-emerald-300/80' : 'text-slate-600'}`}>
+                      <div className={`text-xs leading-normal break-words py-0.5 ${isDarkIslamic ? 'text-amber-300/80' : 'text-slate-600'}`}>
                         {data.height && <span>{t.lblHeight} {data.height}</span>}
                         {data.complexion && <span> • {t.lblComplexion} {data.complexion}</span>}
                       </div>
                       {data.education && (
-                        <div className={`text-xs font-medium leading-normal break-words py-0.5 ${isEmeraldIslamic ? 'text-emerald-100' : 'text-slate-700'}`}>
+                        <div className={`text-xs font-medium leading-normal break-words py-0.5 ${isDarkIslamic ? 'text-white' : 'text-slate-700'}`}>
                           {t.lblEducation} {data.education}
                         </div>
                       )}
                       {data.jobTitle && (
                         <div
-                          className={`text-xs font-bold leading-normal break-words py-0.5 ${isEmeraldIslamic ? 'text-amber-300' : ''}`}
+                          className={`text-xs font-bold leading-normal break-words py-0.5 ${isDarkIslamic ? 'text-amber-300' : ''}`}
                           style={{
-                            color: !isEmeraldIslamic ? currentTemplate.primaryColor : undefined
+                            color: !isDarkIslamic ? currentTemplate.primaryColor : undefined
                           }}
                         >
                           {t.lblOccupation} {data.jobTitle} {data.companyName && `(${data.companyName})`}
@@ -1727,7 +1829,7 @@ export default function BiodataBuilder({
                     {data.photoUrl ? (
                       <div
                         className={`w-24 h-32 sm:w-28 sm:h-36 rounded-xl overflow-hidden border-2 shadow-md shrink-0 ${
-                          isEmeraldIslamic ? 'ring-2 ring-amber-400/30' : ''
+                          isDarkIslamic ? 'ring-2 ring-amber-400/30' : ''
                         }`}
                         style={{ borderColor: photoBorder }}
                       >
@@ -1740,13 +1842,13 @@ export default function BiodataBuilder({
                     ) : (
                       <div
                         className={`w-24 h-32 sm:w-28 sm:h-36 rounded-xl border-2 border-dashed flex flex-col items-center justify-center text-center p-2 shrink-0 ${
-                          isEmeraldIslamic
-                            ? 'border-amber-400/60 bg-emerald-950/40 text-amber-300/70'
+                          isDarkIslamic
+                            ? 'border-amber-400/60 bg-slate-900/40 text-amber-300/70'
                             : 'border-slate-300 bg-slate-50/50 text-slate-400'
                         }`}
                         style={{
                           borderColor:
-                            !isEmeraldIslamic ? currentTemplate.secondaryColor : undefined
+                            !isDarkIslamic ? currentTemplate.secondaryColor : undefined
                         }}
                       >
                         <ImageIcon className="w-6 h-6 mb-1 opacity-50" />

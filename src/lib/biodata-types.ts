@@ -64,12 +64,16 @@ export interface BiodataData {
 
 export type TemplateId =
   | 'royal-maroon'
-  | 'regal-blue'
-  | 'emerald-divine'
-  | 'rose-gold'
-  | 'classic-elegance'
   | 'saffron-gold'
-  | 'peacock-teal';
+  | 'temple-gold'
+  | 'ruby-crimson'
+  | 'regal-blue'
+  | 'rose-gold'
+  | 'peacock-teal'
+  | 'lavender-blossom'
+  | 'classic-elegance'
+  | 'emerald-divine'
+  | 'sapphire-noor';
 
 export interface BiodataTemplate {
   id: TemplateId;
@@ -104,6 +108,26 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     badge: 'Auspicious Vedic 🪔'
   },
   {
+    id: 'temple-gold',
+    name: 'Divine Temple Gold (Kanjeevaram)',
+    description: 'Warm sacred golden ivory parchment with temple pillar borders, deepam motifs & traditional South Indian Vedic elegance',
+    primaryColor: '#854d0e',
+    secondaryColor: '#ca8a04',
+    borderColor: '#b45309',
+    bgGradient: 'from-amber-50/70 via-[#fffdf9] to-amber-50/40',
+    badge: 'Divine Temple 🛕'
+  },
+  {
+    id: 'ruby-crimson',
+    name: 'Royal Rajasthani Crimson (Sindoor & Zari)',
+    description: 'Auspicious Sindoor Red with gleaming gold zari borders, royal jaali filigree & heritage floral corner motifs',
+    primaryColor: '#9f1239',
+    secondaryColor: '#d97706',
+    borderColor: '#e11d48',
+    bgGradient: 'from-rose-50/50 via-white to-amber-50/30',
+    badge: 'Auspicious Sindoor 🌺'
+  },
+  {
     id: 'regal-blue',
     name: 'Regal Navy & Gold',
     description: 'Sophisticated & Prestigious Royal Blue with Elegant Gold Borders',
@@ -134,6 +158,16 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     badge: 'Royal Heritage 🦚'
   },
   {
+    id: 'lavender-blossom',
+    name: 'Modern Lavender Luxe (Elite Pastel)',
+    description: 'Contemporary lilac & soft orchid palette with champagne accents, tailored for modern NRI & urban professionals',
+    primaryColor: '#581c87',
+    secondaryColor: '#9333ea',
+    borderColor: '#a855f7',
+    bgGradient: 'from-purple-50/40 via-white to-fuchsia-50/20',
+    badge: 'Modern Luxe 💜'
+  },
+  {
     id: 'classic-elegance',
     name: 'Classic Monochrome Crisp',
     description: 'Ultra Clean, Formal & High-Contrast Layout for Perfect Physical Printing',
@@ -152,6 +186,16 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     borderColor: '#d4af37',
     bgGradient: 'from-[#092d2d] via-[#0e3a3a] to-[#072424]',
     badge: 'Nikah Special 🌙'
+  },
+  {
+    id: 'sapphire-noor',
+    name: 'Islamic Royal Noor (Midnight Sapphire)',
+    description: 'Regal midnight sapphire blue with golden crescent moon, arabesque geometric star border & Bismillah header',
+    primaryColor: '#172554',
+    secondaryColor: '#facc15',
+    borderColor: '#3b82f6',
+    bgGradient: 'from-[#0a192f] via-[#112240] to-[#071324]',
+    badge: 'Royal Noor ✨'
   }
 ];
 
