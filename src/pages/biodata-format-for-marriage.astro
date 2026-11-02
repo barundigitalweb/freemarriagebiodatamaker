@@ -26,21 +26,51 @@ import FaqSection from '../components/FaqSection.astro';
     <BiodataBuilder client:load initialLanguage="en" />
 
     <section class="no-print bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md space-y-6">
-      <h2 class="text-2xl font-black text-slate-900 font-serif">
-        Difference Between Groom (Boy) vs Bride (Girl) Biodata
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-700">
-        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
-          <h3 class="font-bold text-slate-900 text-base">Groom (Boy) Biodata Focus:</h3>
-          <p>
-            Emphasizes career stability, educational background, company details, annual remuneration, willingness to relocate, and family values.
-          </p>
+      <div class="space-y-2">
+        <h2 class="text-2xl font-black text-slate-900 font-serif">
+          Key Sections to Include in a Marriage Biodata (Checklist)
+        </h2>
+        <p class="text-slate-600 text-sm leading-relaxed">
+          Whether you are preparing a matrimonial profile for an arranged marriage or personal matchmaking, prospective in-laws expect these core details:
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-700">
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+          <strong class="text-slate-900 text-sm block">1. Personal & Physical Info</strong>
+          <p>Full legal name, date of birth (DOB), exact birth time, birth city, height (in feet & cm), complexion, blood group, mother tongue, and marital status.</p>
         </div>
-        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-2">
-          <h3 class="font-bold text-slate-900 text-base">Bride (Girl) Biodata Focus:</h3>
-          <p>
-            Highlights education, talents/hobbies, career preferences (working vs homemaker), personality, and close family background.
-          </p>
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+          <strong class="text-slate-900 text-sm block">2. Education & Occupation</strong>
+          <p>Highest qualification, institution name, job designation, current employer (MNC/Govt/Private), work location, and approximate annual CTC income.</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+          <strong class="text-slate-900 text-sm block">3. Astrological / Religious Details</strong>
+          <p>Religion, caste, sub-caste, Gotra, Rashi (Moon sign), Nakshatra, and Manglik status for Kundli matching. (For Muslim profiles: Sect, Namaz, and Islamic values).</p>
+        </div>
+        <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+          <strong class="text-slate-900 text-sm block">4. Family Background & Contact</strong>
+          <p>Father's & mother's name and occupations, siblings (married/unmarried), ancestral native place, family values (moderate/traditional), and guardian WhatsApp numbers.</p>
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-slate-100">
+        <h3 class="text-xl font-black text-slate-900 font-serif mb-4">
+          Difference Between Groom (Boy) vs Bride (Girl) Biodata
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-700">
+          <div class="bg-rose-50/50 p-5 rounded-xl border border-rose-100 space-y-2">
+            <h4 class="font-bold text-slate-900 text-base">Groom (Boy) Biodata Focus:</h4>
+            <p>
+              Emphasizes career stability, educational background, company details, annual remuneration, willingness to relocate, and family values.
+            </p>
+          </div>
+          <div class="bg-rose-50/50 p-5 rounded-xl border border-rose-100 space-y-2">
+            <h4 class="font-bold text-slate-900 text-base">Bride (Girl) Biodata Focus:</h4>
+            <p>
+              Highlights education, talents/hobbies, career preferences (working vs homemaker), personality, and close family background.
+            </p>
+          </div>
         </div>
       </div>
     </section>
