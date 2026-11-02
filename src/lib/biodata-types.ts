@@ -62,7 +62,14 @@ export interface BiodataData {
   photoUrl: string | null;
 }
 
-export type TemplateId = 'royal-maroon' | 'regal-blue' | 'emerald-divine' | 'rose-gold' | 'classic-elegance';
+export type TemplateId =
+  | 'royal-maroon'
+  | 'regal-blue'
+  | 'emerald-divine'
+  | 'rose-gold'
+  | 'classic-elegance'
+  | 'saffron-gold'
+  | 'peacock-teal';
 
 export interface BiodataTemplate {
   id: TemplateId;
@@ -115,6 +122,26 @@ export const BIODATA_TEMPLATES: BiodataTemplate[] = [
     borderColor: '#fb7185',
     bgGradient: 'from-rose-50/50 via-white to-pink-50/30',
     badge: 'Romantic & Soft 🌸'
+  },
+  {
+    id: 'saffron-gold',
+    name: 'Vedic Saffron & Kesar Gold',
+    description: 'Auspicious Turmeric, Saffron & Temple Gold Theme for Traditional Vedic Ceremonies',
+    primaryColor: '#c2410c',
+    secondaryColor: '#d97706',
+    borderColor: '#ea580c',
+    bgGradient: 'from-amber-50/50 via-white to-orange-50/30',
+    badge: 'Auspicious Vedic 🪔'
+  },
+  {
+    id: 'peacock-teal',
+    name: 'Royal Peacock Teal & Gold',
+    description: 'Majestic Peacock Teal with Antique Golden Accents & Imperial Heritage Borders',
+    primaryColor: '#0f766e',
+    secondaryColor: '#b45309',
+    borderColor: '#0d9488',
+    bgGradient: 'from-teal-50/40 via-white to-emerald-50/20',
+    badge: 'Royal Heritage 🦚'
   },
   {
     id: 'classic-elegance',
