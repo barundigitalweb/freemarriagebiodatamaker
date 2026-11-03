@@ -156,7 +156,7 @@ const schemaData = {
       @media print {
         @page {
           size: A4 portrait;
-          margin: 6mm 8mm;
+          margin: 4mm 6mm !important;
         }
 
         html, body {
@@ -211,15 +211,17 @@ const schemaData = {
         #biodata-preview-sheet {
           display: block !important;
           width: 100% !important;
-          max-width: 194mm !important;
+          max-width: 198mm !important;
           margin: 0 auto !important;
-          padding: 5mm 7mm !important;
+          padding: 4mm 6mm !important;
           box-shadow: none !important;
           border-width: 2px !important;
           page-break-inside: avoid !important;
           break-inside: avoid !important;
           page-break-after: avoid !important;
           break-after: avoid !important;
+          page-break-before: avoid !important;
+          break-before: avoid !important;
           -webkit-print-color-adjust: exact !important;
           print-color-adjust: exact !important;
           color-adjust: exact !important;
@@ -227,25 +229,42 @@ const schemaData = {
 
         /* Compact vertical spacing when printing so standard biodatas fit cleanly on 1 single A4 page */
         #biodata-preview-sheet > * + * {
-          margin-top: 2.2mm !important;
+          margin-top: 1.6mm !important;
         }
 
         #biodata-preview-sheet .space-y-1 > * + * {
-          margin-top: 0.8mm !important;
+          margin-top: 0.6mm !important;
         }
 
         #biodata-preview-sheet .space-y-1\.5 > * + * {
-          margin-top: 1mm !important;
+          margin-top: 0.8mm !important;
         }
 
         #biodata-preview-sheet .py-0\.5 {
-          padding-top: 0.3mm !important;
-          padding-bottom: 0.3mm !important;
+          padding-top: 0.15mm !important;
+          padding-bottom: 0.15mm !important;
+          line-height: 1.25 !important;
+        }
+
+        #biodata-preview-sheet .section-heading-container,
+        #biodata-preview-sheet .section-title-container {
+          padding-bottom: 0.8mm !important;
+          margin-bottom: 1.2mm !important;
+        }
+
+        #biodata-preview-sheet .section-heading-text {
+          padding-bottom: 0.4mm !important;
+          line-height: 1.2 !important;
+        }
+
+        #biodata-preview-sheet .section-divider-line {
+          margin-top: 1mm !important;
+          margin-bottom: 1.4mm !important;
         }
 
         /* Photo sizing on print */
         #biodata-preview-sheet img {
-          max-height: 32mm !important;
+          max-height: 28mm !important;
           object-fit: cover !important;
         }
       }
