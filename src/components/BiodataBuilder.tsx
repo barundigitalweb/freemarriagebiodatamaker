@@ -125,7 +125,7 @@ const MARITAL_STATUS_OPTIONS: Record<Language, string[]> = {
 };
 
 const DIET_OPTIONS: Record<Language, string[]> = {
-  en: ['Vegetarian', 'Pure Vegetarian (Jain)', 'Eggetarian', 'Non-Vegetarian', 'Halal (Non-Vegetarian)'],
+  en: ['Vegetarian', 'Pure Vegetarian (Jain)', 'Eggetarian', 'Non-Vegetarian'],
   hi: ['शुद्ध शाकाहारी (Vegetarian)', 'शाकाहारी (Vegetarian)', 'अंडा युक्त (Eggetarian)', 'मांसाहारी (Non-Vegetarian)'],
   bn: ['নিরামিষ (Vegetarian)', 'আমিষ (Non-Vegetarian)', 'ডিম্বাহারী (Eggetarian)'],
   mr: ['शाकाहारी (Vegetarian)', 'शुद्ध शाकाहारी (Jain)', 'मांसाहारी (Non-Vegetarian)', 'अंडाहारी (Eggetarian)']
@@ -204,12 +204,326 @@ const RASHI_OPTIONS: Record<Language, string[]> = {
   ]
 };
 
+const HEADER_MOTTO_OPTIONS: Record<Language, string[]> = {
+  en: [
+    '|| Shree Ganeshay Namah ||',
+    '|| Om Shri Ganeshay Namah ||',
+    '|| Jai Shree Krishna ||',
+    '|| Jai Jinendra ||',
+    '|| Om Sai Ram ||',
+    '|| Jai Mata Di ||',
+    '|| Har Har Mahadev ||',
+    '|| Ek Onkar Satnam ||',
+    '|| Jai Guruji ||',
+    '|| Radha Soami ||',
+    '|| Shree Laxmi Narayan Namah ||',
+    'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ'
+  ],
+  hi: [
+    '|| श्री गणेशाय नमः ||',
+    '|| ॐ श्री गणेशाय नमः ||',
+    '|| जय श्री कृष्ण ||',
+    '|| जय जिनेन्द्र ||',
+    '|| ॐ साईं राम ||',
+    '|| जय माता दी ||',
+    '|| हर हर महादेव ||',
+    '|| एक ओंकार सतनाम ||',
+    '|| जय गुरुजी ||',
+    '|| राधा स्वामी ||'
+  ],
+  bn: [
+    '|| শ্রী গণেশায় নমঃ ||',
+    '|| শুভ বিবাহ ||',
+    '|| ওঁ নমঃ শিবায় ||',
+    '|| জয় শ্রী কৃষ্ণ ||',
+    '|| জয় মা তারা ||'
+  ],
+  mr: [
+    '|| श्री गणेशाय नमः ||',
+    '|| श्री कुलदेवता प्रसन्न ||',
+    '|| ॐ नमः शिवाय ||',
+    '|| जय मल्हार ||',
+    '|| श्री स्वामी समर्थ ||'
+  ]
+};
+
+const BIODATA_TITLE_OPTIONS = [
+  'MARRIAGE BIODATA',
+  'MATRIMONIAL BIODATA',
+  'BIODATA FOR MARRIAGE',
+  'ISLAMIC NIKAH BIODATA',
+  'BIODATA',
+  'CURRICULUM VITAE'
+];
+
+const RELIGION_OPTIONS: Record<Language, string[]> = {
+  en: ['Hindu', 'Jain', 'Sikh', 'Buddhist', 'Christian', 'Parsi', 'Muslim', 'Other'],
+  hi: ['हिंदू (Hindu)', 'जैन (Jain)', 'सिख (Sikh)', 'बौद्ध (Buddhist)', 'ईसाई (Christian)', 'अन्य (Other)'],
+  bn: ['হিন্দু (Hindu)', 'জৈন (Jain)', 'শিখ (Sikh)', 'বৌদ্ধ (Buddhist)', 'খ্রিস্টান (Christian)', 'অন্যান্য (Other)'],
+  mr: ['हिंदू (Hindu)', 'जैन (Jain)', 'शीख (Sikh)', 'बौद्ध (Buddhist)', 'ख्रिश्चन (Christian)', 'इतर (Other)']
+};
+
+const CASTE_OPTIONS = [
+  'Brahmin',
+  'Rajput / Kshatriya',
+  'Baniya / Vaishya',
+  'Maratha',
+  'Agarwal / Agrawal',
+  'Maheshwari',
+  'Khandelwal',
+  'Kayastha',
+  'Jat',
+  'Yadav',
+  'Khatri / Arora',
+  'Gupta',
+  'Reddy',
+  'Nair',
+  'Patel / Patidar',
+  'Kurmi',
+  'Lingayat',
+  'Choudhary',
+  'Saini',
+  'Jain (Digambar / Shwetambar)',
+  'Scheduled Caste (SC)',
+  'Scheduled Tribe (ST)',
+  'Caste No Bar / Other'
+];
+
+const SUBCASTE_OPTIONS = [
+  'Saraswat',
+  'Kanyakubja',
+  'Gaur',
+  'Maithil',
+  'Sanadhya',
+  'Saryupareen',
+  'Deshastha',
+  'Kokanastha',
+  'Kulin',
+  'Varendra',
+  'CKP (Chandraseniya Kayastha Prabhu)',
+  'Oswal',
+  'Porwal',
+  'Mittal',
+  'Bansal',
+  'Garg',
+  'Goyal',
+  'Jindal',
+  'Kansal',
+  'Singhal',
+  '96 Kuli Maratha',
+  'Lodhi',
+  'Kushwaha',
+  'Barnwal',
+  'Keshri',
+  'Rauniyar',
+  'Other'
+];
+
+const GOTRA_OPTIONS = [
+  'Kashyap',
+  'Bharadwaj',
+  'Vashishtha',
+  'Vishwamitra',
+  'Gautam',
+  'Jamadagni',
+  'Atri',
+  'Shandilya',
+  'Kaushik',
+  'Garg',
+  'Parashar',
+  'Agastya',
+  'Vatsa',
+  'Mudgal',
+  'Upamanyu',
+  'Angiras',
+  'Harita',
+  'Kaundinya',
+  "Don't Know",
+  'Other'
+];
+
+const NAKSHATRA_OPTIONS = [
+  'Ashwini',
+  'Bharani',
+  'Krittika',
+  'Rohini',
+  'Mrigashira',
+  'Ardra',
+  'Punarvasu',
+  'Pushya',
+  'Ashlesha',
+  'Magha',
+  'Purva Phalguni',
+  'Uttara Phalguni',
+  'Hasta',
+  'Chitra',
+  'Swati',
+  'Vishakha',
+  'Anuradha',
+  'Jyeshtha',
+  'Mula',
+  'Purva Ashadha',
+  'Uttara Ashadha',
+  'Shravana',
+  'Dhanishta',
+  'Shatabhisha',
+  'Purva Bhadrapada',
+  'Uttara Bhadrapada',
+  'Revati',
+  "Don't Know"
+];
+
+const MOTHER_TONGUE_OPTIONS = [
+  'Hindi / English',
+  'Hindi',
+  'Bengali',
+  'Marathi',
+  'Gujarati',
+  'Punjabi',
+  'Tamil',
+  'Telugu',
+  'Kannada',
+  'Malayalam',
+  'Odia',
+  'Urdu / English',
+  'Urdu',
+  'Marwari',
+  'Maithili',
+  'Bhojpuri',
+  'Assamese',
+  'English'
+];
+
+const EDUCATION_OPTIONS = [
+  'B.Tech / B.E. (Computer Science / IT)',
+  'B.Tech / B.E. (Engineering)',
+  'M.Tech / M.E.',
+  'MBA / PGDM',
+  'MBBS / Doctor',
+  'MD / MS / Specialist Doctor',
+  'BDS / MDS (Dentist)',
+  'CA (Chartered Accountant)',
+  'CS (Company Secretary)',
+  'CFA',
+  'B.Com / M.Com',
+  'B.Sc / M.Sc',
+  'BCA / MCA',
+  'B.A. / M.A.',
+  'LLB / LLM (Lawyer)',
+  'B.Arch / Architecture',
+  'B.Pharm / M.Pharm',
+  'Ph.D. / Doctorate',
+  'Diploma',
+  'Higher Secondary (12th)'
+];
+
+const OCCUPATION_OPTIONS = [
+  'Software Engineer / IT Professional',
+  'Working Professional (Private MNC)',
+  'Government Employee / Civil Services',
+  'Bank / Financial Services Professional',
+  'Doctor / Healthcare Professional',
+  'Business / Entrepreneur',
+  'Chartered Accountant (CA)',
+  'Civil Engineer / Architect',
+  'Teacher / Professor / Lecturer',
+  'Lawyer / Legal Advisor',
+  'Defense Services (Army / Navy / Air Force)',
+  'Police / Paramilitary Services',
+  'Scientist / Researcher',
+  'Self Employed / Consultant',
+  'Homemaker',
+  'Not Working Currently'
+];
+
+const INCOME_OPTIONS = [
+  '₹ 6,00,000 - ₹ 10,00,000 / Annum',
+  '₹ 10,00,000 - ₹ 15,00,000 / Annum',
+  '₹ 15,00,000 - ₹ 20,00,000 / Annum',
+  '₹ 20,00,000 - ₹ 30,00,000 / Annum',
+  '₹ 30,00,000 - ₹ 50,00,000 / Annum',
+  '₹ 50,00,000+ / Annum',
+  '$ 80,000 - $ 120,000 / Year (Abroad)',
+  '$ 120,000+ / Year (Abroad)',
+  '₹ 3,00,000 - ₹ 6,00,000 / Annum',
+  'Not Disclosed'
+];
+
+const FATHER_OCCUPATION_OPTIONS = [
+  'Retired Government Officer',
+  'Government Employee',
+  'Businessman / Self-Employed',
+  'Private Sector Professional',
+  'Retired (Private Sector)',
+  'Doctor / Healthcare',
+  'Lawyer / Consultant',
+  'Defense / Police Services',
+  'Farmer / Agriculture',
+  'Late (Passed Away)'
+];
+
+const MOTHER_OCCUPATION_OPTIONS = [
+  'Homemaker',
+  'School Teacher / Professor',
+  'Government Employee',
+  'Doctor / Healthcare',
+  'Private Sector Professional',
+  'Businesswoman / Entrepreneur',
+  'Bank Employee',
+  'Retired',
+  'Late (Passed Away)'
+];
+
+const BROTHER_OPTIONS = [
+  'None',
+  '1 (Elder, Married)',
+  '1 (Elder, Unmarried)',
+  '1 (Younger, Married)',
+  '1 (Younger, Unmarried)',
+  '2 (1 Married, 1 Unmarried)',
+  '2 Brothers (Both Married)',
+  '2 Brothers (Both Unmarried)',
+  '3 Brothers'
+];
+
+const SISTER_OPTIONS = [
+  'None',
+  '1 (Elder, Married)',
+  '1 (Elder, Unmarried)',
+  '1 (Younger, Married)',
+  '1 (Younger, Unmarried)',
+  '2 (1 Married, 1 Unmarried)',
+  '2 Sisters (Both Married)',
+  '2 Sisters (Both Unmarried)',
+  '3 Sisters'
+];
+
 const MUSLIM_SECT_OPTIONS = [
   'Sunni',
   'Shia',
   'Ahle Hadees',
   'Deobandi',
   'Barelvi',
+  'Other'
+];
+
+const MUSLIM_BIRADARI_OPTIONS = [
+  'Syed',
+  'Sheikh',
+  'Pathan',
+  'Ansari',
+  'Qureshi',
+  'Siddiqui',
+  'Farooqi',
+  'Usmani',
+  'Mughal',
+  'Malik',
+  'Khan',
+  'Abbasi',
+  'Chowdhury',
+  'Mirza',
+  'Alvi',
+  'Hashmi',
   'Other'
 ];
 
@@ -226,13 +540,22 @@ const MUSLIM_ROZA_OPTIONS = [
   'Observes Fasts'
 ];
 
+const MUSLIM_QURAN_OPTIONS = [
+  'Fluent Reciter (Tajweed)',
+  'Hafiz-e-Quran',
+  'Nazra Quran Completed',
+  'Regular Reciter',
+  'Can Read Quran'
+];
+
 function SmartSelectField({
   label,
   value,
-  options,
+  options = [],
   onChange,
   placeholder = 'Select option...',
-  customPlaceholder = 'Type custom value...'
+  customPlaceholder = 'Type custom value...',
+  labelClassName = 'text-slate-700'
 }: {
   label: string;
   value?: string;
@@ -240,6 +563,7 @@ function SmartSelectField({
   onChange: (val: string) => void;
   placeholder?: string;
   customPlaceholder?: string;
+  labelClassName?: string;
 }) {
   const [isTypingCustom, setIsTypingCustom] = useState(false);
   const val = value || '';
@@ -248,21 +572,25 @@ function SmartSelectField({
   return (
     <div>
       <div className="flex items-center justify-between mb-1">
-        <label className="block font-bold text-slate-700">{label}</label>
+        <label className={`block font-bold ${labelClassName}`}>{label}</label>
         {isTypingCustom ? (
           <button
             type="button"
-            onClick={() => {
-              setIsTypingCustom(false);
-              if (!isPredefined && options.length > 0) {
-                onChange(options[0]);
-              }
-            }}
+            onClick={() => setIsTypingCustom(false)}
             className="text-[11px] text-rose-600 hover:text-rose-700 hover:underline font-semibold cursor-pointer"
           >
             ← Quick Select
           </button>
-        ) : null}
+        ) : (
+          <button
+            type="button"
+            onClick={() => setIsTypingCustom(true)}
+            className="text-[11px] text-slate-400 hover:text-rose-600 font-medium cursor-pointer"
+            title="Click to type custom value"
+          >
+            ✏️ Custom
+          </button>
+        )}
       </div>
 
       {isTypingCustom ? (
@@ -1219,30 +1547,24 @@ export default function BiodataBuilder({
           <div className="p-3.5 sm:p-6 space-y-4 max-h-[680px] overflow-y-auto">
             {/* Header Texts */}
             <div className="p-3 bg-amber-50/60 rounded-xl border border-amber-200/80 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div>
-                <label className="block font-bold text-amber-900 mb-1">
-                  {t.headerMotto}
-                </label>
-                <input
-                  type="text"
-                  value={data.headerText}
-                  onChange={(e) => handleInputChange('headerText', e.target.value)}
-                  placeholder={isMuslim ? 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ' : '|| श्री गणेशाय नमः ||'}
-                  className="w-full bg-white border border-amber-300 rounded-lg p-2 text-xs font-medium outline-none focus:border-rose-600"
-                />
-              </div>
-              <div>
-                <label className="block font-bold text-amber-900 mb-1">
-                  {t.biodataTitle}
-                </label>
-                <input
-                  type="text"
-                  value={data.title}
-                  onChange={(e) => handleInputChange('title', e.target.value)}
-                  placeholder={isMuslim ? 'ISLAMIC NIKAH BIODATA' : 'MARRIAGE BIODATA'}
-                  className="w-full bg-white border border-amber-300 rounded-lg p-2 text-xs font-medium outline-none focus:border-rose-600"
-                />
-              </div>
+              <SmartSelectField
+                label={t.headerMotto}
+                value={data.headerText}
+                options={HEADER_MOTTO_OPTIONS[language] || HEADER_MOTTO_OPTIONS.en}
+                onChange={(val) => handleInputChange('headerText', val)}
+                placeholder="Select prayer motto..."
+                customPlaceholder="Type custom prayer / motto..."
+                labelClassName="text-amber-900"
+              />
+              <SmartSelectField
+                label={t.biodataTitle}
+                value={data.title}
+                options={BIODATA_TITLE_OPTIONS}
+                onChange={(val) => handleInputChange('title', val)}
+                placeholder="Select title..."
+                customPlaceholder="Type document title..."
+                labelClassName="text-amber-900"
+              />
             </div>
 
             {/* TAB 1: Personal Details */}
@@ -1320,16 +1642,14 @@ export default function BiodataBuilder({
                     placeholder="Select blood group..."
                     customPlaceholder="Type custom blood group..."
                   />
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.motherTongue}</label>
-                    <input
-                      type="text"
-                      value={data.motherTongue}
-                      onChange={(e) => handleInputChange('motherTongue', e.target.value)}
-                      placeholder={isMuslim ? 'Urdu / English' : 'Bengali / Hindi'}
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
+                  <SmartSelectField
+                    label={t.motherTongue}
+                    value={data.motherTongue}
+                    options={MOTHER_TONGUE_OPTIONS}
+                    onChange={(val) => handleInputChange('motherTongue', val)}
+                    placeholder="Select mother tongue..."
+                    customPlaceholder="Type mother tongue..."
+                  />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
@@ -1359,16 +1679,14 @@ export default function BiodataBuilder({
                 {isMuslim ? (
                   <>
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.religion}</label>
-                        <input
-                          type="text"
-                          value={data.religion}
-                          onChange={(e) => handleInputChange('religion', e.target.value)}
-                          placeholder="Islam"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white font-medium"
-                        />
-                      </div>
+                      <SmartSelectField
+                        label={t.religion}
+                        value={data.religion}
+                        options={RELIGION_OPTIONS[language] || RELIGION_OPTIONS.en}
+                        onChange={(val) => handleInputChange('religion', val)}
+                        placeholder="Select religion..."
+                        customPlaceholder="Type religion (e.g. Islam)..."
+                      />
                       <SmartSelectField
                         label={t.sect}
                         value={data.sect || ''}
@@ -1380,16 +1698,14 @@ export default function BiodataBuilder({
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.biradari}</label>
-                        <input
-                          type="text"
-                          value={data.caste}
-                          onChange={(e) => handleInputChange('caste', e.target.value)}
-                          placeholder="Syed, Sheikh, Pathan, Ansari, Qureshi..."
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
+                      <SmartSelectField
+                        label={t.biradari}
+                        value={data.caste}
+                        options={MUSLIM_BIRADARI_OPTIONS}
+                        onChange={(val) => handleInputChange('caste', val)}
+                        placeholder="Select biradari..."
+                        customPlaceholder="Type biradari / caste (e.g. Syed, Sheikh)..."
+                      />
                       <SmartSelectField
                         label={t.namaz}
                         value={data.namaz || ''}
@@ -1409,64 +1725,54 @@ export default function BiodataBuilder({
                         placeholder="Select fasting..."
                         customPlaceholder="Type roza details..."
                       />
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.quran}</label>
-                        <input
-                          type="text"
-                          value={data.quran || ''}
-                          onChange={(e) => handleInputChange('quran', e.target.value)}
-                          placeholder="Fluent Reciter (Tajweed) / Hafiz-e-Quran"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
+                      <SmartSelectField
+                        label={t.quran}
+                        value={data.quran || ''}
+                        options={MUSLIM_QURAN_OPTIONS}
+                        onChange={(val) => handleInputChange('quran', val)}
+                        placeholder="Select recitation level..."
+                        customPlaceholder="Type Quran recitation details..."
+                      />
                     </div>
                   </>
                 ) : (
                   <>
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.religion}</label>
-                        <input
-                          type="text"
-                          value={data.religion}
-                          onChange={(e) => handleInputChange('religion', e.target.value)}
-                          placeholder="Hindu / Jain / Sikh"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.caste}</label>
-                        <input
-                          type="text"
-                          value={data.caste}
-                          onChange={(e) => handleInputChange('caste', e.target.value)}
-                          placeholder="Brahmin, Kayastha, Maratha..."
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
+                      <SmartSelectField
+                        label={t.religion}
+                        value={data.religion}
+                        options={RELIGION_OPTIONS[language] || RELIGION_OPTIONS.en}
+                        onChange={(val) => handleInputChange('religion', val)}
+                        placeholder="Select religion..."
+                        customPlaceholder="Type religion..."
+                      />
+                      <SmartSelectField
+                        label={t.caste}
+                        value={data.caste}
+                        options={CASTE_OPTIONS}
+                        onChange={(val) => handleInputChange('caste', val)}
+                        placeholder="Select caste..."
+                        customPlaceholder="Type caste (e.g. Brahmin, Rajput)..."
+                      />
                     </div>
 
                     <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.subCaste}</label>
-                        <input
-                          type="text"
-                          value={data.subCaste}
-                          onChange={(e) => handleInputChange('subCaste', e.target.value)}
-                          placeholder="Kulin / 96 Kuli"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.gotra}</label>
-                        <input
-                          type="text"
-                          value={data.gotra}
-                          onChange={(e) => handleInputChange('gotra', e.target.value)}
-                          placeholder="Kashyap, Shandilya, Bharadwaj"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
+                      <SmartSelectField
+                        label={t.subCaste}
+                        value={data.subCaste}
+                        options={SUBCASTE_OPTIONS}
+                        onChange={(val) => handleInputChange('subCaste', val)}
+                        placeholder="Select sub-caste..."
+                        customPlaceholder="Type sub-caste..."
+                      />
+                      <SmartSelectField
+                        label={t.gotra}
+                        value={data.gotra}
+                        options={GOTRA_OPTIONS}
+                        onChange={(val) => handleInputChange('gotra', val)}
+                        placeholder="Select gotra..."
+                        customPlaceholder="Type gotra..."
+                      />
                     </div>
 
                     <div className="grid grid-cols-3 gap-2.5">
@@ -1478,16 +1784,14 @@ export default function BiodataBuilder({
                         placeholder="Select rashi..."
                         customPlaceholder="Type custom rashi..."
                       />
-                      <div>
-                        <label className="block font-bold text-slate-700 mb-1">{t.nakshatra}</label>
-                        <input
-                          type="text"
-                          value={data.nakshatra}
-                          onChange={(e) => handleInputChange('nakshatra', e.target.value)}
-                          placeholder="Magha / Rohini"
-                          className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                        />
-                      </div>
+                      <SmartSelectField
+                        label={t.nakshatra}
+                        value={data.nakshatra}
+                        options={NAKSHATRA_OPTIONS}
+                        onChange={(val) => handleInputChange('nakshatra', val)}
+                        placeholder="Select nakshatra..."
+                        customPlaceholder="Type nakshatra..."
+                      />
                       <SmartSelectField
                         label={t.manglik}
                         value={data.manglik}
@@ -1505,16 +1809,14 @@ export default function BiodataBuilder({
             {/* TAB 3: Education & Career */}
             {activeTab === 'education' && (
               <div className="space-y-3.5 text-xs">
-                <div>
-                  <label className="block font-bold text-slate-700 mb-1">{t.education} *</label>
-                  <input
-                    type="text"
-                    value={data.education}
-                    onChange={(e) => handleInputChange('education', e.target.value)}
-                    placeholder="B.Tech, MBA, MBBS, M.Sc..."
-                    className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white font-medium"
-                  />
-                </div>
+                <SmartSelectField
+                  label={`${t.education} *`}
+                  value={data.education}
+                  options={EDUCATION_OPTIONS}
+                  onChange={(val) => handleInputChange('education', val)}
+                  placeholder="Select education..."
+                  customPlaceholder="Type highest qualification (e.g. B.Tech, MBA)..."
+                />
 
                 <div>
                   <label className="block font-bold text-slate-700 mb-1">{t.collegeUniversity}</label>
@@ -1528,16 +1830,14 @@ export default function BiodataBuilder({
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.occupation}</label>
-                    <input
-                      type="text"
-                      value={data.occupation}
-                      onChange={(e) => handleInputChange('occupation', e.target.value)}
-                      placeholder="Private Job / Govt Service / Business"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
+                  <SmartSelectField
+                    label={t.occupation}
+                    value={data.occupation}
+                    options={OCCUPATION_OPTIONS}
+                    onChange={(val) => handleInputChange('occupation', val)}
+                    placeholder="Select occupation..."
+                    customPlaceholder="Type occupation (e.g. Software Engineer)..."
+                  />
                   <div>
                     <label className="block font-bold text-slate-700 mb-1">{t.jobTitle}</label>
                     <input
@@ -1561,16 +1861,14 @@ export default function BiodataBuilder({
                       className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                     />
                   </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.income}</label>
-                    <input
-                      type="text"
-                      value={data.income}
-                      onChange={(e) => handleInputChange('income', e.target.value)}
-                      placeholder="₹ 18,00,000 / Annum"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white font-bold text-rose-800"
-                    />
-                  </div>
+                  <SmartSelectField
+                    label={t.income}
+                    value={data.income}
+                    options={INCOME_OPTIONS}
+                    onChange={(val) => handleInputChange('income', val)}
+                    placeholder="Select income..."
+                    customPlaceholder="Type annual income (e.g. ₹ 18,00,000 / Annum)..."
+                  />
                 </div>
 
                 <div>
@@ -1600,16 +1898,14 @@ export default function BiodataBuilder({
                       className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                     />
                   </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.fatherOccupation}</label>
-                    <input
-                      type="text"
-                      value={data.fatherOccupation}
-                      onChange={(e) => handleInputChange('fatherOccupation', e.target.value)}
-                      placeholder="Business / Retired Officer"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
+                  <SmartSelectField
+                    label={t.fatherOccupation}
+                    value={data.fatherOccupation}
+                    options={FATHER_OCCUPATION_OPTIONS}
+                    onChange={(val) => handleInputChange('fatherOccupation', val)}
+                    placeholder="Select father occupation..."
+                    customPlaceholder="Type father's occupation (e.g. Businessman)..."
+                  />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
@@ -1623,39 +1919,33 @@ export default function BiodataBuilder({
                       className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
                     />
                   </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.motherOccupation}</label>
-                    <input
-                      type="text"
-                      value={data.motherOccupation}
-                      onChange={(e) => handleInputChange('motherOccupation', e.target.value)}
-                      placeholder="Homemaker / Teacher"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
+                  <SmartSelectField
+                    label={t.motherOccupation}
+                    value={data.motherOccupation}
+                    options={MOTHER_OCCUPATION_OPTIONS}
+                    onChange={(val) => handleInputChange('motherOccupation', val)}
+                    placeholder="Select mother occupation..."
+                    customPlaceholder="Type mother's occupation (e.g. Homemaker)..."
+                  />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.totalBrothers}</label>
-                    <input
-                      type="text"
-                      value={data.totalBrothers}
-                      onChange={(e) => handleInputChange('totalBrothers', e.target.value)}
-                      placeholder="1 (Elder, Married)"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
-                  <div>
-                    <label className="block font-bold text-slate-700 mb-1">{t.totalSisters}</label>
-                    <input
-                      type="text"
-                      value={data.totalSisters}
-                      onChange={(e) => handleInputChange('totalSisters', e.target.value)}
-                      placeholder="1 (Younger, Unmarried)"
-                      className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 outline-none focus:border-rose-600 focus:bg-white"
-                    />
-                  </div>
+                  <SmartSelectField
+                    label={t.totalBrothers}
+                    value={data.totalBrothers}
+                    options={BROTHER_OPTIONS}
+                    onChange={(val) => handleInputChange('totalBrothers', val)}
+                    placeholder="Select brothers..."
+                    customPlaceholder="Type brother details (e.g. 1 Elder, Married)..."
+                  />
+                  <SmartSelectField
+                    label={t.totalSisters}
+                    value={data.totalSisters}
+                    options={SISTER_OPTIONS}
+                    onChange={(val) => handleInputChange('totalSisters', val)}
+                    placeholder="Select sisters..."
+                    customPlaceholder="Type sister details (e.g. 1 Younger, Unmarried)..."
+                  />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
