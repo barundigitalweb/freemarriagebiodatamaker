@@ -17,6 +17,7 @@ export interface Translations {
   pdfSuccess: string;
   imageSuccess: string;
   themeSelect: string;
+  fontStyle: string;
   tabPersonal: string;
   tabHoroscope: string;
   tabIslamic: string;
@@ -142,6 +143,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     pdfSuccess: 'PDF downloaded successfully!',
     imageSuccess: 'HD Image downloaded successfully!',
     themeSelect: 'Select Wedding Theme & Colors:',
+    fontStyle: 'Font Style:',
     tabPersonal: 'Personal',
     tabHoroscope: 'Horoscope',
     tabIslamic: 'Islamic & Deen',
@@ -264,6 +266,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     pdfSuccess: 'PDF ডাউনলোড সফল হয়েছে!',
     imageSuccess: 'HD ইমেজ ডাউনলোড সম্পন্ন হয়েছে!',
     themeSelect: 'টেমপ্লেট ও কালার থিম নির্বাচন করুন:',
+    fontStyle: 'ফন্ট স্টাইল (Font Style):',
     tabPersonal: 'ব্যক্তিগত',
     tabHoroscope: 'ধর্ম ও কুষ্ঠি',
     tabIslamic: 'ইসলামিক ও দ্বীন',
@@ -386,6 +389,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     pdfSuccess: 'PDF सफलतापूर्वक डाउनलोड हो गया!',
     imageSuccess: 'HD इमेज डाउनलोड हो गई!',
     themeSelect: 'विवाह थीम व रंग चुनें:',
+    fontStyle: 'फ़ॉन्ट स्टाइल (Font Style):',
     tabPersonal: 'व्यक्तिगत',
     tabHoroscope: 'कुंडली व धर्म',
     tabIslamic: 'दीनी व इस्लामिक',
@@ -508,6 +512,7 @@ export const TRANSLATIONS: Record<Language, Translations> = {
     pdfSuccess: 'PDF यशस्वीरित्या डाउनलोड झाली!',
     imageSuccess: 'HD इमेज डाउनलोड झाली!',
     themeSelect: 'लग्न थीम आणि रंग निवडा:',
+    fontStyle: 'फॉन्ट स्टाईल (Font Style):',
     tabPersonal: 'वैयक्तिक',
     tabHoroscope: 'पत्रिका व धर्म',
     tabIslamic: 'धार्मिक व दीनी',

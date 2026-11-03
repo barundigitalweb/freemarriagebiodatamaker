@@ -43,10 +43,52 @@ import {
   Globe,
   MessageCircle,
   Edit3,
-  ArrowRight
+  ArrowRight,
+  Type
 } from 'lucide-react';
 
 export type BiodataFormatType = 'general' | 'muslim' | 'bengali' | 'marathi' | 'hindu';
+
+export type FontStyleId = 'cinzel' | 'playfair' | 'inter' | 'georgia';
+
+export interface FontOption {
+  id: FontStyleId;
+  name: string;
+  badge: string;
+  fontFamily: string;
+  description: string;
+}
+
+export const FONT_OPTIONS: FontOption[] = [
+  {
+    id: 'cinzel',
+    name: 'Royal Serif',
+    badge: 'Cinzel',
+    fontFamily: "'Cinzel', 'Noto Serif Devanagari', 'Noto Serif Bengali', 'Amiri', serif",
+    description: 'Traditional & Majestic'
+  },
+  {
+    id: 'playfair',
+    name: 'Elegant Serif',
+    badge: 'Playfair',
+    fontFamily: "'Playfair Display', 'Noto Serif Devanagari', 'Noto Serif Bengali', 'Amiri', Georgia, serif",
+    description: 'Graceful & Sophisticated'
+  },
+  {
+    id: 'inter',
+    name: 'Modern Sans',
+    badge: 'Inter',
+    fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    description: 'Crisp, Clean & Corporate'
+  },
+  {
+    id: 'georgia',
+    name: 'Classic Book',
+    badge: 'Georgia',
+    fontFamily: "Georgia, 'Times New Roman', 'Noto Serif Devanagari', serif",
+    description: 'Timeless & Formal'
+  }
+];
 
 function KeyValueRow({
   label,
@@ -715,6 +757,11 @@ export default function BiodataBuilder({
   });
   const [selectedTemplate, setSelectedTemplate] = useState<TemplateId>(
     isMuslim ? 'emerald-divine' : 'royal-maroon'
+  );
+  const [selectedFont, setSelectedFont] = useState<FontStyleId>('cinzel');
+  const currentFont = useMemo(
+    () => FONT_OPTIONS.find((f) => f.id === selectedFont) || FONT_OPTIONS[0],
+    [selectedFont]
   );
   const [activeTab, setActiveTab] = useState<string>('personal');
   const [mobileTab, setMobileTab] = useState<'edit' | 'preview'>('edit');
@@ -1591,6 +1638,39 @@ export default function BiodataBuilder({
                 </button>
               ))}
             </div>
+
+            {/* Font Style Quick Selector */}
+            <div className="mt-3 pt-3 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <label className="text-xs font-bold text-slate-700 uppercase tracking-wider flex items-center gap-1.5 shrink-0">
+                <Type className="w-3.5 h-3.5 text-rose-600" />
+                <span>{t.fontStyle}</span>
+              </label>
+              <div className="grid grid-cols-2 min-[440px]:grid-cols-4 gap-1.5 w-full sm:w-auto">
+                {FONT_OPTIONS.map((f) => (
+                  <button
+                    key={f.id}
+                    type="button"
+                    onClick={() => setSelectedFont(f.id)}
+                    style={{ fontFamily: f.fontFamily }}
+                    className={`px-2 py-1.5 rounded-lg text-xs transition text-center truncate cursor-pointer ${
+                      selectedFont === f.id
+                        ? 'bg-rose-700 text-white shadow-xs ring-1 ring-rose-800'
+                        : 'bg-white hover:bg-slate-100 text-slate-700 border border-slate-200'
+                    }`}
+                    title={`${f.name} (${f.description})`}
+                  >
+                    <span className="block text-[11px] font-bold leading-tight truncate">{f.name}</span>
+                    <span
+                      className={`block text-[9px] opacity-80 leading-tight ${
+                        selectedFont === f.id ? 'text-rose-100' : 'text-slate-500'
+                      }`}
+                    >
+                      {f.badge}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Form Navigation Tabs */}
@@ -2211,6 +2291,44 @@ export default function BiodataBuilder({
             </span>
           </div>
 
+          {/* Interactive Font Style Selector in Live Screen Preview */}
+          <div className="no-print w-full max-w-[520px] mb-3 p-2.5 bg-white rounded-xl border border-slate-200 shadow-xs">
+            <div className="flex items-center justify-between mb-1.5 px-0.5">
+              <span className="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+                <Type className="w-3.5 h-3.5 text-rose-600" />
+                <span>{t.fontStyle}</span>
+              </span>
+              <span className="text-[10px] text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-full font-semibold border border-emerald-200">
+                1-Click Live Preview
+              </span>
+            </div>
+            <div className="grid grid-cols-2 min-[440px]:grid-cols-4 gap-1.5">
+              {FONT_OPTIONS.map((f) => (
+                <button
+                  key={f.id}
+                  type="button"
+                  onClick={() => setSelectedFont(f.id)}
+                  style={{ fontFamily: f.fontFamily }}
+                  className={`px-2 py-1.5 rounded-lg text-xs transition text-center truncate cursor-pointer ${
+                    selectedFont === f.id
+                      ? 'bg-rose-700 text-white shadow-xs ring-1 ring-rose-800'
+                      : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border border-slate-200'
+                  }`}
+                  title={`${f.name} (${f.description})`}
+                >
+                  <span className="block text-[11px] font-bold leading-tight truncate">{f.name}</span>
+                  <span
+                    className={`block text-[9px] opacity-80 leading-tight ${
+                      selectedFont === f.id ? 'text-rose-100' : 'text-slate-500'
+                    }`}
+                  >
+                    {f.badge}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* THE ACTUAL PRINTABLE / EXPORTABLE BIODATA SHEET */}
           {(() => {
             const isEmeraldIslamic = selectedTemplate === 'emerald-divine';
@@ -2223,8 +2341,11 @@ export default function BiodataBuilder({
             const isRoyalMaroon = selectedTemplate === 'royal-maroon';
 
             // Theme Styling Tokens
-            let sheetClasses = `w-full max-w-[520px] rounded-xl shadow-2xl border-2 sm:border-4 p-3.5 sm:p-8 space-y-3 sm:space-y-4 transition-all duration-200 font-serif relative overflow-hidden`;
-            let sheetInlineStyle: React.CSSProperties = { borderColor: currentTemplate.borderColor };
+            let sheetClasses = `w-full max-w-[520px] rounded-xl shadow-2xl border-2 sm:border-4 p-3.5 sm:p-8 space-y-3 sm:space-y-4 transition-all duration-200 relative overflow-hidden`;
+            let sheetInlineStyle: React.CSSProperties = {
+              borderColor: currentTemplate.borderColor,
+              fontFamily: currentFont.fontFamily
+            };
 
             let headingColor = currentTemplate.primaryColor;
             let headingBorderColor = currentTemplate.secondaryColor;
@@ -2407,7 +2528,7 @@ export default function BiodataBuilder({
                       )}
                     </RoyalMandalaRing>
                     <div>
-                      <h3 className="text-xl sm:text-2xl font-black text-amber-200 tracking-wide font-serif">
+                      <h3 className="text-xl sm:text-2xl font-black text-amber-200 tracking-wide">
                         {data.fullName || (language === 'bn' ? 'আপনার নাম' : 'Full Name')}
                       </h3>
                       {data.jobTitle && (
