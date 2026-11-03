@@ -264,7 +264,7 @@ export const INITIAL_MUSLIM_BIODATA_DATA: BiodataData = {
   bloodGroup: 'O+',
   motherTongue: 'Urdu / English',
   maritalStatus: 'Never Married',
-  diet: 'Halal (Non-Vegetarian)',
+  diet: 'Non-Vegetarian',
 
   religion: 'Islam',
   sect: 'Sunni (Hanafi)',

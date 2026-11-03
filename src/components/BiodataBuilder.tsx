@@ -1022,7 +1022,7 @@ export default function BiodataBuilder({
         bloodGroup: '',
         motherTongue: '',
         maritalStatus: '',
-        diet: isMuslim ? 'Halal (Non-Vegetarian)' : '',
+        diet: isMuslim ? 'Non-Vegetarian' : '',
         religion: isMuslim ? 'Islam' : '',
         caste: '',
         subCaste: '',
