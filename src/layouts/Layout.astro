@@ -2,12 +2,19 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 
+interface BreadcrumbItem {
+  name: string;
+  url: string;
+}
+
 interface Props {
   title?: string;
   description?: string;
   canonical?: string;
   keywords?: string;
   noindex?: boolean;
+  lang?: string;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const {
@@ -15,64 +22,89 @@ const {
   description = '100% Free Online Marriage Biodata Maker with Photo. Create elegant Indian wedding biodatas in Bengali, Hindi, Marathi & English. Download HD PDF & Image without watermark or login.',
   canonical,
   keywords = 'free marriage biodata maker, marriage biodata format, biodata for marriage pdf download, marriage biodata with photo, bengali marriage biodata, marathi marriage biodata maker, hindu marriage biodata format, muslim nikah biodata format',
-  noindex = false
+  noindex = false,
+  lang = 'en',
+  breadcrumbs
 } = Astro.props;
 
 const siteUrl = 'https://freemarriagebiodatamaker.com';
 const cleanPath = Astro.url.pathname.replace(/\/$/, '') || '';
 const canonicalUrl = canonical || (cleanPath ? `${siteUrl}${cleanPath}` : siteUrl);
 
+const schemaGraph: any[] = [
+  {
+    '@type': 'WebSite',
+    '@id': `${siteUrl}/#website`,
+    'url': siteUrl,
+    'name': 'FreeMarriageBiodataMaker.com',
+    'description': description,
+    'inLanguage': ['en-IN', 'hi-IN', 'bn-IN', 'mr-IN'],
+    'publisher': {
+      '@id': `${siteUrl}/#organization`
+    }
+  },
+  {
+    '@type': 'Organization',
+    '@id': `${siteUrl}/#organization`,
+    'name': 'FreeMarriageBiodataMaker.com',
+    'url': siteUrl,
+    'logo': {
+      '@type': 'ImageObject',
+      'url': `${siteUrl}/og-image.png`
+    }
+  },
+  {
+    '@type': 'WebApplication',
+    '@id': `${siteUrl}/#app`,
+    'name': 'Free Marriage Biodata Maker',
+    'url': siteUrl,
+    'applicationCategory': 'DesignApplication',
+    'operatingSystem': 'All (Web, Android, iOS, Windows, macOS)',
+    'browserRequirements': 'Requires JavaScript',
+    'featureList': [
+      '100% Free with zero hidden charges',
+      'Zero watermark on exported PDF and Image',
+      'Client-side 100% on-device data privacy',
+      '11 Cultural templates including Velvet Maroon, Vedic Ivory, Temple Gold, Sindoor Crimson, and Nikah Special',
+      'Instant print-ready A4 PDF & WhatsApp HD image export'
+    ],
+    'offers': {
+      '@type': 'Offer',
+      'price': '0',
+      'priceCurrency': 'INR'
+    }
+  }
+];
+
+if (breadcrumbs && breadcrumbs.length > 0) {
+  schemaGraph.push({
+    '@type': 'BreadcrumbList',
+    '@id': `${canonicalUrl}#breadcrumb`,
+    'itemListElement': [
+      {
+        '@type': 'ListItem',
+        'position': 1,
+        'name': 'Home',
+        'item': siteUrl
+      },
+      ...breadcrumbs.map((b, idx) => ({
+        '@type': 'ListItem',
+        'position': idx + 2,
+        'name': b.name,
+        'item': b.url.startsWith('http') ? b.url : `${siteUrl}${b.url.startsWith('/') ? '' : '/'}${b.url}`
+      }))
+    ]
+  });
+}
+
 const schemaData = {
   '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebSite',
-      '@id': `${siteUrl}/#website`,
-      'url': siteUrl,
-      'name': 'FreeMarriageBiodataMaker.com',
-      'description': description,
-      'inLanguage': ['en-IN', 'hi-IN', 'bn-IN', 'mr-IN'],
-      'publisher': {
-        '@id': `${siteUrl}/#organization`
-      }
-    },
-    {
-      '@type': 'Organization',
-      '@id': `${siteUrl}/#organization`,
-      'name': 'FreeMarriageBiodataMaker.com',
-      'url': siteUrl,
-      'logo': {
-        '@type': 'ImageObject',
-        'url': `${siteUrl}/og-image.png`
-      }
-    },
-    {
-      '@type': 'WebApplication',
-      '@id': `${siteUrl}/#app`,
-      'name': 'Free Marriage Biodata Maker',
-      'url': siteUrl,
-      'applicationCategory': 'DesignApplication',
-      'operatingSystem': 'All (Web, Android, iOS, Windows, macOS)',
-      'browserRequirements': 'Requires JavaScript',
-      'featureList': [
-        '100% Free with zero hidden charges',
-        'Zero watermark on exported PDF and Image',
-        'Client-side 100% on-device data privacy',
-        '11 Cultural templates including Velvet Maroon, Vedic Ivory, Temple Gold, Sindoor Crimson, and Nikah Special',
-        'Instant print-ready A4 PDF & WhatsApp HD image export'
-      ],
-      'offers': {
-        '@type': 'Offer',
-        'price': '0',
-        'priceCurrency': 'INR'
-      }
-    }
-  ]
+  '@graph': schemaGraph
 };
 ---
 
 <!doctype html>
-<html lang="en" class="scroll-smooth overflow-x-hidden w-full max-w-full">
+<html lang={lang} class="scroll-smooth overflow-x-hidden w-full max-w-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

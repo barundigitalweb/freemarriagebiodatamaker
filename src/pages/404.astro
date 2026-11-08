@@ -1,0 +1,80 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Home, Sparkles, FileText, ArrowRight } from 'lucide-react';
+---
+
+<Layout
+  title="404: Page Not Found | FreeMarriageBiodataMaker.com"
+  description="The marriage biodata page you are looking for might have been moved or doesn't exist. Create your 100% free matrimonial biodata with photo in 2 minutes."
+  noindex={true}
+>
+  <div class="max-w-3xl mx-auto px-4 py-16 sm:py-24 text-center space-y-6">
+    <div class="w-16 h-16 sm:w-20 sm:h-20 mx-auto rounded-2xl bg-rose-100 text-rose-700 flex items-center justify-center text-3xl sm:text-4xl shadow-md">
+      💍
+    </div>
+
+    <div class="space-y-2">
+      <span class="text-xs font-bold text-rose-700 bg-rose-50 px-3 py-1 rounded-full uppercase tracking-wider">
+        404 ERROR • PAGE NOT FOUND
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-black text-slate-900 font-serif tracking-tight pt-2">
+        Oops! Page Not Found
+      </h1>
+      <p class="text-slate-600 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+        The link you clicked may be broken, or the page may have been moved. Don't worry—you can still create your 100% free marriage biodata right now!
+      </p>
+    </div>
+
+    {/* Primary Action Button */}
+    <div class="pt-2">
+      <a
+        href="/#builder"
+        class="inline-flex items-center gap-2 bg-gradient-to-r from-rose-700 to-rose-800 hover:from-rose-800 hover:to-rose-900 text-white font-bold text-sm sm:text-base py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all transform active:scale-95"
+      >
+        <Sparkles class="w-4 h-4 text-amber-300" />
+        <span>Create Free Biodata Now</span>
+        <ArrowRight class="w-4 h-4" />
+      </a>
+    </div>
+
+    {/* Quick Links Card */}
+    <div class="bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-md text-left max-w-xl mx-auto mt-8 space-y-3">
+      <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
+        <FileText class="w-4 h-4 text-rose-600" />
+        <span>Popular Biodata Formats</span>
+      </h2>
+      <ul class="divide-y divide-slate-100 text-sm">
+        <li>
+          <a href="/hindu-marriage-biodata-format" class="py-2.5 flex items-center justify-between text-slate-700 hover:text-rose-700 font-medium transition">
+            <span>Hindu Marriage Biodata (Gotra & Kundli)</span>
+            <span class="text-slate-400">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="/marathi-marriage-biodata-format" class="py-2.5 flex items-center justify-between text-slate-700 hover:text-rose-700 font-medium transition">
+            <span>मराठी विवाह बायोडाटा (Marathi Biodata Format)</span>
+            <span class="text-slate-400">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="/bengali-marriage-biodata-format" class="py-2.5 flex items-center justify-between text-slate-700 hover:text-rose-700 font-medium transition">
+            <span>বাঙালি বিয়ের বায়োডাটা (Bengali Biodata Format)</span>
+            <span class="text-slate-400">→</span>
+          </a>
+        </li>
+        <li>
+          <a href="/biodata-format-for-marriage" class="py-2.5 flex items-center justify-between text-slate-700 hover:text-rose-700 font-medium transition">
+            <span>Groom & Bride Marriage Biodata Guide</span>
+            <span class="text-slate-400">→</span>
+          </a>
+        </li>
+      </ul>
+      <div class="pt-2 text-center">
+        <a href="/" class="inline-flex items-center gap-1.5 text-xs text-rose-700 hover:text-rose-800 font-bold">
+          <Home class="w-3.5 h-3.5" />
+          <span>Back to Homepage</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

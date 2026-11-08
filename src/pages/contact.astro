@@ -6,6 +6,7 @@ import { Mail, Clock, MessageSquare } from 'lucide-react';
 <Layout
   title="Contact Us | FreeMarriageBiodataMaker.com"
   description="Get in touch with the FreeMarriageBiodataMaker.com team. Reach out for template suggestions, feedback, or support."
+  breadcrumbs={[{ name: 'Contact Us', url: '/contact' }]}
 >
   <div class="max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 py-10 sm:py-12 space-y-8 sm:space-y-10 w-full max-w-full overflow-hidden">
     <div class="text-center space-y-3">
@@ -22,15 +23,18 @@ import { Mail, Clock, MessageSquare } from 'lucide-react';
 
     <div class="bg-white rounded-2xl p-4 sm:p-10 border border-slate-200/80 shadow-md space-y-6 sm:space-y-8">
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-center gap-3">
-          <div class="p-2.5 bg-rose-100 text-rose-800 rounded-lg">
+        <a
+          href="mailto:support@freemarriagebiodatamaker.com"
+          class="bg-slate-50 hover:bg-rose-50/50 transition p-4 rounded-xl border border-slate-200 hover:border-rose-300 flex items-center gap-3 group"
+        >
+          <div class="p-2.5 bg-rose-100 text-rose-800 rounded-lg group-hover:scale-105 transition-transform">
             <Mail class="w-5 h-5" />
           </div>
           <div>
             <span class="text-xs text-slate-500 font-medium block">Support Email</span>
-            <span class="text-sm font-bold text-slate-800">support@freemarriagebiodatamaker.com</span>
+            <span class="text-sm font-bold text-slate-800 group-hover:text-rose-700 transition">support@freemarriagebiodatamaker.com</span>
           </div>
-        </div>
+        </a>
 
         <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 flex items-center gap-3">
           <div class="p-2.5 bg-rose-100 text-rose-800 rounded-lg">
@@ -43,10 +47,22 @@ import { Mail, Clock, MessageSquare } from 'lucide-react';
         </div>
       </div>
 
-      <form class="space-y-4" onsubmit="event.preventDefault(); alert('Thank you! Your message has been received.');">
+      <form
+        class="space-y-4"
+        onsubmit="
+          event.preventDefault();
+          const name = document.getElementById('contact-name').value;
+          const email = document.getElementById('contact-email').value;
+          const subject = document.getElementById('contact-subject').value;
+          const msg = document.getElementById('contact-msg').value;
+          const body = encodeURIComponent(`From: ${name} (${email})\n\n${msg}`);
+          window.location.href = `mailto:support@freemarriagebiodatamaker.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+        "
+      >
         <div>
-          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Your Name</label>
+          <label for="contact-name" class="block text-xs font-bold text-slate-600 uppercase mb-1">Your Name</label>
           <input
+            id="contact-name"
             type="text"
             required
             placeholder="e.g. Rahul Sharma"
@@ -55,8 +71,9 @@ import { Mail, Clock, MessageSquare } from 'lucide-react';
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Your Email</label>
+          <label for="contact-email" class="block text-xs font-bold text-slate-600 uppercase mb-1">Your Email</label>
           <input
+            id="contact-email"
             type="email"
             required
             placeholder="you@example.com"
@@ -65,8 +82,9 @@ import { Mail, Clock, MessageSquare } from 'lucide-react';
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Subject</label>
+          <label for="contact-subject" class="block text-xs font-bold text-slate-600 uppercase mb-1">Subject</label>
           <input
+            id="contact-subject"
             type="text"
             required
             placeholder="Template suggestion / Feedback / General enquiry"
@@ -75,8 +93,9 @@ import { Mail, Clock, MessageSquare } from 'lucide-react';
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Message</label>
+          <label for="contact-msg" class="block text-xs font-bold text-slate-600 uppercase mb-1">Message</label>
           <textarea
+            id="contact-msg"
             rows={4}
             required
             placeholder="Write your message here..."
@@ -86,9 +105,9 @@ import { Mail, Clock, MessageSquare } from 'lucide-react';
 
         <button
           type="submit"
-          class="w-full bg-rose-700 hover:bg-rose-800 text-white font-bold py-3 rounded-xl transition shadow-md"
+          class="w-full bg-rose-700 hover:bg-rose-800 text-white font-bold py-3 rounded-xl transition shadow-md cursor-pointer"
         >
-          Send Message
+          Send Message via Email
         </button>
       </form>
     </div>
